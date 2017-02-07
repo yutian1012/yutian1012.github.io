@@ -1,9 +1,9 @@
 # user variables, change this to make custom site.
 
-name: Lemma
+name: yutian1012-blog
 desc: Yet another simple theme for Jekyll.
 author:
-  name: neizod
+  name: yutian1012
   avatar: //gravatar.com/avatar/daa1cc36ed2ab0d13045d5cd2431cde9?s=320
   profile: |
     Just another ordinary grad student in computer engineering.
@@ -13,18 +13,18 @@ author:
     And you may found me around BarCamp event ;D
   socials:
     facebook:
-    twitter: //twitter.com/neizod
+    # twitter: //twitter.com/yutian1012
     google-plus:
-    github: //github.com/neizod
-    stack-overflow: //stackoverflow.com/users/889578/neizod
+    github: //github.com/yutian1012
+    # stack-overflow: //stackoverflow.com/users/889578/yutian1012
     instagram:
     pinterest:
-    steam: //steamcommunity.com/id/neizod/
+    steam: //steamcommunity.com/id/yutian1012/
 license: MIT License
 
 
 # theme variables, change this to make site looks best.
-baseurl: /lemma-theme
+# baseurl: /lemma-theme
 paginate: 2
 
 
@@ -50,3 +50,6 @@ defaults:
 sass:
   sass_dir: _sass
   style: compressed
+gems:
+ - jekyll-coffeescript
+ - jekyll-paginate
