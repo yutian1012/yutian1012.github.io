@@ -25,13 +25,14 @@ license: MIT License
 
 # theme variables, change this to make site looks best.
 # baseurl: /lemma-theme
-paginate: 2
+paginate: 10
 
 
 # system variables, do not change unless you knew what's it does.
 paginate_path: page/:num
 highlighter: pygments
-markdown: redcarpet
+#markdown: redcarpet
+markdown: kramdown
 redcarpet:
   extensions: ["tables"]
 
