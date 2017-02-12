@@ -1,6 +1,6 @@
 ---
 title: gem和bundler的关系
-tags: [jekyll,tools]
+tags: [jekyll]
 ---
 
 gem和bundler的关系
