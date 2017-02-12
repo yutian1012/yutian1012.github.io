@@ -41,6 +41,7 @@ public class Singleton {
 
 ### 4. 多线程下的单例
 1）在方法getInstance上添加关键字synchronized关键字
+
 ```
 public static synchronized Singleton getInstance() {  
     if (instance == null) {  
@@ -49,8 +50,10 @@ public static synchronized Singleton getInstance() {
     return instance;  
 }
 ```
+
 2）进一步改进
 synchronized关键字锁住的是这个对象，这样的用法，在性能上会有所下降，因为每次调用getInstance()，都要对对象上锁，事实上，只有在第一次创建对象的时候需要加锁，之后就不需要了
+
 ```
 public static synchronized Singleton getInstance() {  
     if (instance == null) {  
@@ -63,6 +66,7 @@ public static synchronized Singleton getInstance() {
     return instance;  
 }
 ```
+
 注：将synchronized关键字加在了内部，也就是说当调用的时候是不需要加锁的，只有在instance为null，并创建对象的时候才需要加锁，性能有一定的提升。
 
 3）问题
