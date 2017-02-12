@@ -27,6 +27,7 @@ tags: [pattern]
 3）装饰角色：是过滤流，如FilterInputStream和FilterOutputStream
 
 4）具体装饰角色：FilterInputStream的派生类，如BufferedInputStream等
+
 ![](/images/java_pattern/decorator/javaio_decorator.png)
 
 ### 4. 装饰模式的特点
@@ -41,8 +42,11 @@ tags: [pattern]
 5）这样就确保了在运行时，不用修改给定对象的结构就可以在外部增加附加的功能。
 
 ### 5. 实例
+
 ![](/images/java_pattern/decorator/decorator_demo.png)
+
 1）抽象构件角色代码：
+
 ```
 /**
  * 抽象构件角色，是一个接口
@@ -51,7 +55,9 @@ public interface Component {
     public void doSomething();
 }
 ```
+
 2）具体构件角色代码：
+
 ```
 /**
  * 具体构件角色实现了Component接口
@@ -62,7 +68,9 @@ public class ConcreteComponent implements Component{
     }
 }
 ```
+
 3）装饰角色代码：
+
 ```
 /**
  * 装饰角色，
@@ -80,7 +88,9 @@ public class Decorator implements Component {
     }
 }
 ```
+
 4）具体装饰角色代码（定义2个实现类）：
+
 ```
 /**
  * 具体装饰角色
@@ -123,7 +133,9 @@ public class ConcreteDecorator2 extends Decorator{
     }
 }
 ```
+
 5）客户端测试代码：
+
 ```
 public class Client {
     public static void main(String[] args) {

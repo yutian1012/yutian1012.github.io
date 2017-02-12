@@ -9,10 +9,12 @@ tags: [pattern]
 一个抽象类中，有一个主方法，再定义1...n个方法，可以是抽象的，也可以是实际的方法，定义一个类，继承该抽象类，重写抽象方法，通过调用抽象类，实现对子类的调用。
 
 ### 2. 类设计图
+
 ![](/images/java_pattern/template/template.jpg)
 
 ### 3. 实现
 1）抽象模板类
+
 ```
 /**
  * 抽象模板类
@@ -39,7 +41,9 @@ public abstract class AbstractCalculator {
     } 
 }
 ```
+
 2）子类实现抽象模板
+
 ```
 /**
  * 具体实现类，实现了具体的加法操作
@@ -51,7 +55,9 @@ public class Plus extends AbstractCalculator{
     }
 }
 ```
+
 3）客户端调用
+
 ```
 public class Client {
     public static void main(String[] args) {  

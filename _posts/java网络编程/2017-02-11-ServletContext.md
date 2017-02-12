@@ -37,17 +37,23 @@ ServletContext接口通过下列方法提供对web应用组成的静态内容文
 
 ### 6. 获取ServletContext的方法
 1）在javax.servlet.Filter中直接获取：
+
 ```
 ServletContext context = config.getServletContext(); 
 ```
+
 2）在HttpServlet中直接获取：
+
 ```
 this.getServletContext() 
 ```
+
 3）在其他方法中，通过HttpRequest获得：
+
 ```
 request.getSession().getServletContext(); 
 ```
+
 4）jsp中隐含对象application，就是ServletContext对象。
 
 ### 7. 在ServletContext中可以存放共享数据，

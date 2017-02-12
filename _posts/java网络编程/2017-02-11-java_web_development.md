@@ -40,6 +40,7 @@ CLASS_PATH：.;E:\work\Java\jdk1.7.0_40\jre\lib
 3）新建maven项目，select an Archetype选择maven-archetype-webapp
 
 在pom.xml中添加依赖
+
 ```
 <dependency>
     <groupId>javax.servlet</groupId>
@@ -48,11 +49,14 @@ CLASS_PATH：.;E:\work\Java\jdk1.7.0_40\jre\lib
     <scope>compile</scope>
 </dependency>
 ```
+
 4）maven的web项目的目录结构
+
 ![](/images/java_net/web/maven_web_struct.png)
 
 ### 4. 开发第一个Servelt
 1）编写代码
+
 ```
 public class HelloWorldServelt extends HttpServlet{
     @Override
@@ -78,9 +82,11 @@ public class HelloWorldServelt extends HttpServlet{
     }
 }
 ```
+
 注：继承HttpServlet，重写doGet和doPost方法处理请求。
 
 2）在web.xml中配置
+
 ```
 <servlet>
     <servlet-name>helloworld</servlet-name>
@@ -93,6 +99,7 @@ public class HelloWorldServelt extends HttpServlet{
     <url-pattern>/helloworld</url-pattern>
 </servlet-mapping>
 ```
+
 3）运行，servelt的运行不像java应用直接就可以运行，必须要借助servlet容器。
 
 第一步：将web项目部署到tomcat中，启动tomcat，
@@ -103,6 +110,7 @@ public class HelloWorldServelt extends HttpServlet{
 
 ### 5. 使用JSP完成Servelt功能
 1）在webapp目录下建立index.jsp文件，在文件中使用html元素输出helloworld
+
 ```
 <html>
     <body>
@@ -110,6 +118,7 @@ public class HelloWorldServelt extends HttpServlet{
     </body>
 </html>
 ```
+
 2）访问服务：http://localhost:8080/java_web
 
 注：Servlet能完成的，JSP也能完成，两者可以相互代替。

@@ -7,6 +7,7 @@ tags: [basic]
 
 ### 1. 文件操作类
 实例代码：
+
 ```
 public class FileOperator {
     public static void main(String[] args) {
@@ -67,10 +68,12 @@ public class FileOperator {
     }
 }
 ```
+
 注：File类中无法获取文件的创建时间属性，只能通过系统命令返回文件创建时间等信息。
 
 ### 2. FileInputStream类
 实例代码：
+
 ```
 /**
  * 文件输入流常用操作
@@ -261,13 +264,16 @@ public class FileInputStreamOperator {
     }
 }
 ```
+
 注：read方法一次读取一个字节，效率低，引入缓存read(buf)，一次可读取一个缓冲区大小的字节，效率更高。
 
 注2：mark(readlimit)的含义是在当前位置作一个标记，制定可以重新读取的最大字节数，也就是说你如果标记后读取的字节数大于readlimit，你就再也回不到回来的位置了。通常InputStream的read()返回-1后，说明到达文件尾，不能再读取。除非使用了mark/reset。
 
 ### 3. FileOutputStream类实现文件复制操作
 Java I/O默认是不缓冲流的，所谓"缓冲"就是先把从流中得到的一块字节序列暂存在一个被称为buffer的内部字节数组里，然后你可以一下子取到这一整块的字节数据，没有缓冲的流只能一个字节一个字节读，效率孰高孰低一目了然。
+
 操作代码：
+
 ```
 public class FileOutputStreamOperator {
     public static void main(String[] args) {
@@ -379,9 +385,11 @@ public class FileOutputStreamOperator {
     }
 }
 ```
+
 注：BufferedOutputStream中read方法的内部实现，实际是从BufferdOutputStream的缓存区中一个一个的读取数据，当缓存区位置大约当前数组能容纳的最大值时，则重新填充缓冲区。
 
 BuffredOutputStream中read方法实现代码：
+
 ```
 // 读取下一个字节
 public synchronized int read() throws IOException {
@@ -403,6 +411,7 @@ public synchronized int read() throws IOException {
 有时没有必要存储整个对象的信息，而只是要存储一个对象的成员数据，成员数据的类型假设都是Java的基本数据类型，这样的需求不必使用到与Object输入、输出相关的流对象。DataInputStream的好处在于在从文件读出数据时，不用费心地自行判断读入字符串时或读入int类型时何时将停止，使用对应的readUTF()和readInt()方法就可以正确地读入完整的类型数据。
 
 实例：将Member类实例的成员数据写入文件中，并打算在读入文件数据后，将这些数据还原为Member对象。
+
 ```
 public class DataInputStreamOperator {
     public static void main(String[] args) {
@@ -500,6 +509,7 @@ class Member {
     }  
 } 
 ```
+
 DataOutputStream类提供三个写入字符串的方法：
 
 1）public final void writeBytes(String s)  //由于JAVA的字符编码是Unicode的，第个字符占两个字节，writeBytes方法只是将每个字符的低字节写入到目标设备中.
@@ -520,6 +530,7 @@ java.io.PushbackInputStream拥有一个PushBack缓冲区，从PushbackInputStrea
 3）下面的范例说明PushbackInputStream的功能，一次从文件中读取两个字节，并检查两个字节合并后的整数值是否在0xA440--0xFFFF之间，这样可以简单地判断其两个字节合并后是否为BIG码。如果是BIG5码则使用这两个字节产生String实例以显示汉字字符；如果不在这个范围之内，则可能是个ASCII范围内的字符，您可以显示第一个字节的字符表示，并将第二个字节推回流，以待下一次可以重新读取。
 
 实例代码：
+
 ```
 public class PushbackInputStreamDemo {
     public static void main(String[] args) throws UnsupportedEncodingException {
@@ -664,6 +675,7 @@ public class PushbackInputStreamDemo {
 当我们需要从多个输入流中向程序读入数据。此时，可以使用合并流，将多个输入流合并成一个SequenceInputStream流对象。SequenceInputStream会将与之相连接的流集组合成一个输入流并从第一个输入流开始读取，直到到达文件末尾，接着从第二个输入流读取，依次类推，直到到达包含的最后一个输入流的文件末尾为止。合并流的作用是将多个源合并合一个源。其可接收枚举类所封闭的多个字节流对象。
 
 实例：从多个文件中读取数据
+
 ```
 public class SequenceInputStreamOperator {
     public static void main(String[] args) {

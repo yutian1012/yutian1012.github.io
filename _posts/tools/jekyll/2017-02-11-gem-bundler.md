@@ -40,29 +40,37 @@ bundle install,会安装当前ruby项目需要的组件，安装完成后可以�
 
 ### 实例
 场景一：
+
 ```
 mkdir app1; cd app1;
 echo "source 'https://ruby.taobao.org/'" > Gemfile
 echo "gem 'rails,'4.1.0'" >> Gemfile
 bundle install
 ```
+
 app1下安装了rails 4.1.0。
+
 ```
 bundle exec rails -v
 ```
+
 查看当前目录下使用的rails版本，显示内容应该为Rails 4.1.0
+
 ```
 bundle exec rails new . --force
 ```
+
 覆盖原来Gemfile,此时的app使用的rails版本为4.1.0
 
 场景二：
+
 ```
 mkdir app2; cd app2;
 echo "source 'https://ruby.taobao.org/'" > Gemfile
 echo "gem 'rails,'3.2.13'" >> Gemfile
 bundle install
 ```
+
 创建了第二个app2文件夹，并通过bundler安装了rails 3.2.13 同样通过bundle exec rails new . --force可以生成基于rails 3.2.13版本的应用。
 
 注：安装了以上两个版本后，通过gem list --local可以看到rails有两个版本，显示为rails (4.1.0, 3.2.13),bundler会智能的判断每个项目的rails版本，以确保应用的正确运行。

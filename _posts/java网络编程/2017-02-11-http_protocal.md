@@ -8,10 +8,12 @@ HTTP协议（HyperText Transfer Protocol，超文本传输协议）是用于从W
 在浏览器的地址栏里输入的网站地址叫做URL (Uniform Resource Locator，统一资源定位符)。
 
 ### 1. Http是一个基于请求/响应模式的，无状态的协议
+
 注：可以通过某种手段，使无状态变成有状态
 
 ### 2. http1.0协议
 1）通信协议传输
+
 ![](/images/java_net/http/http1.0.png)
 
 2）Http1.0的特点：
@@ -23,6 +25,7 @@ HTTP协议（HyperText Transfer Protocol，超文本传输协议）是用于从W
 
 ### 3. http1.1协议
 1）通信协议传输（在同一个连接上可发出多个请求）
+
 ![](/images/java_net/http/http1.1.png)
 
 2）特点：
@@ -35,7 +38,9 @@ Http请求信息包括：请求行，报头信息（请求头），请求正文
 1）请求行：
 请求行以一个方法符号开头，后面跟着请求URI和协议的版本，以CRLF（回车换行）为结尾。请求行中以空格分隔各个字段信息。如：GET /sample.jsp HTTP/1.1 (CRLF).
 请求常用方法：GET，POST，HEAD，DELETE，TRACE，CONNECT，OPTIONS，PUT。
+
 ![](/images/java_net/http/httpmethod.png)
+
 注：当我们通过在浏览器的地址栏中直接输入网址的方式去访问网页的时候，浏览器采用的就是GET方法向服务器获取资源。当使用表单时，可以通过GET和POST方法来进行传递，通过相应的属性进行设置（必须大写）。
 
 2）报头信息（消息报头/请求头）
@@ -69,6 +74,7 @@ http状态代码与状态描述：
 5xx：服务器端错误--服务器未能实现合法的请求
 
 常见的状态代码：
+
 ![](/images/java_net/http/httpcode.png)
 
 2）消息报头（相应头）
@@ -97,19 +103,23 @@ win7下打开telnet服务，控制面板--程序和功能--点击打开或关闭
 第三步：进入telent的编辑视图：直接按下回车
 
 第四步：编辑发生命令，将下面的命令直接粘贴到telent的编辑框中，两次回车
+
 ```
 GET / HTTP/1.1
 Host:www.baidu.com
 ```
+
 注：字段之间使用空格分隔，需要两次回车，第一次回车表示发送的数据准备好了。
 
 ![](/images/java_net/http/httptelnet.png)
 
 第五步：查看HEAD方法
+
 ```
 HEAD / HTTP/1.1
 Host:www.baidu.com
 ```
+
 ![](/images/java_net/http/httptelnethead.png)
 
 ### 7. telnet连接tomcat服务器查看
@@ -118,9 +128,11 @@ Host:www.baidu.com
 2）telnet localhost 8080
 
 3）在telnet编辑框中输入命令，查看
+
 ```
 GET / HTTP/1.1
 Host:localhost
 Connection:Keep-Alive
 ```
+
 ![](/images/java_net/http/httptelnettomcat.png)

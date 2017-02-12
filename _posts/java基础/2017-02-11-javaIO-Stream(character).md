@@ -10,6 +10,7 @@ java默认使用Unicode存储字符串，在写入字符流时我们都可以指
 操作字符类的类就是CharArrayReader,CharArrayWriter类，对应的处理字节型数据的流ByteArrayOutputStream。
 
 字符缓冲区，一般将字符串放入到操作字符的io流一般方法是：
+
 ```
 CharArrayReader reader=mew CharArrayReader(str.toCharArray()); 
 ```
@@ -99,12 +100,14 @@ public class FileReaderOperator {
     }
 }
 ```
+
 注：问题出在FileReader读取文件的过程中，FileReader继承了InputStreamReader，但并没有实现父类中带字符集参数的构造函数，所以FileReader只能按系统默认的字符集来解码，然后在UTF-8 -> GBK ->UTF-8的过程中编码出现损失，造成结果不能还原最初的字符。
 
 ### 3. BufferedReader和BufferedWriter
 该流最常用的属readLine()方法了，读取一行数据，并返回String。
 
 实例：使用BufferedWriter将多个文件合并成一个文件
+
 ```
 public class BufferedWriterOperator {
     public static void main(String[] args) {
@@ -150,6 +153,7 @@ public class BufferedWriterOperator {
 
 ### 4. Console类
 实例代码：
+
 ```
 public class ConsoleOperator {
     public static void main(String[] args) {
@@ -198,6 +202,7 @@ public class ConsoleOperator {
     }
 }
 ```
+
 注：Java要与Console进行交互，不总是能得到可用的Java Console类的。一个JVM是否有可用的Console，依赖于底层平台和JVM如何被调用。如果JVM是在交互式命令行（比如Windows的cmd）中启动的，并且输入输出没有重定向到另外的地方，那么就我们可以得到一个可用的Console实例。
 
 注2：Console 只能用在标准输入、输出流未被重定向的原始控制台中使用，在 Eclipse 或者其他 IDE 的控制台是用不了的。
@@ -215,6 +220,7 @@ System.out是一个PrintStream流。System.out一般会把你写到其中的数�
 System.err是一个PrintStream流。System.err与System.out的运行方式类似，但它更多的是用于打印错误文本。一些类似Eclipse的程序，为了让错误信息更加显眼，会将错误信息以红色文本的形式通过System.err输出到控制台上。
 
 4）实例
+
 ```
 try {
     InputStream input = new FileInputStream("c:\\data\\...");
@@ -227,6 +233,7 @@ try {
 
 5）替换系统流
 使用System.setIn(), System.setOut(), System.setErr()方法设置新的系统流
+
 ```
 OutputStream output = new FileOutputStream("c:\\data\\system.out.txt");
 PrintStream printOut = new PrintStream(output);

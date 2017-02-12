@@ -33,6 +33,7 @@ java中Hashcode和equals方法
 通过equals方法可以判断对象是否相同，直接使用eclipse生成equals和hashcode方法即可。
 
 代码判断相等过程：
+
 ```
 public boolean equals(Object obj) {
     if (this == obj) return true;
@@ -53,6 +54,7 @@ public boolean equals(Object obj) {
 
 ### 6. 集合list的contains方法
 查看内部源代码可以发现list中是通过数组中的对象分别调用equals方法来比较是否包含对象的。(查看ArrayList源代码）
+
 ```
 public static boolean compareCollection(){
     Date date=new Date();
@@ -63,12 +65,14 @@ public static boolean compareCollection(){
     return list.contains(employee2);//返回true
 }
 ```
+
 注：这里Employee已经生成了相应的equals和hashcode方法了
 
 ### 7. 集合Set的contains方法判断
 1）Set内部是使用HashMap来存储数据的。
 
 2）代码：Employee没有重写hashcode方法
+
 ```
 public static boolean compareCollectionSet(){
     Date date=new Date();
@@ -79,6 +83,7 @@ public static boolean compareCollectionSet(){
     return set.contains(employee2);//返回false
 }
 ```
+
 注：修改Employee类，实现hashcode代码值，再执行上面的代码，此时会返回true。
 
 注2：set内部使用hashmap，而hashmap中的contains使用hashcode定位对象存放的位置，从该位置的列表中一个一个的比较待存放的对象，因此在使用set需要确保equals和hashcode都要被重写，并且满足相应约定。--过程先使用hashcode值计算出hash，再从列表中使用equals比较对象。
@@ -100,4 +105,3 @@ public static boolean compareCollectionSet(){
 3）另外与equas配合，如果两个对象调用equals相同那么一定拥有相同的hashcode，然而反之，如果两个对象调用equals不相等，hashcode不一定就不同。
 
 注：相等（相同）的对象必须具有相等的哈希码（或者散列码）。如果两个对象的hashCode相同，它们并不一定相同。
-

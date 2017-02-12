@@ -18,6 +18,7 @@ tags: [pattern]
 
 ### 3. 实例代码
 1）原型代码
+
 ```
 public class Prototype implements Cloneable, Serializable {  
       
@@ -96,7 +97,9 @@ class SerializableObject implements Serializable {
     
 }
 ```
+
 2）客户端代码
+
 ```
 public class Client {
     public static void main(String[] args) {
@@ -116,6 +119,7 @@ public class Client {
     }
 }
 ```
+
 注：这里深度拷贝的实现方式是通过对象序列化实现的，要求类属性需要实现Serializable接口。
 
 ### 4. 原理模型的优点

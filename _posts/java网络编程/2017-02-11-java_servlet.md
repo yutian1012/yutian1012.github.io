@@ -9,6 +9,7 @@ Servlet（Server Applet），全称Java Servlet，是用Java编写的服务器�
 继承HttpServlet，重写doGet和doPost方法处理请求
 
 1）编写代码
+
 ```
 public class HelloWorldServelt extends HttpServlet{
     @Override
@@ -34,9 +35,11 @@ public class HelloWorldServelt extends HttpServlet{
     }
 }
 ```
+
 注：继承HttpServlet，重写doGet和doPost方法处理请求。
 
 2）在web.xml中配置
+
 ```
 <servlet>
     <servlet-name>helloworld</servlet-name>
@@ -49,6 +52,7 @@ public class HelloWorldServelt extends HttpServlet{
     <url-pattern>/helloworld</url-pattern>
 </servlet-mapping>
 ```
+
 3）运行，servelt的运行不像java应用直接就可以运行，必须要借助servlet容器。
 
 第一步：将web项目部署到tomcat中，启动tomcat，
@@ -59,6 +63,7 @@ public class HelloWorldServelt extends HttpServlet{
 
 ### 2. Servelt接口（javax.servlet.Servlet）
 1）httpServlet的继承体系
+
 ![](/images/java_net/servlet/httpServlet.png)
 
 2）ervlet的生命周期
@@ -74,6 +79,7 @@ destroy()方法，当Servlet对象退出生命周期时，负责释放占用的�
 自定义的Servlet类，通常是通过继承HttpServlet抽象类，其他的一些方法都使用父类已经实现了的方法。我们不必在实现service()方法，因为在service()方法中根据请求的信息自动调用doGet()或doPost()方法。
 
 4）HttpServlet的service方法的实现
+
 ```
 protected void service(HttpServletRequest req, HttpServletResponse resp)
         throws ServletException, IOException
@@ -93,6 +99,7 @@ protected void service(HttpServletRequest req, HttpServletResponse resp)
         ...
     }
 ```
+
 注：截取了部分代码，通过req.getMethod()方法判断客户端请求的方法，并调用相应的doGet或doPost方法。
 
 ### 3. ServletRequest接口
@@ -143,6 +150,7 @@ setContentType()，设置Servlet发送的响应数据的MIME类型。
 即什么时候Servlet容器会装载Servlet？
 
 1）Servlet容器启动时会自动装载某些Servlet
+
 ```
 <servlet>
 ...
@@ -169,6 +177,7 @@ Servlet是单例模式的，一旦实例化之后，只能生成唯一的一个�
 
 ### 9. 使用JSP完成Servelt功能
 1）在webapp目录下建立index.jsp文件，在文件中使用html元素输出helloworld
+
 ```
 <html>
     <body>
@@ -176,6 +185,7 @@ Servlet是单例模式的，一旦实例化之后，只能生成唯一的一个�
     </body>
 </html>
 ```
+
 2）访问服务：http://localhost:8080/java_web
 
 注：Servlet能完成的，JSP也能完成，两者可以相互代替。

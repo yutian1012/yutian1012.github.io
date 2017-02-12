@@ -34,8 +34,10 @@ java.io.ObjectInputStream：表示对象输入流，它的readObject()方法源�
 
 假定一个Student类，它的对象需要序列化，可以有如下**三种方法**：
 
-方法一：若Student类仅仅实现了Serializable接口，则可以按照以下方式进行序列化和反序列化
+方法一：若Student类仅仅实现了Serializable接口，则可以按照以下方式进行序列化和反序列化.
+
 ObjectOutputStream采用默认的序列化方式，对Student对象的非transient的实例变量进行序列化。
+
 ObjcetInputStream采用默认的反序列化方式，对对Student对象的非transient的实例变量进行反序列化。
 
 方法二：若Student类仅仅实现了Serializable接口，并且还定义了readObject(ObjectInputStream in)和writeObject(ObjectOutputSteam out)，则采用以下方式进行序列化与反序列化。
@@ -56,10 +58,13 @@ ObjectInputStream会调用Student对象的readExternal(ObjectInput in)的方法�
 
 ### 4. JDK类库中序列化的步骤
 步骤一：创建一个对象输出流，它可以包装一个其它类型的目标输出流，如文件输出流：
+
 ```
 ObjectOutputStream out = new ObjectOutputStream(new fileOutputStream("D:\\objectfile.obj"));
 ```
+
 步骤二：通过对象输出流的writeObject()方法写对象：
+
 ```
 out.writeObject(“Hello”);
 out.writeObject(new Date());
@@ -67,14 +72,18 @@ out.writeObject(new Date());
 
 ### 5. JDK类库中反序列化的步骤
 步骤一：创建一个对象输入流，它可以包装一个其它类型输入流，如文件输入流：
+
 ```
 ObjectInputStream in = new ObjectInputStream(new fileInputStream("D:\\objectfile.obj"));
 ```
+
 步骤二：通过对象输出流的readObject()方法读取对象：
+
 ```
 String obj1 = (String)in.readObject();
 Date obj2 = (Date)in.readObject();
 ```
+
 说明：为了正确读取数据，完成反序列化，必须保证向对象输出流写对象的顺序与从对象输入流中读对象的顺序一致。
 
 参考：http://blog.csdn.net/wangloveall/article/details/7992448/
@@ -87,12 +96,14 @@ java中常见的几个类（如：Interger、String等），都实现了serializ
 
 ### 8. 序列化(Serializable)和外部化(Externalizable )的区别
 1）两者的关系
+
 ```
 public interface Externalizable extends Serializable {
         void readExternal(ObjectInput in);
         void writeExternal(ObjectOutput out);
 }
 ```
+
 2）区别
 
 通过Serializable接口对对象序列化的支持是内建于核心 API 的，但是java.io.Externalizable的所有实现者必须提供读取和写出的实现。Java 已经具有了对序列化的内建支持，也就是说只要实现java.io.Serializable接口，Java 就会试图存储和重组你的对象。如果使用外部化，你就可以完全由自己完成读取和写出的工作。

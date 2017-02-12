@@ -19,12 +19,14 @@ tags: [pattern]
 4）Product：要创建的复杂对象。--最终产品对象
 
 5）设计图
+
 ![](/images/java_pattern/builder/builder.jpg)
 
 ### 3. 实例
 在游戏开发中建造小人是经常的事了，要求是：小人必须包括，头，身体，手和脚。现在系统要包括的分为胖人和瘦人。
 
 1）Product类--最终产品人
+
 ```
 /**
  * 具体待构建对象
@@ -63,7 +65,9 @@ public class Product {
     }
 }
 ```
+
 2）builder接口
+
 ```
 /**
  * 规定出待构建对象的模块--起到规范作用
@@ -76,7 +80,9 @@ public interface Builder {
     Product getProduct();
 }
 ```
+
 3）builder接口实现类
+
 ```
 /**
  * 具体构建类，实现Builder接口
@@ -136,7 +142,9 @@ public class ThinPersonBuilder implements Builder{
 
 }
 ```
+
 4）Director类
+
 ```
 /**
  * 规定创建流程和顺序
@@ -152,6 +160,7 @@ public class Director {
 ```
 
 5）客户端调用
+
 ```
 public class Client {
     public static void main(String[] args) {

@@ -10,17 +10,21 @@ tags: [github,tools]
 
 ### 2. 设置Git的user name和email
 打开命令行E:\work\Git\git-bash.exe，运行代码：
+
 ```
 git config --global user.name "yutian1012"
 git config --global user.email "yutian1012@126.com"
 ```
+
 注：--global选项是针对所有用户都起作用的，会在~/.gitconfig文件中写入信息，windows系统即在C:\Users\xxx\目录下。
 
 ### 3. 查看ssh密钥
 查看系统中是否存在ssh密钥
+
 ```
 ll ~/.ssh
 ```
+
 ![](/images/tools/github/ssh.png)
 
 注：windows系统C:\Users\xxx\.ssh目录下
@@ -35,6 +39,7 @@ rm -r ~/.ssh
 ```
 ssh-keygen -t rsa -C "yutian1012@126.com"
 ```
+
 ![](/images/tools/github/gensshkey.png)
 
 运行后什么都不输入，直接回车即可。
@@ -48,9 +53,11 @@ ssh-keygen -t rsa -C "yutian1012@126.com"
 
 ### 6. 测试
 测试代码：
+
 ```
 ssh -T git@github.com
 ```
+
 注：最后一行显示Hi yutian1012! You've successfully authenticated, but GitHub does not provide shell access.表示成功授权了。
 
 ### 7. 在github上创建一个github page仓库
@@ -64,6 +71,7 @@ github page要求仓库名必须为你github的名字+github+io（也就是我�
 打开cmd窗口，cd E:\work\blog\website
 
 2）克隆github page项目到本地该目录下
+
 ```
 git clone https://github.com/yutian1012/yutian1012.github.io.git
 ```
@@ -75,11 +83,13 @@ git clone https://github.com/yutian1012/yutian1012.github.io.git
 3）建立起jekyll相关目录，并将博客内容放在到_posts下（参考本地博客系统搭建）
 
 4）将文件添加到github上
+
 ```
 git add .
 git commit -m "my new blog"
 git push origin master
 ```
+
 注：git push <远程主机名> <本地分支名>:<远程分支名>，origin是默认的远程版本库名称。
 
 ### 9. 在浏览器中访问github

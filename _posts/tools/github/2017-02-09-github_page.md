@@ -40,9 +40,11 @@ create a new file named css/main.css. The css/ before the filename will automati
 6）在index.html中关联样式文件，并提交修改
 
 在index.html的<head>标签中添加样式：
+
 ```
 <link rel="stylesheet" type="text/css" href="/css/main.css">
 ```
+
 7）再次访问https://yutian1012.github.io/，可以看到添加样式后的网页了
 
 ### 3. jekyll+github部署网站
@@ -55,16 +57,18 @@ create a new file named css/main.css. The css/ before the filename will automati
 Jekyll is a very powerful static site generator.能够快速构建静态网站。depends on templates（使用模板生成html文件）。
 传统的website在删除，添加页面后，都要修改相应的navigator，而使用Jekyll可以通过layout文件模板来实现。
 
-*注：要使用Jekyll需要在github的repo中创建jekyll的目录结构。*
+注：要使用Jekyll需要在github的repo中创建jekyll的目录结构。
 
 2）创建.gitignore文件
 
 Create a .gitignore file. This file tells Git to ignore the _site directory that Jekyll automatically generates each time you commit. 
 
 文档内容：
+
 ```
 _site/
 ```
+
 注：忽略_site目录，该目录下的文档是上传文件后，jekyll自动生成的html页面。
 
 3）创建_config.yml
@@ -72,6 +76,7 @@ _site/
 Create a _config.yml file that tells Jekyll some basics about your project.
 
 文档内容：
+
 ```
 name: yutian1012 blog
 markdown: kramdown
@@ -81,9 +86,10 @@ markdown: kramdown
 
 Make a _layouts directory, and create file inside it called default.html
 
-default.html是主要的布局文件，应包含所有页面中重复利用的代码，如<head>，<footer>等元素，应把这些元素从index.html中移除。
+default.html是主要的布局文件，应包含所有页面中重复利用的代码，如head，footer等元素，应把这些元素从index.html中移除。
 
 文档内容：
+
 ```
 <!DOCTYPE html>
     <html>
@@ -127,6 +133,7 @@ liquid tags，会在生成页面时被填充内容。
 5）修改index.html页面，只保留文档内容，并在文档头添加YAML
 
 文档内容：
+
 ```
 ---
 layout: default
@@ -147,6 +154,7 @@ creating a post, making a page to list our posts, creating a custom permalink fo
 7）在_layouts目录下创建posts.html，用来在显示博客文章样式的模板文件。
 
 文档内容：
+
 ```
 ---
 layout: default
@@ -168,6 +176,7 @@ Make a _posts/ directory where we'll store our blog posts.
 创建一个具体的文章：2014-04-30-yutian1012-site-launched.md
 
 文档内容：
+
 ```
 ---
 layout: post
@@ -195,6 +204,7 @@ post.html文件中的标签{ { page.title } }和{ { page.date | date_to_string }
 Create a blog directory and create a file named index.html inside it. To list each post, we'll use a foreach loop to create an unordered list of our blog posts。
 
 文档内容：
+
 ```
 ---
 layout: default
@@ -224,6 +234,7 @@ title: yutian1012 Blog
 现在想在域名后添加一个blog，使其连接地址变为：http://username.github.io/blog/YYYY/MM/DD/name-of-your-post
 
 修改_config.yml文档，添加代码
+
 ```
 permalink: /blog/:year/:month/:day/:title
 ```
@@ -231,6 +242,7 @@ permalink: /blog/:year/:month/:day/:title
 11）在blog目录下创建文件atom.xml
 
 文档内容：
+
 ```
 ---
 layout: feed
