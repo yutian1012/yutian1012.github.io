@@ -81,3 +81,12 @@ git stauts .
 git commint . -m 'modify'
 ```
 
+推送到远程仓库
+
+```
+git push origin master
+或
+git push origin master:master
+```
+
+注：提交到到远程的master分支上
