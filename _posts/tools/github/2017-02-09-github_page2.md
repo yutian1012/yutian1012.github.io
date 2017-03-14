@@ -46,6 +46,8 @@ ssh-keygen -t rsa -C "yutian1012@126.com"
 
 注：-t指产生key的类型，-C指Comment，产生的公钥为id_rsa.pub，私钥为id_rsa
 
+注：运行命令后会在用户的根目录下生成.ssh文件夹，其中该文件夹下的id_rsa.pub为生成的公钥。
+
 ### 5. 在github上添加一个ssh密钥
 拷贝C:\Users\elodie\.ssh\id_rsa.pub文件内容：登录github--个人信息--settings--SSH and GPG keys，用记事本打开id_rsa.pub，将内容粘贴到ssh的key文本框中。
 
