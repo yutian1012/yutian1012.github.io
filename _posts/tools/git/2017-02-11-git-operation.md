@@ -512,27 +512,88 @@ $ git add .
 # 对于同一个文件的多处变化，可以实现分次提交
 $ git add -p
 
-# 删除工作区文件，并且将这次删除放入暂存区
+# 删除工作区文件，并且将这次删除放入暂存区，
+# 前提是文件已经被add了，否则直接删除即可
 $ git rm [file1] [file2] ...
 
 # 停止追踪指定文件，但该文件会保留在工作区
 $ git rm --cached [file]
 
-# 改名文件，并且将这个改名放入暂存区
+# 改名文件，并且将这个改名放入暂存区，并没有提交，需要单独提交
 $ git mv [file-original] [file-renamed]
 ```
 
-注：
+注：rm和mv后可以使用git status查看当前文件的状态。
 
-4）
-
-
-### 8. 补充
-
-参考：http://blog.jobbole.com/75348/
+4）代码提交
 
 ```
-git blame [file_name]
+# 提交暂存区到仓库区
+$ git commit -m [message]
+
+# 提交暂存区的指定文件到仓库区
+$ git commit [file1] [file2] ... -m [message]
+
+# 提交工作区自上次commit之后的变化，直接到仓库区
+$ git commit -a
+
+# 提交时显示所有diff信息
+$ git commit -v
+
+# 可实现重命名提交备注信息
+# 使用一次新的commit，替代上一次提交
+# 如果代码没有任何新变化，则用来改写上一次commit的提交信息
+$ git commit --amend -m [message]
+
+# 重做上一次commit，并包括指定文件的新变化
+$ git commit --amend [file1] [file2] ...
 ```
 
-注：这个命令会显示文件中每一行的作者，最后一次改动后进行的提交(commit)以及该次提交的时间戳，blame是纠错，指责的意思，即找出这个文件都是谁改的，从而确定出错误的提交人。
+5）分支
+
+参考：http://blog.sina.com.cn/s/blog_63eb3eec0101fgex.html
+
+```
+# 列出所有本地分支
+$ git branch
+
+# 列出所有远程分支
+$ git branch -r
+
+# 列出所有本地分支和远程分支
+$ git branch -a
+
+# 新建一个分支，但依然停留在当前分支
+$ git branch [branch-name]
+
+# 新建一个分支，并切换到该分支
+$ git checkout -b [branch]
+
+# 新建一个分支，指向指定commit
+$ git branch [branch] [commit]
+
+# 新建一个分支，与指定的远程分支建立追踪关系
+$ git branch --track [branch] [remote-branch]
+
+# 切换到指定分支，并更新工作区
+$ git checkout [branch-name]
+
+# 切换到上一个分支
+$ git checkout -
+
+# 建立追踪关系，在现有分支与指定的远程分支之间
+$ git branch --set-upstream [branch] [remote-branch]
+
+# 合并指定分支到当前分支
+$ git merge [branch]
+
+# 选择一个commit，合并进当前分支
+$ git cherry-pick [commit]
+
+# 删除分支
+$ git branch -d [branch-name]
+
+# 删除远程分支
+$ git push origin --delete [branch-name]
+$ git branch -dr [remote/branch]
+```

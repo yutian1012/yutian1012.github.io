@@ -329,4 +329,46 @@ gitk
 
 ![](/images/tools/git/gitk.png)
 
+### 6. git rebase合并多次提交
+
+1）场景
+
+当你提交你的代码进行审核并创建一个pull request时(在开源项目中常常发生这样的情况)，你经常会在代码被采纳前，要求修改一些代码。你进行了一些修改，而在下一次审核中，又会被要求进行另外的修改。你不知道还有多少次修改等着你，在你知道以前，你进行了多次额外的提交。理想的状态是，你可以使用rebase命令，把他们都合并成一次提交。
+
+2）对test.txt文档进行两次修改并提交，并使用git log查看
+
+![](/images/tools/git/gitrebase1.png)
+
+注：在文档中添加了两行，并提交了两次，第一次备注commit1，第二次备注commit2.
+
+3）将两次提交合并成一次提交
+
+```
+git rebase -i HEAD~2
+```
+
+会显示一个类似vi的编辑器，里面有两次commit的提交
+
+```
+pick 998fae0 'commit1'
+pick e4a5219 'commit2'
+```
+
+![](/iamges/tools/git/gitrebase2.png)
+
+修改：只保留第一次的commit，将第二次的commit压缩到第一次commit中
+
+```
+pick 998fae0 'commit1'
+squash e4a5219 'commit2'
+```
+
+注：将第二次提交的pick改为squash，vi中保存退出
+
+底端命令行保存退出后又出现一个vi编辑器，该文档是用来输入提交的备注信息，这里直接保存退出。
+
+再次运行git log查看合并的内容
+
+![](/images/tools/git/gitrebase3.png)
+
 参考：http://blog.jobbole.com/75348/
