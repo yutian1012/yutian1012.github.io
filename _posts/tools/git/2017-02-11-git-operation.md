@@ -103,7 +103,7 @@ git config --global user.email "you@example.com"
 git config --global user.name "Your Name"
 ```
 
-注：运行命令后会在用户的根目录下生存一个.gitconfig文件，文件内容为用户配置的信息。
+注：运行命令后会在系统中用户的根目录下生存一个.gitconfig文件，文件内容为用户配置的信息。
 
 配置完成后，就可以正确的执行commit命令了。
 
