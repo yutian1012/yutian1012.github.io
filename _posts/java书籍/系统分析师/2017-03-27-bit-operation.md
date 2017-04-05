@@ -1,6 +1,6 @@
 ---
 title: 系统分析师（软考）--字节运算
-tags: [architecture]
+tags: [analysis]
 ---
 
 ### 1. 二进制运算
