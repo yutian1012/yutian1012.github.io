@@ -166,3 +166,108 @@ public void postHandle(HttpServletRequest request,
 //freemarker为什么能获取ModelMap中的值？
 ```
 
+在获取权限集合时调用env.getDataModel().get(PERMISSION_MODEL)，获取的权限信息是在Environment类env变量的rootDataModel（TemplateHashModel类型）成员变量中获取的，即在execute方法调用前Environment变量实例化时被赋值的。
+
+注：具体Environment实例化是在freemarker解析ftl模板时，遇到自定义表情时对Environment实例化的。
+
+### 4. data_model
+
+```
+<#list .data_model?keys as pkey>
+    <#if pkey?starts_with('query')>
+<input type="hidden" name="${pkey}" value="${(.data_model[pkey])!?string}"/>
+</#if><#t/>
+</#list>
+```
+注：这里的.data_model是freemarker顶层的集合，即后台传递的ModelMap集合对象。
+
+This works if the data-model is just a usual Map or JavaBean, but for more sophisticated（复杂的，先进的） data-models it's up to the data-model implementation if it supports ?keys and if it indeed returns everything.
+You also have the variables that you set in the templates, which can be listed like above, only instead of .data_moder use .globals and .namespace (means the current template namespace) and .locals.
+
+### 5. 自定义标签实例
+
+cms_content_list标签的处理
+
+1）TemplateDirectiveModel接口
+
+该接口是freemarker自定标签或者自定义指令的核心处理接口
+
+2）自定义类实现该接口的execute方法
+
+```
+public void execute(Environment env, Map params,
+ TemplateModel[] loopVars,TemplateDirectiveBody body)
+```
+
+execute方法的参数
+
+（1）@param env：系统环境变量
+
+获取输出流：Writer out = env.getOut();
+
+模板参数：freemarker引擎解释模板时使用的是env环境中的参数
+
+（2）@param params：自定义标签传过来的对象，其key=自定义标签的参数名，value值是TemplateModel类型。
+
+TemplateModel是一个接口类型，通常我们都使用TemplateScalarModel接口来替代它获取一个String 值，如TemplateScalarModel.getAsString();当然还有其它常用的替代接口，如TemplateNumberModel获取number，TemplateHashModel等。
+
+（3）@param loopVars  循环替代变量
+
+（4）@param body 用于处理自定义标签中的内容（标签体）
+
+freemarker解析标签体显示内容：body.render(env.getOut());
+
+4）自定义的实现
+
+通过params获取查询参数，调用相应的service查询出数据
+
+5）配置自定义标签
+
+在jeecms-servlet-admin.xml中配置的freemarkerConfig的freemarkerVariables属性中添
+
+```
+<entry key="cms_content_list" value-ref="cms_content_list"/>
+```
+
+注：那么在页面上就可以调用自定义标签cms_content了。
+
+6）内容的展现
+
+```
+<div id="tabs-1">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <@cms_content_list count='10' titLen='12' orderBy='8' channelOption='1' >
+           <#list tag_list as a>
+             <tr>
+                <td width="85%" height="27" align="left" style="background-color:#dceef4; 
+border-bottom:1px solid #ffffff; text-indent:1.5em;">
+                    <a href="${a.url}" title="${a.title}" target="_blank">
+                       <span><@text_cut s=a.title len=titLen /></span>
+                    </a>
+                </td>
+                <td style="background-color:#dceef4; border-bottom:1px solid #ffffff;">
+                    <em>${a.viewsMonth!}</em>
+                </td>
+              </tr>
+            </#list>
+        </@cms_content_list>
+</table>  
+</div>
+```
+
+注：在自定义标签<@cms_content_list>中使用了<#list tag_list as a>，list遍历集合tag_list。
+
+集合tag_list是如何获取的呢？查看ContentListDirective类的execute方法
+
+```
+List<Content> list = getList(params, env);
+Map<String, TemplateModel> paramWrap = new HashMap<String, TemplateModel>(params);
+//这里OUT_LIST的值为tag_list，即指令body体中遍历的集合
+paramWrap.put(OUT_LIST, DEFAULT_WRAPPER.wrap(list));
+//env环境中的元素数据，而将env环境值设置为当前传递的参数
+Map<String, TemplateModel> origMap = DirectiveUtils.addParamsToVariable(env, paramWrap);
+....
+//使用标签体来显示list内容
+//body变量为execute方法的参数TemplateDirectiveBody body
+body.render(env.getOut());
+```
