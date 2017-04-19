@@ -3,6 +3,8 @@ title: webservice服务使用soapui工具
 tags: [webservice]
 ---
 
+该工具主要用于测试webservice服务器。
+
 ### 1. 创建测试项目
 
 在init wsdl中输入服务的wsdl地址
