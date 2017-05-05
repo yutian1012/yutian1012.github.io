@@ -30,3 +30,10 @@ shift+ctrl+r
 
 ![](/images/tools/eclipse/findresource.png)
 
+3）返回上一次光标所在位置处
+
+```
+alt + 左右方向键
+```
+
+注：实现方法间的来回跳转，可以跨类文件跳转。

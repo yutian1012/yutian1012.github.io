@@ -94,7 +94,7 @@ mvn dependency:tree --查看依赖
 jaxen:jaxen:jar:1.1:compile
 |  +- jdom:jdom:jar:1.0:compile
 |  +- xerces:xercesImpl:jar:2.6.2:compile
-|  \- xom:xom:jar:1.0:compile
+|  \- xom:xom:jar:1.0:compile  //依赖层级
 |     +- xerces:xmlParserAPIs:jar:2.6.2:compile //与icu是平级的
 |     \- com.ibm.icu:icu4j:jar:2.6.1:compile
 ```

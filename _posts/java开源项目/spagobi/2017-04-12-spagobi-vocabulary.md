@@ -57,3 +57,7 @@ semantic：语义的，语义学的
 functionalities： 功能性; 功能
 
 legend：传说; 传奇人物; 图例（highchart选择图表类型字段）; 铭文
+
+coordinator：协调者; 同等的人（或物）
+
+Suspend：暂停
