@@ -48,3 +48,9 @@ intrusion：闯入; 打扰; （对某事的） 干扰; 干涉
 aggression：侵略，侵略行为; 攻击，进攻
 
 vulnerability：脆弱性; 弱点，攻击; 易伤性; 致命性
+
+evolve：使发展; 使进化; 设计，制订出; 发出，散发
+
+feasibility： 可行性; 可能性; 现实性
+
+derived：衍生; 导出; 起源; 由来（密码学）
