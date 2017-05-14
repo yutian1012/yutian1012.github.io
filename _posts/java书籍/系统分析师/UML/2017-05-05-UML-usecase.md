@@ -1,5 +1,5 @@
 ---
-title: 系统分析师（软考）--UML工具
+title: 系统分析师（软考）--用例图
 tags: [analysis]
 ---
 
