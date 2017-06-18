@@ -3,9 +3,10 @@ title: java字符编码
 tags: [other]
 ---
 
-Java中的String类是按照unicode进行编码的。
+Java中的String类是按照unicode进行编码的。char在java中是2个字节。java采用unicode，2个字节(16位)来表示一个字符。
 
 ### 1. 正确理解这句话
+
 1）java中所有的字符串的编码都是使用unicode
 
 2）String(byte[] bytes, String encoding)方法

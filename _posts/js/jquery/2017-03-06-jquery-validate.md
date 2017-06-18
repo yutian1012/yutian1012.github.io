@@ -1,5 +1,5 @@
 ---
-title: juquery-validate浏览器端校验
+title: jquery-validate浏览器端校验
 tags: [jquery]
 ---
 
