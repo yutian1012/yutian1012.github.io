@@ -6,11 +6,13 @@ tags: [basic]
 java中Hashcode和equals方法
 
 ### 1. Object类默认的两个方法
+
 1）默认eqals方法是比较内存地址是否相等
 
 2）默认的hashCode方法则是根据内存地址产生一个整数。
 
 ### 2. Object.hashCode的通用约定
+
 1）无论你何时实现 equals 方法，你必须同时实现 hashCode 方法
 
 2）在应用程序的执行期间，只要对象的equals方法所用到的信息没有被修改，那么对这同一个对象调用多次，hashCode方法都必须始终如一地返回同一个整数（同一个对象）。
@@ -20,6 +22,7 @@ java中Hashcode和equals方法
 4）如果两个对象根据equals(Object)方法比较是不相等的，那么调用这两个对象中的任意一个对象的hashCode方法，则不一定要产生不同的整数结果。
 
 ### 3. IDE提醒同时设置equals和hashcode
+
 在IDE工具中设置编译时提醒设置类实现了equals却没有实现hashcode的信息：
 
 1）配置 Eclipse 来检测实现了 equals 方法但是没有实现 hashCode 方法的类，并显示错误。不幸的是，此选项默认是指为“忽略”。
@@ -27,9 +30,11 @@ java中Hashcode和equals方法
 2）Preferences > Java >Compiler > Errors/Warnings，然后用快速筛选器来搜索“hashcode”。将Ignore值设置为warning或errors就会给出相应的提醒。
 
 ### 4. hashcode
+
 只会影响基于散列的集合（HashMap、HashSet和Hashtable）
 
 ### 5. equals和hashcode实现
+
 通过equals方法可以判断对象是否相同，直接使用eclipse生成equals和hashcode方法即可。
 
 代码判断相等过程：
@@ -53,6 +58,7 @@ public boolean equals(Object obj) {
 ```
 
 ### 6. 集合list的contains方法
+
 查看内部源代码可以发现list中是通过数组中的对象分别调用equals方法来比较是否包含对象的。(查看ArrayList源代码）
 
 ```
@@ -69,6 +75,7 @@ public static boolean compareCollection(){
 注：这里Employee已经生成了相应的equals和hashcode方法了
 
 ### 7. 集合Set的contains方法判断
+
 1）Set内部是使用HashMap来存储数据的。
 
 2）代码：Employee没有重写hashcode方法
@@ -89,6 +96,7 @@ public static boolean compareCollectionSet(){
 注2：set内部使用hashmap，而hashmap中的contains使用hashcode定位对象存放的位置，从该位置的列表中一个一个的比较待存放的对象，因此在使用set需要确保equals和hashcode都要被重写，并且满足相应约定。--过程先使用hashcode值计算出hash，再从列表中使用equals比较对象。
 
 ### 8. hashset原理
+
 1）HashSet中的contains方法实际是调用的HashMap中的containsKey方法来判断的。
 
 2）HashSet的数据是如何在Map中存放的，将对象e放置在map的key中，并将Object实例（new Object()）设置到map的value中,value没有什么意义。
@@ -98,6 +106,7 @@ public static boolean compareCollectionSet(){
 注：因此，在使用HashSet存储对象时，一定要实现hashcode方法。
 
 ### 9. 总结
+
 1）首先hashCode必须是一个整数，即Integer类型的
 
 2）其次满足一致性，即在程序的同一次执行无论调用该函数多少次都返回相同的整数。
