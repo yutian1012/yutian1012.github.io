@@ -73,7 +73,7 @@ regedit
  set JAVA_OPTS=-Xms64m -Xmx256m -XX:PermSize=128M -XX:MaxNewSize=256m -XX:MaxPermSize=256m
 ```
 
--Xms 设置JVM最大可用内存
+-Xmx 设置JVM最大可用内存
 -Xms JVM初始分配的堆内存
 -XX:PermSize= JVM初始分配的非堆内存（最小值）
 -XX:MaxPermSize= JVM最大允许分配的非堆内存，按需分配
