@@ -80,3 +80,15 @@ UPDATE mysql.user SET Password = PASSWORD('root') WHERE User = 'root';
 FLUSH PRIVILEGES;
 ```
 
+8）mysql远端地址授权访问
+
+```
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'192.168.13.115' IDENTIFIED BY 'root' WITH GRANT OPTION;
+```
+
+注：只允许192.168.13.115机器访问mysql数据库，
+
+```
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%'
+```
+

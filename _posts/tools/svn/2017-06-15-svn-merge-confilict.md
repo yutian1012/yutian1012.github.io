@@ -26,7 +26,7 @@ xxx.merge-right.r665：为665版本，即合并前remote对应的svn分支中的
 xxx 合并产生冲突的文件
 
 
-### 主要有两种方式，
+### 主要有三种方式，
 
 1）revert方式
 
@@ -37,3 +37,13 @@ xxx 合并产生冲突的文件
 需要利用tortoiseSVN工具，解决完成冲突后，右键修改完成的文件，选择tortoiseSVN-resolve。
 
 注：这种方式在eclipse中的svn插件是不支持的。
+
+3）eclipse中svn插件
+
+在Team Synchronizing视图下可以解决冲突后，右击文件选择mark as resolve或者overide and update选项。
+
+![](/images/tools/svn/merge/solveconflict.png)
+
+更新修改内容
+
+![](/images/tools/svn/merge/acceptchanges.png)
