@@ -49,6 +49,3 @@ net start tomcat
 注：tomcat的运行只能通过查看tomcat下的日志来分析。
 
 ### 问题：tomcat启动后服务不响应
-
-
-
