@@ -39,7 +39,9 @@ FormModel formModel = getStartForm(bpmNodeSet, businessKey, actDefId, ctxPath,is
 form = formModel.getFormHtml();//获取表单的html，form为string类型的值
 ```
 
-办理流程页面的处理方法为taskController类的toStart方法，会调用getToStartView方法。
+来源三：办理流程页面
+
+处理方法为taskController类的toStart方法，会调用getToStartView方法。
 
 ```
 FormModel formModel = bpmFormDefService.getNodeForm(processRun, nodeId, tempLaunchId, ctxPath, variables,false);
@@ -114,4 +116,3 @@ SELECT id,formKey,name,permission,type,actDefId,parentActDefId,nodeId FROM bpm_f
 注：通过查询语句，可以看到，该查询会过滤掉在节点和流程上设置的权限。
 
 注2：对自定义表单的权限设置可理解为一个全局的权限设置
-

@@ -3,7 +3,7 @@ title: 流程中的流程变量
 tags: [bpmx]
 ---
 
-### 脚本中选择流程变量
+### 页面脚本中选择流程变量
 
 ![](/images/work/bpmx/flowvariableselect.png)
 

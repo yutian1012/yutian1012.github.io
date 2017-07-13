@@ -180,6 +180,10 @@ private void handAssignUserFromDb(String actDefId,String nodeId,DelegateTask del
 }
 ```
 
+注：userService.getExeUserIds方法是获取流程节点执行人，该执行人的候选设置是在节点上流程设置--人员设置上配置的，因此该方法内部会调用一系列的操作获取候选执行人集合。
+
+![](/images/work/bpmx/flowexecutor.png)
+
 6）根据指派人员类型获取人员计算实现类
 
 人员计算使用策略模式
@@ -187,6 +191,8 @@ private void handAssignUserFromDb(String actDefId,String nodeId,DelegateTask del
 ```
 IBpmNodeUserCalculation calculation = bpmNodeUserCalculationSelector.getByKey(bpmNodeUser.getAssignType());
 ```
+
+注：策略模式通俗的讲，就是在一个集合（预初始化）中匹配处理类，通过接口的方式来实现根据不同的匹配值，获取不同的处理类，从而实现不同的策略。
 
 其中bpmNodeUserCalculationSelector类的配置信息位于app-beans.xml
 
