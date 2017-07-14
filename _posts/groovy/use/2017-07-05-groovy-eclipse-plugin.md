@@ -11,6 +11,10 @@ tags: [groovy]
 
 安装时需要针对不同版本的eclipse选择不同的插件。
 
+1）安装插件
+
+在http://marketplace.eclipse.org/中查找groovy插件并安装。
+
 查看eclipse的版本号，help菜单中可以查看到当前安装的eclipse的版本
 
 ```
@@ -22,6 +26,27 @@ Release 4.3.0
 ```
 groovy - http://dist.springsource.org/release/GRECLIPSE/e4.3/
 ```
+
+2）新建groovy project项目(项目名groovyJava)
+
+![](/images/groovy/info/newgroovyproject.png)
+
+3）添加junit测试
+
+![](/images/groovy/info/newgroovyprojectjunit.png)
+
+4）新建Hellowold类并测试
+
+```
+class Helloworld {
+    @Test
+    void testHelloworld(){
+        println "helloworld";
+    }
+}
+```
+
+![](/images/groovy/info/groovy-helloworld2.png)
 
 ### myeclipse安装groovy插件
 

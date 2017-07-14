@@ -1,5 +1,5 @@
 ---
-title: groovy简介
+title: groovy简介及命令行
 tags: [groovy]
 ---
 
@@ -63,29 +63,3 @@ groovy D:/helloworld.groovy
 
 ![](/images/groovy/info/groovy-helloworld.png)
 
-### eclipse下安装groovy插件
-
-1）安装插件
-
-在http://marketplace.eclipse.org/中查找groovy插件并安装。
-
-2）新建groovy project项目(项目名groovyJava)
-
-![](/images/groovy/info/newgroovyproject.png)
-
-3）添加junit测试
-
-![](/images/groovy/info/newgroovyprojectjunit.png)
-
-4）新建Hellowold类并测试
-
-```
-class Helloworld {
-    @Test
-    void testHelloworld(){
-        println "helloworld";
-    }
-}
-```
-
-![](/images/groovy/info/groovy-helloworld2.png)
