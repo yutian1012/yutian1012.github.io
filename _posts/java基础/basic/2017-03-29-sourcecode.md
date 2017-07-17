@@ -1,5 +1,5 @@
 ---
-title: java源码查看
+title: java源码查看--sun开头的源码查看
 tags: [basic]
 ---
 
@@ -14,6 +14,8 @@ tags: [basic]
 2）下载源码
 
 http://download.java.net/openjdk/jdk7/
+
+http://hg.openjdk.java.net/jdk7/jdk7/jdk/
 
 3）解压后搜索到AnnotationInvocationHandler类的位置
 

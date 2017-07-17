@@ -35,3 +35,23 @@ GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
 
 flush privileges;
 ```
+
+### 启动mysql错误
+
+安装运行mysql-5.7.18-winx64时运行命令
+
+```
+bin\mysqld --initialize-insecure
+```
+
+错误信息：
+
+```
+mysqld: Could not create or access the registry key needed for the MySQL application to log to the Windows EventLog. Run the application with sufficient
+privileges once to create the key, add the key manually, or turn off
+logging for that application.
+```
+
+解决方法：
+
+运行时需要以管理员身份运行启动cmd，然后在命令行中运行。否则无法向注册表中设置变量。
