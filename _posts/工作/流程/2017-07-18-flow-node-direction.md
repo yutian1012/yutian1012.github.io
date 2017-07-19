@@ -50,4 +50,3 @@ private void setVariables(TaskEntity entity, ProcessCmd processCmd) {
 ```
 
 注：由runtimeService类调用setVaribale方法，设置到act_ru_variable表中。
-
