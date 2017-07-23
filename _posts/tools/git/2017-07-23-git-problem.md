@@ -22,3 +22,14 @@ git config --global http.postBuffer 15728640
 ```
 
 注：可能的原因是网络问题，或者上传的文件太大，个人感觉是网络问题，多试几次，或者网络良好的情况下尝试提交，应该就不会有这个问题了。
+
+2）
+
+提交远程时执行git push命令错误
+
+```
+fatal: unable to access 'https://github.com/xxxx/xxx.github.io.git/': Empty reply from server
+```
+
+注：应该是网络的问题，多试几次就好了
+
