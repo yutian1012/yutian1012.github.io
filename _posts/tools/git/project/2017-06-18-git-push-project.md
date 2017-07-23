@@ -1,5 +1,5 @@
 ---
-title: git本地创建项目并上传到github上
+title: git命令行本地创建项目并上传到github上
 tags: [git,tools]
 ---
 

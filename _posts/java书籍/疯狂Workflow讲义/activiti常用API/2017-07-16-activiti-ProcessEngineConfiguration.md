@@ -5,15 +5,42 @@ tags: [activiti]
 
 ProcessEngineConfiguration对象代表一个Activiti流程引擎的全部配置，该类提供了一系列创建ProcessEngineConfiguration实例的镜头方法。这些方法用于读取和解析相应的配置文件，并返回ProcessEngineConfiguration的实例。
 
-1）实例化对象的静态方法
+1）提供了很多实例化对象的静态方法
 
-主要的静态方法可参考想要的api文档，使用非常简单。
+主要的静态方法可参考想要的api文档，使用非常简单。常用的5个静态方法创建ProcessEngineConfiguration对象。
+
+```
+createProcessEngineConfigurationFromResourceDefault
+createProcessEngineConfigurationFromResource
+createProcessEngineConfigurationFromInputStream
+createStandaloneInMemProcessEngineConfiguration
+createStandaloneProcessEngineConfiguration
+```
 
 2）数据源配置
 
 该类包括流程的数据源信息配置，Acitiviti支持多种数据库。数据源的配置包括jdbc，dbcp（数据库连接池，datasource），c3p0。
 
 设置databaseSchemaUpdate属性可以设置流程引擎启动和关闭时数据库执行的策略（数据库表创建和删除）。
+
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans   http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!-- 流程引擎配置的bean -->
+    <bean id="processEngineConfiguration"
+        class="org.activiti.engine.impl.cfg.StandaloneProcessEngineConfiguration">
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/act" />
+        <property name="jdbcDriver" value="com.mysql.jdbc.Driver" />
+        <property name="jdbcUsername" value="root" />
+        <property name="jdbcPassword" value="root" />
+        <property name="databaseSchemaUpdate" value="drop-create" />
+    </bean>
+</beans>
+```
+
+注：可以看到activiti定义bean的方式与spring容器定义bean相同，通过源代码可以看到activiti就是利用了spring中DefaultListableBeanFactory来初始化bean的定义的。
 
 3）history配置
 
@@ -34,5 +61,3 @@ activiti支持邮件服务，当流程执行到某一个节点时，activiti会�
 6）命令拦截器配置
 
 主要是通过基础ProcessEngineConfigImpl类（抽象类），并实现方法来实现添加拦截器。
-
-

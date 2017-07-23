@@ -31,7 +31,7 @@ tags: [git]
 
 3）编辑忽略提交的文件
 
-打开.gitignore文件，编辑内容
+新建并打开.gitignore文件，编辑内容
 
 ```
 /target
@@ -40,7 +40,7 @@ tags: [git]
 
 4）上传代码到远程
 
-提交代码到本地仓库
+提交代码到本地仓库（首先需要add to index）
 
 ![](/images/tools/git/project/project_commit_local.png)
 
