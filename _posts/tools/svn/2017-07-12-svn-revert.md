@@ -36,3 +36,9 @@ SVN回退到上一个版本
 ![](/images/tools/svn/revert/getcontent.png)
 
 再次提交会产生一个新的版本号
+
+4）使用TortoiseSVN工具回退
+
+show log---revert to this revision
+
+参考：http://www.cnblogs.com/tommy-huang/p/4729634.html
