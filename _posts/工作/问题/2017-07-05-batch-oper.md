@@ -79,3 +79,8 @@ show full processlist;//根据返回的记录数量也能得出当前的连接�
 http://localhost:8080/xxx/druid/index.html--查看web.xml中配置的servlet
 ```
 
+5）问题最终确定
+
+由于系统的持久层使用的是mybatis，并使用数据库连接池从数据库中获取连接，操作数据库。应该是mybatis与数据库连接池之间的兼容性不好，导致连接资源不可用。具体原因没有查看源代码，也可能是配置的关系。
+
+解决方案：在大批量数据操作时改为jdbcTemplate方式导入数据，不在使用mybatis操作批量数据的更新和插入。
