@@ -5,7 +5,7 @@ tags: [activiti]
 
 ### commandExecutor何时被注入的
 
-RepositoryServiceImpl类继承了ServiceImpl，在ServiceImpl类中定义了commandExecutor属性，并提供了set和get方法。
+1）RepositoryServiceImpl类继承了ServiceImpl，在ServiceImpl类中定义了commandExecutor属性，并提供了set和get方法。
 
 ```
 protected CommandExecutor commandExecutor;
@@ -13,7 +13,7 @@ protected CommandExecutor commandExecutor;
 
 注：因此RepositoryServiceImpl能够很轻松的访问到该对象。
 
-具体的注入实例还需要进一步查看RepositoryService的获取，我们是通过ProcessEngine类的getRepositoryService方法获取的。
+2）具体的注入实例还需要进一步查看RepositoryService的获取，我们是通过ProcessEngine类的getRepositoryService方法获取的。
 
 查看ProcessEngineImpl（ProcessEngine的具体实例对象）类内部的RepositoryService
 
@@ -21,11 +21,13 @@ protected CommandExecutor commandExecutor;
 this.repositoryService = processEngineConfiguration.getRepositoryService();
 ```
 
-查看ProcessEngineConfigurationImpl（ProcessEngineConfiguration的具体实例对象）类内部的repositoryService
+3）查看ProcessEngineConfigurationImpl（ProcessEngineConfiguration的具体实例对象）类内部的repositoryService的实例化
 
 ```
+protected RepositoryService repositoryService = new RepositoryServiceImpl();
+...
 protected void initServices() {
-    initService(repositoryService);
+    initService(repositoryService);//初始化repositoryService
     initService(runtimeService);
     initService(historyService);
     initService(identityService);
@@ -35,7 +37,7 @@ protected void initServices() {
 }
 ```
 
-实现
+向repositoryService中注入命令的执行者
 
 ```
 protected void initService(Object service) {
@@ -45,11 +47,9 @@ protected void initService(Object service) {
 }
 ```
 
+注：可以看到commandExecutor的实际为CommandExecutorTxRequired对象。发现注入commandExecutor是发生在ProcessEngineConfigurationImpl类的initService方法中，并把该对象的属性commandExecutorTxRequired注入到各个service中。
+
 ### 查看commandExecutor命令执行者的实现
-
-即commandExecutorTxRequired的初始化过程。
-
-通过上一步的分析，发现注入commandExecutor是发生在ProcessEngineConfigurationImpl类的initService方法中，并把该对象的属性commandExecutorTxRequired注入到各个service中。
 
 查看commandExecutorTxRequired对象的实例化过程，发现commandExecutorTxRequired实现了CommandExecutor接口。
 
@@ -84,4 +84,18 @@ protected void initCommandExecutorTxRequired() {
 }
 ```
 
-注：可以看到初始化commandExecutorTxRequired是一个拦截器链。传递的对象是commandInterceptorsTxRequired。
+命令执行者拦截器链，CommandInterceptor也实现了CommandExecutor这个接口
+
+```
+protected CommandInterceptor initInterceptorChain(List<CommandInterceptor> chain) {
+    if (chain==null || chain.isEmpty()) {
+      throw new ActivitiException("invalid command interceptor chain configuration: "+chain);
+    }
+    for (int i = 0; i < chain.size()-1; i++) {
+      chain.get(i).setNext( chain.get(i+1) );
+    }
+    return chain.get(0);
+}
+```
+
+注：可以看到初始化commandExecutorTxRequired是将命令拦截器链的第一个CommandInterceptor对象返回给commandExecutorTxRequired。即注入各个service中的命令执行者，是拦截器链的第一个对象。

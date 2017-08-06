@@ -23,13 +23,27 @@ RepositoryService repositoryService = engine.getRepositoryService();
 repositoryService.createDeployment().addClasspathResource("bpmn/First.bpmn").deploy();
 ```
 
+createDeployment方法实现
+
+```
+public class RepositoryServiceImpl extends ServiceImpl implements RepositoryService {
+
+  public DeploymentBuilder createDeployment() {
+    return new DeploymentBuilderImpl(this);
+  }
+  ...
+}
+```
+
+注：初始化时会将RepositoryServiceImpl对象传入DeploymentBuilder中，做为其成员变量。
+
 2）deploy方法执行
 
-即DeploymentBuilderImpll类的deploy方法
+即DeploymentBuilderImpl类的deploy方法
 
 ```
 public Deployment deploy() {
-    return repositoryService.deploy(this);
+    return repositoryService.deploy(this);//this为DeploymentBuilderImpl
 }
 ```
 
@@ -43,6 +57,4 @@ public Deployment deploy(DeploymentBuilderImpl deploymentBuilder) {
 }
 ```
 
-注：构建了DeployCmd对象（命令对象），并将命令对象以参数的形式传递给了命令执行者。具体的命令执行，是由命令接收者来实现的，这里的执行者是对命令调度的封装，屏蔽了底层复杂的实现。
-
-问题：commandExecutor何时注入的
+注：构建了DeployCmd对象（命令对象），并将命令对象以参数的形式传递给了commandExecutor（命令执行者）。具体的命令执行，是由deploymentBuilder（命令接收者）来实现的，这里的执行者是对命令调度的封装，屏蔽了底层复杂的实现。

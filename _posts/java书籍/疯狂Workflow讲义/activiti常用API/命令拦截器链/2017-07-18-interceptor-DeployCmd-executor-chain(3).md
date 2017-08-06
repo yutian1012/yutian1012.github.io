@@ -35,7 +35,7 @@ protected void initCommandInterceptorsTxRequired() {
 
 3）最终命令执行者
 
-查看actualCommandExecutor是最终的命令执行者，该类的实现比较简单，就是调用command实例的execute方法
+查看actualCommandExecutor，该类是最终的命令执行者，该类的实现比较简单，就是调用command实例的execute方法
 
 CommandExecutorImpl类的execute方法
 
@@ -53,7 +53,7 @@ protected abstract Collection< ? extends CommandInterceptor> getDefaultCommandIn
 
 注：该方法是一个抽象方法，其实现应该会在子类中
 
-StandaloneProcessEngineConfiguration中该方法的实现
+StandaloneProcessEngineConfiguration（ProcessEngineConfigurationImpl类的子类）中该方法的实现
 
 ```
 protected Collection< ? extends CommandInterceptor> getDefaultCommandInterceptorsTxRequired() {
@@ -99,30 +99,4 @@ public Deployment deploy(DeploymentBuilderImpl deploymentBuilder) {
 
 7）DeployCmd对象的execute方法
 
-```
-public Deployment execute(CommandContext commandContext) {
-    DeploymentEntity deployment = deploymentBuilder.getDeployment();
-
-    deployment.setDeploymentTime(ClockUtil.getCurrentTime());
-
-    if ( deploymentBuilder.isDuplicateFilterEnabled() ) {
-      DeploymentEntity existingDeployment = Context.getCommandContext()
-        .getDeploymentManager()
-        .findLatestDeploymentByName(deployment.getName());
-      
-      if ( (existingDeployment!=null)
-           && !deploymentsDiffer(deployment, existingDeployment)) {
-        return existingDeployment;
-      }
-    }
-
-    deployment.setNew(true);
-    
-    Context
-      .getCommandContext()
-      .getDeploymentManager()
-      .insertDeployment(deployment);
-    
-    return deployment;
-}
-```
+从DeployBuilder中获取部署的xml资源，并封装成DeploymentEntity对象。通过Context上下文环境获取保存部署到数据库的对象getDeploymentManager，并最终保存到数据库中，实现流程的部署。
