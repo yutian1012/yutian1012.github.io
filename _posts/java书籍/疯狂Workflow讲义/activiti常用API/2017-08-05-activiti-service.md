@@ -9,6 +9,8 @@ activiti对数据的管理都会提供相应的服务组件。
 
 1）IdentityService，对用户和用户组的管理
 
+2）RepositoryService，流程存储服务组件。主要用于对Activiti中的流程存储的相关数据进行操作。包括流程存储数据的管理、流程部署以及流程的基本操作等。
+
 ### 实体类
 
 activiti中每个实体的实现类均有字节的接口，并且每个实体的实现类名称均为XXXEntity。如Group接口与GroupEntity实现类。
