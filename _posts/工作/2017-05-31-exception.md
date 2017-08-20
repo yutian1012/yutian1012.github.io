@@ -20,7 +20,6 @@ public class CpcAppNoException extends Throwable {
         super(message);
         this.errorCode=errorCode;
     }
-    
 
     public int getErrorCode() {
         return errorCode;
