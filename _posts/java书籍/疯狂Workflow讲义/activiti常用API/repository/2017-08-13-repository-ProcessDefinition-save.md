@@ -60,6 +60,7 @@ public Deployment deploy(DeploymentBuilderImpl deploymentBuilder) {
 ```
 public Deployment execute(CommandContext commandContext) {
     ...
+    //保存Deployment对象到act_re_deployment表中
     Context.getCommandContext().getDeploymentManager()
         .insertDeployment(deployment);
     ...
@@ -71,6 +72,7 @@ DeploymentManager类的insertDeployment方法
 public void insertDeployment(DeploymentEntity deployment) {
     getDbSqlSession().insert(deployment);
     
+    //将流程部署的资源（流程定义xml）保存到act_ge_bytearray表中
     for (ResourceEntity resource : deployment.getResources().values()) {
       resource.setDeploymentId(deployment.getId());
       getResourceManager().insertResource(resource);
@@ -187,6 +189,22 @@ public void deploy(DeploymentEntity deployment) {
             
             //流程文件对应的流程图
             String diagramResourceName = getDiagramResourceForProcess(resourceName, processDefinition.getKey(), resources);
+
+            //判断是否是新部署
+            if(deployment.isNew()) {
+                if (Context.getProcessEngineConfiguration().isCreateDiagramOnDeploy() && diagramResourceName==null && processDefinition.isGraphicalNotationDefined()) {
+                  try {
+                      //图片资源字节数组
+                      byte[] diagramBytes = IoUtil.readInputStream(ProcessDiagramGenerator.generatePngDiagram(processDefinition), null);
+                      diagramResourceName = getProcessImageResourceName(resourceName, processDefinition.getKey(), "png");
+                      //保存流程图资源到数据库act_ge_bytearray表中
+                      createResource(diagramResourceName, diagramBytes, deployment);
+                  } catch (Throwable t) { // if anything goes wrong, we don't store the image (the process will still be executable).
+                    LOG.log(Level.WARNING, "Error while generating process diagram, image will not be stored in repository", t);
+                  }
+                } 
+              }
+
             ...
             processDefinition.setDiagramResourceName(diagramResourceName);
             //流程定义信息设置的到集合中
@@ -202,8 +220,23 @@ public void deploy(DeploymentEntity deployment) {
          processDefinition.setVersion(processDefinitionVersion);
          processDefinition.setDeploymentId(deployment.getId());
          ...
+         //保存信息到数据库act_re_procdef表中
          dbSqlSession.insert(processDefinition);
          deploymentCache.addProcessDefinition(processDefinition);
          addAuthorizations(processDefinition);
       }
+  }
+}
 ```
+
+### 数据保存
+
+部署流程后会生成多条数据
+
+1）Deploment对象保存到act_re_deployment表中
+
+2）部署的流程定义文件xml保存到act_ge_bytearray表中。
+
+3）解析流程定义文件时会生成流程图资源信息保存到act_ge_bytearray表中。
+
+4）解析流程定义文件xml生成ProcessDefinition对象，保存到表act_re_procdef表中
