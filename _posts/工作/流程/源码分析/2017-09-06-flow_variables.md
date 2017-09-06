@@ -32,4 +32,68 @@ execution（ExecutionEntity）调用getVariable方法，获取流程全局变量
 
 注：一旦任务与流程实例进行了关联，task.setVariable方法就不会将taskId存放到act_ru_variable表的task_id_字段中了。
 
+3）代码
 
+```
+// 获取流程引擎实例
+ProcessEngine engine = ProcessEngines.getDefaultProcessEngine();
+// 获取任务服务组件
+TaskService taskService = engine.getTaskService();
+// 获取运行服务组件
+RuntimeService runtimeService = engine.getRuntimeService();
+// 流程存储服务组件
+RepositoryService repositoryService = engine.getRepositoryService();
+// 部署流程描述文件
+Deployment dep = repositoryService.createDeployment()
+        .addClasspathResource("bpmn/vacation.bpmn").deploy();
+// 查找流程定义
+ProcessDefinition pd = repositoryService.createProcessDefinitionQuery()
+        .deploymentId(dep.getId()).singleResult();
+// 启动流程
+ProcessInstance pi = runtimeService.startProcessInstanceById(pd.getId());
+
+// 分别调用setVariable和setVariableLocal方法
+Task task = taskService.createTaskQuery().processInstanceId(pi.getId())
+     .singleResult();
+
+ExecutionEntity execution=(ExecutionEntity) runtimeService.createExecutionQuery().executionId(task.getExecutionId()).singleResult();
+
+runtimeService.setVariable(execution.getId(), "testruntimeService", 1);
+runtimeService.setVariableLocal(execution.getId(), "testLocalruntimeService", 1);
+
+/*
+ * runtimeService内部调用了executionEntity的变量设置方法--查看SetExecutionVariablesCmd
+ * execution.setVariable("testExecutionEntity", 2);
+execution.setVariableLocal("testLocalExecutionEntity", 2);*/
+
+taskService.setVariable(task.getId(), "testTaskService", 4);
+taskService.setVariableLocal(task.getId(), "testLocalTaskService", 4);
+
+/*
+ * taskService内部调用了TaskEntity的变量设置方法--查看SetTaskVariablesCmd
+ * ((TaskEntity)task).setVariable("testTask", 3);
+((TaskEntity)task).setVariable("testLocalTask", 3);*/
+
+taskService.complete(task.getId());//设置断点
+        
+//查询第二个任务
+task = taskService.createTaskQuery().processInstanceId(pi.getId()).singleResult();
+
+execution=(ExecutionEntity) runtimeService.createExecutionQuery().executionId(task.getExecutionId()).singleResult();
+
+runtimeService.setVariable(execution.getId(), "testruntimeService2", 5);
+runtimeService.setVariableLocal(execution.getId(), "testLocalruntimeService2", 5);
+
+taskService.setVariable(task.getId(), "testTaskService2", 6);
+taskService.setVariableLocal(task.getId(), "testLocalTaskService2", 6);
+```
+
+注：在taskService.complete方法处设置断点
+
+![](/images/work/bpmx/source/setvariable.png)
+
+执行完成taskService.complete后，setVariableLocal方法设置的变量就被删除了。执行完成第二个任务后又多了4条数据，且execution_id_都相同（不同任务的执行流ID是相同的）。
+
+![](/images/work/bpmx/source/setvariable2.png)
+
+注：当流程按照规则只执行一次的时候，那么流程实例就是执行对象。一个流程中，执行对象可以存在多个，但是流程实例只能有一个。

@@ -19,3 +19,39 @@ DeploymentBuilder builder=repositoryService.createDeployment();
 ProcessDefinition def=repositoryService.createProcessDefinitionQuery()
     .deploymentId(dep.getId()).singleResult();
 ```
+
+中止和激活流程定义
+
+```
+// 调用suspendProcessDefinitionById中止流程定义 
+repositoryService.suspendProcessDefinitionById(def.getId());
+// 调用activateProcessDefinitionById激活流程定义 
+repositoryService.activateProcessDefinitionById(def.getId());
+```
+
+3）设置用户和用户组的流程定义权限
+
+只有用户或用户组拥有流程定义权限才能启动流程
+
+```
+//设置用户的流程定义权限
+repositoryService.addCandidateStarterUser(def.getId(), user.getId());
+//设置用户组的流程定义权限
+repositoryService.addCandidateStarterGroup(def.getId(), group.getId());
+```
+
+注：会向ACT_RU_IDENTITYLINK表中存入权限信息。
+
+查询获取权限
+
+```
+// 根据用户查询用权限的流程定义
+List<ProcessDefinition> defs = repositoryService.createProcessDefinitionQuery()
+    .startableByUser("user1").list();
+// 根据流程定义查询全部的 IdentityLink（ACT_RU_IDENTITYLINK表） 数据
+List<IdentityLink> links=repositoryService
+    .getIdentityLinksForProcessDefinition(def.getId());
+```
+
+4）创建查询对象
+
