@@ -26,3 +26,13 @@ tags: [tomcat]
 ```
 
 注：redirectPort的端口可以不修改。其他3个端口需要修改。
+
+4）重名名打开的tomcat窗口
+
+参考：http://blog.csdn.net/lv_shijun/article/details/52541000
+
+编辑catalina.bat文件，查询title位置，并修改其值。
+
+```
+if "%TITLE%" == "" set TITLE=Tomcat
+```
