@@ -61,3 +61,5 @@ private String getActionByCmdVoteAgree(Short sot) {
 
 }
 ```
+
+注：该方法接收的值为processCmd.getVoteAgree()
