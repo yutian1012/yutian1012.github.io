@@ -5,7 +5,7 @@ tags: [js]
 
 参考：http://www.cnblogs.com/hongxuejiao/p/4783150.html
 
-js是一种专门设计用来给网页增加交互性的编程语言。
+js是一种专门设计用来给网页增加交互性的编程语言。原始数据类型包括5种：Undefined,Null,Boolean,Number,String。
 
 js的数据类型分为原始数据类型和引用数据类型（对象）。对象又分为原生对象，内置对象，宿主对象。
 

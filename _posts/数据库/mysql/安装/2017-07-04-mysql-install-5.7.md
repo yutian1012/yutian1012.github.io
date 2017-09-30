@@ -53,7 +53,7 @@ Enter password: (enter the random root password here)
 
 ```
 mysql -u root --skip-password
-ALTER USER 'root'@'localhost' IDENTIFIED BY 'new_password';
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'root';
 ```
 
 ### 字符集设置

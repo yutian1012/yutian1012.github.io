@@ -46,7 +46,11 @@ screen.width;
 window.document.body
 ```
 
-4）补充：HTML DOM（w3c标准）
+4）其他宿主对象
+
+一些宿主会把自己提供的对象/构造器也称为"原生对象"，Internet Explorer7就把它提供的XMLHttpRequest称为原生的，与此相对的是在它的更早先版本中通过"new ActiveXObject('Microsoft.XMLHTTP')"这样的方法创建的对象。
+
+5）补充：HTML DOM（w3c标准）
 
 HTML DOM定义了用于HTML的一系列标准的对象，以及访问和处理HTML文档的标准方法。通过DOM，可以访问所有的 HTML 元素，连同它们所包含的文本和属性。可以对其中的内容进行修改和删除，同时也可以创建新的元素。
 

@@ -5,7 +5,9 @@ tags: [js]
 
 原生对象类型是js中引用数据类型的一种。
 
-1）原生对象
+1）原生对象（内置对象）
+
+常用对象：global、Object、Function、Array、String、Boolean、Number、Math、Date、RegExp、JSON、Error对象（Error,   EvalError, RangeError, ReferenceError,   SyntaxError, TypeError 和URIError）
 
 定义：独立于宿主环境的ECMAScript实现提供的对象。
 
