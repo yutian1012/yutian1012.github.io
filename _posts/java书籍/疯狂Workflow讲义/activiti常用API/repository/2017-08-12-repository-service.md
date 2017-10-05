@@ -9,7 +9,11 @@ RepositoryService，流程存储服务组件。主要用于对Activiti中的流�
 
 ```
 DeploymentBuilder builder=repositoryService.createDeployment();
+
+Deployment dep=builder.addClasspathResource("artifact/GetResource.txt").deploy();
 ```
+
+注：调用deploy方法部署，返回Deployment对象。
 
 2）processDefinition对象
 
@@ -55,3 +59,19 @@ List<IdentityLink> links=repositoryService
 
 4）创建查询对象
 
+查询部署资源：
+
+```
+InputStream is = repositoryService.getResourceAsStream(dep.getId(), 
+    "artifact/GetResource.txt");
+```
+
+注：获取资源时需要传递部署资源的名称。
+
+查询流程文件：
+
+```
+InputStream is = repositoryService.getProcessModel(def.getId());
+```
+
+注：获取流程描述文件的xml内容。

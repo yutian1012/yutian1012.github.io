@@ -3,6 +3,8 @@ title: Activiti数据查询
 tags: [activiti]
 ---
 
+Activiti为对象提供了相关的Query查询对象，一般通过相关的Service获取Query对象，然后设置条件，最后调用list、singleResult等方法返回查询结果，也可以使用orderByXXX方法对象查询结果进行排序。
+
 1）Query接口和AbstractQuery抽象类
 
 Query是全部查询对象的父接口，该接口定义了若干个基础方法，各个查询对象均可以使用这些公共方法，包括设置排序方式、数据量统计（count），列表、分页和唯一记录查询。
