@@ -7,7 +7,7 @@ tags: [activiti]
 
 在Activiti中，启动一个流程后，会创建一个流程实例（ProcessInstance），每个流程实例至少会有一个执行流（Execution）。
 
-当流程实例没有流程分支时，一般情况下只会存在一个执行流，假设流程出现了并行网关，那么activti会产生多个执行流。
+当流程实例没有流程分支时，一般情况下只会存在一个执行流（这个执行流就是流程实例），假设流程出现了并行网关，那么activti会产生多个执行流。
 
 ![](/images/book/workflow/activiti/execution/multiexecution.png)
 
@@ -42,3 +42,12 @@ protected boolean isEventScope = false;//是否在事件范围内
 protected int suspensionState = SuspensionState.ACTIVE.getStateCode();
 protected int cachedEntityState;//流程相关实体的缓存状态。
 ```
+
+4）ProcessInstance流程实例的产生
+
+```
+ProcessInstance pi = runtimeService.startProcessInstanceById(pd.getId());
+pi=runtimeService.startProcessInstanceByKey("vacationRequest");
+```
+
+注：根据流程定义的Id和key等方式可以启动流程，并产生流程实例对象。

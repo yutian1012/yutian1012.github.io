@@ -3,6 +3,8 @@ title: activiti流程定义的保存
 tags: [activiti]
 ---
 
+ProcessDefinition对象的产生是从Deployment部署的资源信息中解析出来，并保持到数据库中的。
+
 ### 流程定义文件的部署
 
 流程定义的部署，使用流程定义工具绘制出流程定义文件（xml）后，是通过DeploymentBuilder进行部署的。

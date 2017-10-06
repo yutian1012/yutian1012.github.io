@@ -104,3 +104,20 @@ runtimeService.startProcessInstanceByMessage("startMsg", "testKey2", vars);
 注：这里并没有通过事件机制来发布，而是简单的调用方法启动流程。查看事件相关章节了解具体的执行过程。
 
 注2：消息名称对应的是message节点的name属性，而不是id属性。而消息事件定义（messageEventDefinition）的messageRef属性引用的是message节点的id属性。
+
+### ExecutionEntity的创建
+
+ProcessDefinitionEntity类的createProcessInstance方法，进而会调用newProcessInstance方法。
+
+```
+@Override
+protected InterpretableExecution newProcessInstance(ActivityImpl activityImpl) {
+    ExecutionEntity processInstance = new ExecutionEntity(activityImpl);
+    processInstance.insert();//保存内容到数据库中
+    return processInstance;
+}
+```
+
+ProcessDefinitionEntity的继承体系，该类继承了ProcessDefinitionImpl类，大部分的操作都在ProcessDefinitionImpl中实现了，ProcessDefinitionEntity覆盖了newProcessInstance的实现，因此，实际执行时执行的是ProcessDefinitionEntity中的newProcessInstance方法。
+
+![](/images/book/workflow/activiti/execution/ProcessDefinitionEntity.png)
