@@ -104,11 +104,3 @@ maven的web项目的目录结构（dos命令查看：tree /F），如果目录�
 删除web.xml文件，项目右击--MyEclipse--Generate Deployement Descriptor Stub,会自动生成web.xml文件。
 
 ![](/images/tools/maven/maven-generatewebxml.png)
-
-### Archive for required library
-
-错误信息：
-
-```
-Archive for required library: 'G:/repository/joda-time/joda-time/1.6.2/joda-time-1.6.2.jar' in project 'zsy Maven Webapp' cannot be read or is not a valid ZIP file
-```

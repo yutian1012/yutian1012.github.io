@@ -20,3 +20,9 @@ Activiti源码托管在Github上，需要通过Git进行代码的下载。
 ```
 mvn compile
 ```
+
+3）Eclipse提示@Override需要删除的问题
+
+windows->preferences->java->Complier->Compiler compliance settings选择1.6即可。
+
+注：下载源码时最好下载最新源码，否则maven构建项目时经常出现jar包无法获取，即一些依赖的jar包在不同仓库的位置发生了改变，导致不能正确的编译出来。如果使用新版本，这个问题就不会发生。
