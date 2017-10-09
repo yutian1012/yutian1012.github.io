@@ -42,4 +42,11 @@ activiti-engine\src\main\resources\org\activiti\db\目录下存在创建数据�
 
 6）日志记录
 
-slf4j是一个日志的桥接模块。
+slf4j是一个日志的桥接模块。添加log4j作为日志记录模块
+
+```
+<dependency>
+  <groupId>org.slf4j</groupId>
+  <artifactId>slf4j-log4j12</artifactId>
+</dependency>
+```
