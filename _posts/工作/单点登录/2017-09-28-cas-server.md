@@ -89,7 +89,17 @@ insert into sys_user values('sso','aaaaaa');
 
 ### 不使用HTTPS认证
 
-CAS SSO严格意义上来说需要J2EE APP SERVER里实现HTTPS即SSL的双向认证模式才能正常使用，为此，我们要关闭CAS的HTTPS认证模式。
+1）使用http协议存在的问题，不能实现多系统的单点登录
+
+一般情况下用户使用http进行认证操作，系统A登录转到CAS服务器，CAS服务器登录后会将ticket等信息保存到cookie中（这时会限制cookie的读取，必须https方式访问CAS才能使用该cookie），然后重定向到系统A的指定回调url，并在url后追加相关参数ticket。系统A收到CAS服务器发送的请求信息，并获取CAS添加在url后的参数ticket，系统A处理登录时，再次向CAS请求认证并传递该ticket，cas获取该ticket发现用户已经认证，返回系统A相应的登录用户名，系统A能够实现登录。
+
+这时在同一个浏览器中访问系统B，由于系统B也会访问CAS，即登录页会重定向到CAS服务器，由于重定向使用的是http协议，不能将cas保存的cookie信息（ticket）附加到请求url中，因此CAS不能识别出登录信息，造成系统B不能实现单点登录。
+
+注：可以在浏览器中使用F12（调试控制台），查看系统A，系统B登录时，重定向到CAS服务器时，url访问传递的参数信息（有无携带相应的CAS保存的cookie信息）。
+
+2）解决方法
+
+CAS SSO严格意义上来说需要J2EE APP SERVER里实现HTTPS即SSL的双向认证模式才能正常使用，为此，我们要关闭CAS的HTTPS认证模式。即使其支持http协议认证。
 
 修改：tomcat\webapps\cas-server\WEB-INF\spring-configuration目录下的ticketGrantingTicketCookieGenerator.xml文件
 
