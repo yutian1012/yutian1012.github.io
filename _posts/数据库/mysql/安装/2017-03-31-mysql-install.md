@@ -93,3 +93,9 @@ GRANT ALL PRIVILEGES ON *.* TO 'root'@'%'
 ```
 
 注：允许所有的主机连接mysql
+
+9）查看安装版本
+
+```
+select version();
+```

@@ -9,9 +9,9 @@ tags: [database]
 
 关键点：bin-log的日志恢复需要与数据库备份一起使用，否则bin-log的备份恢复操作是很困难的。
 
-1. bin-log日志服务
+### bin-log日志服务
 
-二进制日志，记录对数据发生或潜在发生更改的SQL语句，并以二进制的形式保存在磁盘中。作用，可以用来查看数据库的变更历史（具体的时间点所有的SQL操作）、数据库增量备份和恢复（增量备份和基于时间点的恢复）、MySQL的复制（主主数据库的复制、主从数据库的复制）。
+二进制日志，记录对数据发生或潜在发生更改的SQL语句，并以二进制的形式保存在磁盘中。作用，可以用来查看数据库的变更历史（具体的时间点所有的SQL操作）、数据库增量备份和恢复（增量备份和基于时间点的恢复）、MySQL的复制（主数据库的复制、主从数据库的复制）。
 
 1）查看日志服务是否启动：
 
@@ -35,7 +35,49 @@ log_bin=D:\Program Files\mysql-5.6.23-winx64\log\mysql-bin
 
 重新启动mysql，再次运行查看。
 
-2. bin-log日志的使用
+3）设置binlog日志的保存时间和文件大小
+
+查看当前日志保存天数：
+
+```
+show variables like '%expire_logs_days%';
+```
+
+注：默认是0，也就是logs不过期。
+
+设置binlog保存时间
+
+```
+set global expire_logs_days=7;
+#在my.ini文件中增加配置
+expire_logs_days = 7
+```
+
+查看binlog文件大小
+
+```
+show variable like 'max_binlog_size';
+```
+
+注：默认是1073741824，即1024^3（1GB），单位字节
+
+设置binlog文件大小
+
+```
+set global max_binlog_size = 100M;
+#在my.ini文件中增加配置
+max_binlog_size = 100M
+```
+
+4）总体配置
+
+```
+log_bin=D:\Program Files\mysql-5.6.23-winx64\log\mysql-bin
+expire_logs_days = 7
+max_binlog_size = 100M
+```
+
+### bin-log日志的使用
 
 1）常用命令
 
@@ -49,7 +91,7 @@ reset master; 清空所有的bin-log日志
 
 ![](/images/database/mysql/bin-log.png)
 
-3. 操作数据库，查看bin-log的变化
+### 操作数据库，查看bin-log的变化
 
 1）在test数据库中创建一个数据表
 
