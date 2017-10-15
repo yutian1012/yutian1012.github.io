@@ -20,6 +20,11 @@ LevelRangeFilter类，是log4j的jar包中提供的过滤器。这里会过滤�
         <param name="LevelMax" value="ERROR" />
     </filter>
 </appender>
+
+<root>
+    <level value="debug"></level>       
+    <appender-ref ref="myConsole"/>       
+</root> 
 ```
 
 注：filter功能只支持xml方式配置，不支持属性文件的方式配置。
