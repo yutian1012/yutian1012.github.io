@@ -13,6 +13,12 @@ tags: [tomcat]
 
 设置不同的tomcat下启动的CATALINA_HOME的安装目录不同，如tomcatA下的CATALINA_HOME的值为tomcatA的安装目录，tomcatB下的CATALINA_HOME的值为tomcatB的安装目录。
 
+在startup.bat文件中设置
+
+```
+set CATALINA_HOME=E:/apache-tomcat-7.0.82
+```
+
 注：确定出启动的服务路径
 
 3）修改tomcat的server.xml端口（避免端口冲突）

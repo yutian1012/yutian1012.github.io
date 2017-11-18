@@ -23,7 +23,7 @@ try {
    } catch (Exception e) {         
     logger.info("异常信息："+e);          
     throw new RuntimeException();         
- }
+}
 ```
 
 注意：在使用第三方框架时，有时可能出现对异常进行包装的情况，这个时候要小心RuntimeException被包装成其他类型的异常，导致事务无法回滚。
