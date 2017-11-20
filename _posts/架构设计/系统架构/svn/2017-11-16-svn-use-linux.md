@@ -196,5 +196,29 @@ locale
 查看远程svn仓库的数据信息
 
 ```
-svn ls svn://10.2.3.6/sadoc /svndata/ --username=user123 --password=usersecret
+svn ls svn://10.2.3.6/sadoc --username=user123 --password=usersecret
 ```
+
+提交文件，需要先add，然后在commit
+
+```
+touch a.txt //创建文件
+
+svn add a.txt 
+
+svn ci -m 'add file'
+```
+
+注：add表示把文件或目录放到版本控制下，当commit后，会添加到版本库中。
+
+创建分支，使用copy命令
+
+```
+mkdir -p /svn/trunk /svn/branch /svn/tag
+
+svn import /svn file:///application/svn/sadoc -m 'import directory'
+
+svn copy svn://10.2.3.5/sadoc/trunk svn://10.2.3.5/sadoc/branch/branch_cms_110329 -m 'create a branch'
+```
+
+注：import提交一个没有被版本库管理的文件或文件夹，可以不是add+commit，直接上传到svn库中。import第一个参数指定导入的目录或文件（如目录/svn）。
