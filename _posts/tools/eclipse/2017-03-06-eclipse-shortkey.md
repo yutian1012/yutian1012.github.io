@@ -3,6 +3,8 @@ title: eclipse常用操作
 tags: [eclipse,tools]
 ---
 
+参考：https://www.cnblogs.com/iamfy/archive/2012/07/11/2586869.html
+
 ### 1. eclipse常用快捷键
 
 1）代码块移动
@@ -37,3 +39,9 @@ alt + 左右方向键
 ```
 
 注：实现方法间的来回跳转，可以跨类文件跳转。
+
+4）查找类中方法的快捷键
+
+```
+ctrl + o //快速outline
+```
