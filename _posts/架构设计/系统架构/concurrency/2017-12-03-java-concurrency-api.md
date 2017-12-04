@@ -184,3 +184,225 @@ ReentrantLock lock=new ReentrantLock(true);
 
 ### Condition类
 
+1）Condition相当于在某个锁上进行wait和notify。
+
+在Object的wait和notify方法调用时都要先获取锁（synchronized关键字），同样在使用Condition时也需要获取锁（ReentrantLock）。
+
+注：Condition与ReentrantLock相结合使用，wait和notify与synchronized关键字结合使用。
+
+2）常用API：await等待，sinal唤醒等方法
+
+3）实例
+
+```
+public class ReentrantLockCondition implements Runnable{
+    public static ReentrantLock lock=new ReentrantLock();
+    //在锁的基础上创建condition
+    public static Condition condition=lock.newCondition();
+    @Override
+    public void run(){
+        try{
+            lock.lock();
+            //等待，会释放锁
+            condition.await();
+            System.out.println("Thread is going on");    
+        }catch(InterruptedException e){
+            e.printStackTrace();
+        }finally{
+            lock.unlock();
+        }
+    }
+
+    public static void main(String[] args)throws InterruptedException{
+        ReentrantLockCondition rc=new ReentrantLockCondition();
+        Thread t1=new Thread(rc);
+        t1.start();
+        Thread.sleep(2000);
+        lock.lock();
+        //唤醒等待线程
+        condition.singal();
+        lock.unlock();
+    }
+}
+```
+
+注：condition的await和signal方法的前后由lock和unlock包围。
+
+注2：condition.await方法会释放锁，
+
+### Semaphore类（信号量）
+
+1）概念：类似操作系统中的信号量。可以设置允许多少个线程进入临界区，超过信号量值的线程就必须等待。可以理解为是共享锁。
+
+2）主要API：acquire方法获取信号量，release释放信号量。
+
+3）实例：
+
+```
+public class SemapDemo implements Runnable{
+    final Semaphore semp=new Semaphore(5);
+    @Override
+    public void run(){
+        try{
+            semp.acquire();//semp.acquire(2);//可获取多个信号量
+            Thread.sleep(2000);
+            System.out.println(Thread.currentThread().getId()+":done!");
+            
+        }catch(InterruptedException e){
+            e.printStackTrace();
+        }finally{
+            semp.release();//semp.release(2);//释放时也要多个释放
+        }
+    }
+
+    public static void main(String[] args){
+        //使用线程池启动多个线程
+        ExecutorService exec=Executors.newFiexedThreadPool(20);
+        final SemapDemo demo=new SemapDemo();
+        for(int i=0;i<20;i++){
+            exec.submit(demo);
+        }
+    } 
+}
+```
+
+### ReadWriteLock类
+
+1）概念：ReentrantLock锁不会对锁进行区分，都必须先获取锁才能继续执行。而读写锁可以使并行度更高。读锁可以同时多个线程并行运行，而写锁与读锁/写锁互斥。
+
+注：读/读不互斥（读读之间不阻塞），读/写互斥（读阻塞写，写也阻塞读），写/写互斥
+
+2）常用API
+
+```
+ReadWriteLock lock = new ReentrantReadWriteLock()
+//获取读锁，并加锁，防止写进入
+lock.readLock().lock();  
+//获取读锁，释放读锁,一般在finally中执行
+lock.readLock().unlock();
+//获取写锁，并加锁，防止读/写进入
+lock.writeLock().lock(); 
+//获取写锁，释放写锁，一般在finally中执行
+lock.writeLock().unlock();
+```
+
+3）实例：
+
+```
+public class ReentrantReadWriteLockTest {
+
+    static class MyObject {  
+        private String value;
+        private ReadWriteLock lock = new ReentrantReadWriteLock();  
+        
+        //读数据
+        public void get() {
+            //获取读锁
+            lock.readLock().lock();  
+            System.out.println(Thread.currentThread().getName() + "准备读数据!!");  
+            try {  
+                Thread.sleep(new Random().nextInt(1000));  
+                System.out.println(Thread.currentThread().getName() + "读数据为:" + this.value);  
+            } catch (InterruptedException e) {  
+                e.printStackTrace();  
+            } finally {
+                //释放读锁
+                lock.readLock().unlock();  
+            }  
+        }  
+        //写数据
+        public void put(String value) {  
+            //获取写锁
+            lock.writeLock().lock();  
+            System.out.println(Thread.currentThread().getName() + "准备写数据");  
+            try {  
+                Thread.sleep(new Random().nextInt(1000));  
+                this.value = value;
+                System.out.println(Thread.currentThread().getName() + "写数据为" + this.value);  
+            } catch (InterruptedException e) {  
+                e.printStackTrace();  
+            } finally {  
+                //释放写锁
+                lock.writeLock().unlock();  
+            }  
+        }  
+    }  
+      
+    public static void main(String[] args) throws InterruptedException {  
+        //在多线程将共享的实例变量
+        final MyObject myObject = new MyObject();  
+        //定义线程池
+        ExecutorService executor = Executors.newCachedThreadPool();  
+        
+        //开启3个写线程
+        for (int i = 0; i < 3; i++) {  
+            executor.execute(new Runnable() {  
+                @Override  
+                public void run() {  
+                    for (int j = 0; j < 5; j++)
+                        myObject.put(new Random().nextInt(1000)+"");  
+                }  
+            });  
+        }  
+        //开启3个读线程
+        for (int i = 0; i < 3; i++) {  
+            executor.execute(new Runnable() {  
+                @Override  
+                public void run() {
+                    for (int j = 0; j < 5; j++)  
+                        myObject.get();  
+                }
+            });  
+        }  
+          
+        executor.shutdown();  
+    }  
+  
+} 
+```
+
+### CountDownLatch类
+
+1）概念：类似于倒数的计时器，如最终的操作需要分10步，这10步中的每一步都可以启动一个线程进行操作，等到这10步操作都做完了，才可以开始最终的操作了。开始时CountDownLatch初值为10，每一步的线程操作完成后，CountDownLatch都会减一，直到CountDownLatch为0时才能继续执行最终操作。
+
+2）常用API：
+
+```
+CountDownLatch end=new CountDownLatch(10);
+end.countDown();//减一
+end.await();//线程等待CountDownLatch减0
+```
+
+3）实例：
+
+```
+public class CountDownLatchDemo implements Runnable{
+    static final CountDownLatch end=new CountDownLatch(10);
+    static final CountDownLatchDemo demo=new CountDownLatchDemo();
+    @Override
+    public void run(){
+        try{
+            Thread.sleep(new Random().nextInt(10)*1000);
+            System.out.println("check complete");
+            end.countDown();//完成一个线程countDown减一
+        }catch(InterruptedException e){
+            e.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args){
+        ExecutorService exec=Executors.newFixedThreadPool(10);
+        for(int i=0;i<10;i++){
+            exec.submit(demo);
+        }
+        //等待检查
+        end.await();
+        System.out.println("主线程开始执行");
+        exec.shutdown();
+    }
+}
+```
+
+4）使用场景
+
+有时主线程将任务分为多个子任务，每个子任务交由独立的线程来执行，只有所以的子任务都执行完成后，主线程才能继续执行，对任务进行后续的完善工作。
