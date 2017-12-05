@@ -406,3 +406,91 @@ public class CountDownLatchDemo implements Runnable{
 4）使用场景
 
 有时主线程将任务分为多个子任务，每个子任务交由独立的线程来执行，只有所以的子任务都执行完成后，主线程才能继续执行，对任务进行后续的完善工作。
+
+### CyclicBarrier类
+
+1）概念：cyclic意味着循环，类似于循环的CountDownLatch。循环栅栏线程控制，可以设置到达条件后执行后续任务，然后再次循环使用cyclicBarrier实例。
+
+2）常用API：new CyclicBarrier(int,Runnable)，第二个参数是当指定的线程都到达后执行Runnable任务，而这些线程还可以继续使用cyclicBarrier进行再一次的循环。
+
+3）实例：
+
+```
+public class CyclicBarrierDemo{
+    //单独运行的线程，引用CyclicBarrier栅栏控制线程的协作
+    public static class Soldier implements Runnable{
+        private String soldier;
+        private final CyclicBarrier cyclic;
+
+        Soldier(CyclicBarrier cyclic,String soldierName){
+            this.cyclic=cyclic;
+            this.soldier=soldierName;
+        }
+
+        public void run(){
+            try{
+                //等待所有士兵（线程）到齐，到齐后会执行cyclic中的后续任务，
+                cyclic.await();
+                //cyclic中定义的后续任务完成后，继续执行各个线程的任务
+                System.out.println(soldier+":开始做任务");
+                doWork();
+                //再次等待所有士兵（线程）完成工作
+                cyclic.await();
+            }catch(InterruptedException e){
+                e.printStackTrace();
+            }catch(BrokenBarrierException e){
+                e.printStackTrace();
+            }
+        }
+        //模拟耗时任务的执行
+        void doWork(){
+            try{
+                Thread.sleep(Math.abs(new Random().nextInt()%10000));
+            }catch(InterruptedException e){
+                e.printStackTrace();
+            }
+            System.out.println(soldier+":任务完成");
+        }
+    }
+
+    //定义栅栏控制线程（CyclicBarrier实例）的后续任务
+    //可以用该任务来定义多个线程的协作状态（第一步完成，第二步完成...）
+    public static class BarrierRun implements Runnable{
+        boolean flag;
+        int N;
+        public BarrierRun(boolean flag,int N){
+            this.flag=flag;
+            this.N=N;
+        }
+        public void run(){
+            if(flag){
+                System.out.println("司令:[士兵"+N+"个，任务完成!]");
+            }else{
+                System.out.println("司令:[士兵"+N+"个，集合完毕!]");
+                flag=true;
+            }
+        }
+    }
+
+    public static void main(String args[]){
+        final int N=10;//相当于10个士兵
+        Thread[] allSoldier=new Thread[N];
+        boolean flag=false;
+        //10个士兵到齐后执行BarrierRun任务
+        CyclicBarrier cyclic=new CyclicBarrier(N,new BarrierRun(flag,N));
+        //设置屏障点，主要是为了执行这个方法
+        System.out.println("集合队伍！");
+        for(int i=0;i<N;i++){
+            System.out.println("士兵"+i+" 报道!");
+            allSoldier[i]=new Thread(new Soldier(cyclic,"士兵"+i));
+            allSoldier[i].start();
+            /*if(i==5){
+                //中断线程，该线程会抛出InterruptedException异常
+                //由于并存的10个线程中存在一个无法完成的线程，
+                //因此其他线程会抛出BrokenBarrierException异常
+                allSoldier[0].interrupt();
+            }*/
+        }
+    }
+}
+```
