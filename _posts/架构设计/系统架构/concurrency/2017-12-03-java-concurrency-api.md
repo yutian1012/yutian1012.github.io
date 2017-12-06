@@ -494,3 +494,49 @@ public class CyclicBarrierDemo{
     }
 }
 ```
+
+### LockSupport类
+
+1）概念：能够把线程挂起，暂停执行（park），同时也可以恢复（unpark）。与suspend方法类似，但suspend是不建议使用的，而LockSupport的park方法是可以随意使用的。
+
+注：如果unpark发生在park之前，park方法是挂不住的，是不会将线程挂起的。这就解决了resume发生在suspend之前的问题。
+
+注2：不容易引起线程冻结
+
+2）实例
+
+```
+public class LockSupportDemo{
+    public static Object u=new Object();
+    static ChangeObjectThread t1=new ChangeObjectThread("t1");
+    static ChangeObjectThread t2=new ChangeObjectThread("t2");
+
+    public static class ChangeObjectThread extends Thread{
+        public ChangeObjectThread(String name){
+            super.setName(name);
+        }
+        @Override
+        public void run(){
+            synchronized(u){
+                System.out.println("in "+getName());
+                LockSupport.park();
+                //LockSupport.park(this);
+            }
+        }
+    }
+
+    public static void main(String[] args){
+        t1.start();
+        Thread.sleep(100);
+        t2.start();
+        LockSupport.unpark(t1);
+        LockSupport.unpart(t2);
+        t1.join();
+        t2.join();
+    }
+}
+```
+
+注：park可以理解为使线程许可不可用，而unpark理解为使线程许可可以。不管谁先谁后，只有使线程可用了，就一直可用。
+
+注2：park线程能够响应中断，但不抛出异常。中断响应的结果是，park函数的返回，可以从Thread.interrupted()得到这个哦你的标志。
