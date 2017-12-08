@@ -59,3 +59,30 @@ tags: [maven,tools]
 注：这里的mirrorOf值为central，即作为central的代理镜像。
 
 注2：通过这个例子，可以做到手动的更改检索仓库位置的作用。同样，也可通过在settings中再次定义central仓库，覆盖默认的仓库设置来更改检索仓库位置。
+
+### 仓库和镜像的关系
+
+参考：https://www.cnblogs.com/xdouby/p/6502925.html
+
+1）仓库的配置
+
+在pom.xml里的repositories元素，里面可以包含多少repository（至少默认包含了中央仓库，仓库id为central，如果写id为central的mirror或者repository覆盖默认的中央仓库，该仓库总是在effective-pom里repositories元素的最后一个子元素），每个repository都有一个id(此id非常重要)
+
+```
+mvn help:effective-pom //验证central仓库出现的位置
+```
+
+注：从超级父pom里继承来的中央repository在effective-pom里总是为最后一个repository
+
+2）仓库与镜像的查找关系
+
+Maven获取真正起作用的repository集合流程：
+
+首先会获取pom.xml里的repository集合，然后在settings.xml里找mirrors元素，如果repository的id和mirror的mirrorOf的值相同，则该mirror替代该repository，如果该repository找不到对应的mirror，则使用其本身，依此可以得到最终起作用的repository集合。
+
+3）查找依赖jar包的过程
+
+关于maven如何查找pom.xml里dependencies里配置的插件，暂且不考虑本地仓库的存在，maven会根据最终的repository集合里依次查找，如果查到了就从该仓库下载，并且停止对后续repository的查找（找到了就停）。所以可以看出用户在pom.xml里配置repository，repository的顺序还是挺重要的。
+
+注：实际依赖的查找，应该是先查找本地的仓库，如果本地仓库查找不到，再通过repository里面配置的仓库进行查找。
+
