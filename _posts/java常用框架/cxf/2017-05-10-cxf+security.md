@@ -32,13 +32,13 @@ public class ServerPasswordCallback implements CallbackHandler{
             UnsupportedCallbackException {
         WSPasswordCallback pc = (WSPasswordCallback) callbacks[0];
         if ("huwei".equals(pc.getIdentifier())) {
-            pc.setPassword("hello");
+            pc.setPassword("hello");//设置带验证的密码
         }
     }
 }
 ```
 
-注：该类实现ws-security的CallbackHandler 接口，并重写它的handle方法。该类就是身份验证的主要类，当客户端传过的用户名中为"huwei"时，该方法会将指定的密码告知ws-security的WSPasswordCallback 类，并让它后期去和客户端的密码进行验证，通过就放行，否则打回。在applicationContext.xml中该类会作为WSS4JInInterceptor拦截器的回调函数属性，进行配置。
+注：该类实现ws-security的CallbackHandler接口，并重写它的handle方法。该类就是身份验证的主要类，当客户端传过的用户名中为"huwei"时，该方法会将指定的密码告知ws-security的WSPasswordCallback 类，并让它后期去和客户端的密码进行验证，通过就放行，否则打回。在applicationContext.xml中该类会作为WSS4JInInterceptor拦截器的回调函数属性，进行配置。
 
 3）配置安全拦截器（实现）
 
@@ -68,7 +68,7 @@ public class ServerPasswordCallback implements CallbackHandler{
 </jaxws:endpoint>
 ```
 
-4）代码实现
+4）代码方式发布实现
 
 ```
 @WebService(
@@ -166,7 +166,9 @@ public class CxfClientSecurity {
         Map<String, Object> properties=new HashMap<String, Object>();
         properties.put(WSHandlerConstants.USER, "huwei");
         properties.put(WSHandlerConstants.ACTION, WSHandlerConstants.USERNAME_TOKEN);
+        //设置密码
         properties.put(WSHandlerConstants.PW_CALLBACK_REF, new ServerPasswordCallback());
+        //设置安全属性
         WSS4JOutInterceptor wss4jOutInterceptor=new WSS4JOutInterceptor(properties);
         
         client.getOutInterceptors().add(wss4jOutInterceptor);
@@ -182,4 +184,19 @@ public class CxfClientSecurity {
 }
 ```
 
+3）客户端的ServerPasswordCallback类
 
+```
+public class ServerPasswordCallback implements CallbackHandler {
+
+    public void handle(javax.security.auth.callback.Callback[] callbacks) {
+        for (int i = 0; i < callbacks.length; i++) {  
+            WSPasswordCallback pc = (WSPasswordCallback)callbacks[i];  
+            pc.setPassword("hello");  
+        }  
+    }  
+
+}
+```
+
+注：同服务端一样，ServerPasswordCallback也是实现了CallbackHandler接口，与服务器端不同的是客户端该类的用途只是为了设置密码，不需要做任何验证。

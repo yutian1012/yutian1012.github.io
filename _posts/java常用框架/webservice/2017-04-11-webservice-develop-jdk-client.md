@@ -45,7 +45,7 @@ public class WSClient {
         //调用WebService的sayHello方法
         String resResult = wsImpl.sayHello("孤傲苍狼");
         System.out.println("调用WebService的sayHello方法返回的结果是："+resResult);
-        System.out.println("---------------------------------------------------");
+        System.out.println("------------------------------------------");
         //调用WebService的save方法
         resResult = wsImpl.save("孤傲苍狼","123");
         System.out.println("调用WebService的save方法返回的结果是："+resResult);

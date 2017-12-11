@@ -48,7 +48,7 @@ public class WebServiceImpl implements IWebService{
 }
 ```
 
-### 3. 发布webservice
+### 3. 发布webservice（以应用的方式发布）
 
 使用Endpoint(终端)类发布webservice
 
@@ -60,8 +60,6 @@ import javax.xml.ws.Endpoint;
 public class WebServicePublish {
     public static void main(String[] args) {
         //定义WebService的发布地址，这个地址就是提供给外界访问Webervice的URL地址，URL地址格式为：http://ip:端口号/xxxx
-        //String address = "http://192.168.1.100:8989/";这个WebService发布地址的写法是合法的
-        //String address = "http://192.168.1.100:8989/Webservice";这个WebService发布地址的是合法的
         String address = "http://10.33.6.199:8989/WS_Server/Webservice";
         //使用Endpoint类提供的publish方法发布WebService，发布时要保证使用的端口号没有被其他应用程序占用
         Endpoint.publish(address , new WebServiceImpl());
@@ -74,7 +72,7 @@ public class WebServicePublish {
 
 注2：使用EndPoint.publish()方法将会新开启一个线程，所以并不会影响主线程的运行，所以运行主方法时，控制台仍然可以看到有输出：发布webservice成功的信息。
 
-注：这里的服务ip是本地的ip地址
+注3：这里的服务ip是本地的ip地址
 
 ### 4. 访问服务
 
@@ -88,7 +86,7 @@ http://10.33.6.199:8989/WS_Server/Webservice
 
 ![](/images/java_structure/webservice/webservicepublish.png)
 
-### 5. 在web容器中发布
+### 5. 在web容器中发布（监听中发布）
 
 可以使用监听器或者Servlet来发布WebService
 
@@ -120,7 +118,7 @@ public class WebServicePublishListener implements ServletContextListener{
 
 注2：Servlet3.0规范的出现，让我们开发Servlet、Filter和Listener的程序在web.xml实现零配置
 
-### 6. 使用servlet发布
+### 6. 使用servlet发布（servlet中发布）
 
 ```
 package org.ipph.web.webservice;

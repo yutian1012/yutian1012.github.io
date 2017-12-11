@@ -7,7 +7,7 @@ tags: [webservice]
 
 1）安全认证错误
 
-有时候调用web service 会出现A security error的错误，是因为webservice 的服务端需要提供 soap 认证的表头。
+有时候调用web service会出现A security error的错误，是因为webservice的服务端需要提供soap认证的表头。
 
 ```
 <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
