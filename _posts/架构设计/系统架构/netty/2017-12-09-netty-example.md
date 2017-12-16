@@ -1,5 +1,5 @@
 ---
-title: Netty 源码分析
+title: Netty 简易版（3.x版本）
 tags: [architecture]
 ---
 
