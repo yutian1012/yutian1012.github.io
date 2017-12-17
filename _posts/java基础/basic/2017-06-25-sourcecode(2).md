@@ -11,7 +11,7 @@ mvn dependency:sources
 
 首先运行命令下载源码包后，在项目中进行关联即可查看。
 
-### 关联项目中的lar包源码查看
+### 关联项目中的jar包查看
 
 在项目所在的lib包上右击，选择properties--java source attachment
 
