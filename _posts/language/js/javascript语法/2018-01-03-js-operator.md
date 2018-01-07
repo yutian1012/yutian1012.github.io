@@ -89,6 +89,47 @@ A^B=C;//A与B异或得到C
 B^C=A;//B与C异或就能还原出A
 ```
 
+实例：在网络上传送敏感信息时通常需要加密处理，以防被他人窃取。现在要求编写一个信息加密解密的应用程序，可以将数据信息加密成不可阅读的数据，同时又能将加密后的数据解密还原。
+
+```
+var msgCoded;//原文
+var msgEncoded;//密文
+//定义加密和解密的方法
+function CodeAndEncode( pkey, date )
+{
+    var codedStr = "";
+    for( i = 0; i<date.length; i++ )
+    {
+        var dateCoded=date.charCodeAt(i);
+        for( j = 0; j<pkey.length; j++ )
+        {
+            var keyCoded = pkey.charCodeAt( j );
+            dateCoded =  dateCoded^ keyCoded;
+        }
+        codedStr += String.fromCharCode( dateCoded );
+    }
+    return codedStr;
+}
+//点击按钮实现加密
+function BtnCode_onclick()
+{
+    var date = TextArea1.value;//获取控件的value值，即明文
+    var key = Password1.value;//获取密钥
+    msgCoded = CodeAndEncode( key, date );//对数据进行加密
+    TextArea1.value = msgCoded;//设置为加密后的值
+}
+//点击按钮实现解密
+function BtnEncode_onclick() 
+{
+     var date = TextArea1.value;//获取密文
+     var key = Password1.value;//获取密钥
+     msgEncoded = CodeAndEncode( key, date );//对数据进行解密
+     TextArea1.value = msgEncoded;
+}
+```
+
+注：明文的每一位都与密钥的每一位进行异或得到密码，解密时密文的每一位都与密钥的每一位进行异或，异或操作满足交换律，即A^B^C=C^B^A，从而能够正确的解密。
+
 2）按位非（按位取反）
 
 JavaScript中对数据的按位非运算有其独特的规律，并不完全等同于其他编程语言所进行的位操作。
@@ -148,3 +189,60 @@ javascript:void(window.open("http://www.baidu.com");)
 ```
 
 注：window对象的open方法可以打开一个新窗口，并加载指定地址的文件。open方法打开一个值引用新打开的窗口，如果不是void运算符屏蔽返回值，当前窗口的内容将被清除。
+
+3）类型检查运算符typeof
+
+typeof可获得数据的类型名，返回6种可能的值：Number、String、Boolean、Object、Function和undefined。
+
+4）对象属性存取运算符（点运算符）
+
+对象的属性类型也包括对象的方法。主要包括两种形式的调用：第一种是调用实例对象的属性或方法，第二种是调用类的静态方法，静态方法是所有对象公有的，类无线实例化即可使用的方法。
+
+```
+var nameYZN="杨宗楠";
+var xing=nameYZN.charAt(0);
+var unicodeOfYang=String.fromCharCode(26472);
+```
+
+注：fromCharCode可将unicode码转为汉字。
+
+5）数组存取运算符（[]）
+
+方括号中使用数组的索引下标，下标从0开始编码。
+
+注：中括号运算符也可以用来获取对象的属性值
+
+```
+var student=new Object();
+student.name="zhang";
+alert(student["name"]);
+```
+
+6）delete运算符
+
+要删除使用new运算符创建的对象需要将对象的引用赋值null，当引用为0时系统自动回收对象所占的资源。
+
+delete运算符则可以删除对象的一个属性或数组的一个元素，JavaScript对象的属性可以动态添加，对于动态添加的属性可以使用deleteyunsf将其删除。
+
+delete对象属性后，再次访问该属性时为undefined，表示属性以及不存在了。
+
+7）函数调用运算符符（call）
+
+函数调用运算符call，作用于Function对象，主要功能是调用对象的一个方法，并以另一个对象替换为当前对象，以改变this指针的指向。
+
+```
+function showStudentInfo(){
+    alert(this.name+" "+this.age);
+}
+//定义student的构造函数
+function Student(_name,_age){
+    this.name=_name;
+    this.age=_age;
+}
+//创建两个对象
+var stu1=new Student("tom",20);
+var stu2=new Student("lily",21);
+//使用function对象的call方法实现方法的调用
+showStudentInfo.call(stu1);
+showStudentInfo.call(stu2);
+```

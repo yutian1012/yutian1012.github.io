@@ -32,10 +32,29 @@ alert("半径为"+rCircle+"的圆面积为："+area);
 
 注3：变量式定义函数的一个实际案例，可以实现javascript代码在线编辑和运行。
 
-实例：实现js代码在编辑和运行
+实例：实现js代码在线编辑和运行
 
 ```
-
+//点击按钮运行文本框中输入的js代码
+function runJs_onclick()
+{
+    try
+    {
+        // 获取文本框的引用，从而获取在线编辑的代码
+        var cmdWin = document.getElementById("TextArea1");  
+        // 构造函数体
+        var str = "try{" + cmdWin.value + 
+            "}catch(e){alert('你的代码有错：'+e.description);}";
+        //使用Function定义函数
+        var cmd = new Function(str);
+        // 调用函数，实现函数的运行
+        cmd(); 
+    }
+    catch(e)                            
+    {
+        alert("错误："+e.description);  // 输出错误信息
+    }
+}
 ```
 
 ### 函数的指针调用方式（回调函数）
@@ -143,8 +162,31 @@ showName.call(ln);
 
 注2：this关键字极其重要，使用时必须确定当前上下文对象是什么。
 
+注3：this关键字通常用于对象构造函数中，用来引用函数对象本身，或是结合call实现不同对象的切换。
+
 ### 函数的返回类型
 
 函数的返回类型主要有两种：即值类型（js的基本类型）和引用类型（符合数据类型或函数指针）。
 
 值类型使用的是值传递方式，即传递数据的副本。而引用类型则是引用传递方式，即传递数据的地址。
+
+### 函数的调用运算符（call）
+
+函数调用运算符call，作用于Function对象，主要功能是调用对象的一个方法，并以另一个对象替换为当前对象，以改变this指针的指向。
+
+```
+function showStudentInfo(){
+    alert(this.name+" "+this.age);
+}
+//定义student的构造函数
+function Student(_name,_age){
+    this.name=_name;
+    this.age=_age;
+}
+//创建两个对象
+var stu1=new Student("tom",20);
+var stu2=new Student("lily",21);
+//使用function对象的call方法实现方法的调用
+showStudentInfo.call(stu1);
+showStudentInfo.call(stu2);
+```
