@@ -10,7 +10,7 @@ aof是日志方式的持久化。日志是指做了什么操作都会记录下�
 ```
 # 打开aof功能
 appendonly yes
-# aof文件名 
+# aof文件名+文件位置 
 appendfilename ./appendonly.aof
 # aof的三种同步方式，选择一种开启
 # 每个命令都立即同步到aof中，这种方式安全，但速度慢
