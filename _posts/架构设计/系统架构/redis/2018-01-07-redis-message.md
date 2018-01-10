@@ -8,19 +8,21 @@ tags: [redis]
 1）发布频道
 
 ```
+# 使用pulish向频道中发表消息，news表示一个频道（channel）
 pulish news 'today is sunshine'
 ```
 
 2）订阅频道（在另外的客户端监听）
 
 ```
+# 使用subscribe命令订阅频道，news表示一个频道（channel）
 subscribe news
 ```
 
 3）使用正则的方式订阅频道
 
 ```
-# 使用正则匹配监听的频道
+# 使用正则匹配监听的频道，可同时监听多个匹配到的频道
 psubscribe new*
 ```
 

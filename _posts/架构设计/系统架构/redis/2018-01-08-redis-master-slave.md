@@ -79,8 +79,8 @@ dir /var/rdb
 
 # 设置slave参数
 # 配置从服务器指向的主服务器，并指定主服务器的端口
-# slaveof localhost 6379
-# 配置从服务器之都
+slaveof localhost 6379
+# 配置从服务器只读
 slave-read-only yes
 ```
 
@@ -100,7 +100,7 @@ slave-read-only yes
 
 ```
 # 禁用aof功能
-appendonly yes
+appendonly no
 ```
 
 4）启动集群服务
