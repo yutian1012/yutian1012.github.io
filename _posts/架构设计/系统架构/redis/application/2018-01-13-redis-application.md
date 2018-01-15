@@ -93,3 +93,5 @@ follower:$userid #指向userid
 ### 总结：
 
 通过项目可以看出使用redis的难度并不大，重点是由传统的mysql设计思想转变为key-value数据库的设计思想。
+
+redis中集合操作是要经常使用的，必须熟练掌握。
