@@ -52,3 +52,31 @@ varnish，内存，用于前端web内容的缓存。常见应用：前端静态�
 当分配给memcached内存空间用完后，Memcache自身会使用LRU（Last Recently Used，最近最少使用）到期失效策略。数据替换时会首先替换失效的数据，其次替换最旧未使用的数据。
 
 如果是在高并发的场合下，程序除了要通知Memcached过期的失效数据外，还会要把更新过的数据推送到memcached中缓存起来。这样可以减少第一次查询数据库带来的访问压力，提升memcached中缓存的命中率。
+
+### memcached特性
+
+1）C/S模式架构
+
+memcached是一套C/S模式的架构软件，由C语言编写。
+
+2）协议简单
+
+Memcached的协议实现比较简单，使用的是基于文本行的协议，能通过telnet/nc直接操作memcached服务器存取数据。
+
+3）支持epoll/kqueue异步I/O模型，使用libevent作为事件处理通知机制
+
+libevent是一套利用C开发的程序库，能将BSD系统的kqueue，linux系统的epoll等事件处理功能封装成一个接口。确保即使服务器端的连接数增加也能发挥很好的性能。memcached就使用这个库进行异步事件处理。
+
+4）key/value键值对的数据类型，通过key存取值
+
+5）全内存缓存，效率高
+
+memcached有一套自己管理内存的方法，全部数据都存放于memcached服务器事先分配的内存中。无持久性存储的设计，和系统内存一样，重启系统或memcached服务器，memcached内存中的数据就丢失了。
+
+注：如果不能允许数据丢失可以考虑使用memcachedb或redis。一般使用memcached服务，数据都不是非常敏感的，允许丢失。
+
+6）支持分布式集群
+
+memcached多个分布式集群节点是互不通信的，每一台服务器都是独立存取数据，之间不共享任何数据信息。
+
+注：是通过客户端程序的设计，让memcached具有分布式，支持海量缓存和大规模应用。
