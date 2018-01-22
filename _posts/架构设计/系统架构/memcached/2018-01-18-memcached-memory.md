@@ -58,3 +58,51 @@ d.数据存入可以设定过期时间，但是数据过期后不会被理解删
 e.如果不希望系统使用LRU算法清除数据，可以使用-M参数启动memcached服务。
 
 ### slab内存分配
+
+1）slab内存结构
+
+slab内存结构是一个二维数组链表，一次申请内存的最小单位是一个page（一个slab）。
+
+![](/images/architecture/memcached/slab.png)
+
+2）slab的分配实例
+
+![](/images/architecture/memcached/slab-assign.png)
+
+3）slab分配的数据信息
+
+![](/images/architecture/memcached/slab-data.png)
+
+### slab为item分配内存过程
+
+这里的item指存储在hash表中的数据信息。
+
+1）快速定位slab classid
+
+计算item的key+value+suffix+32（假设值为90byte），判断值是否大于1MB，如果大于则无法存储直接丢弃。如果不大于则取最小适应的chunk对应的slab-class。如有48，96，120，则存储90byte的数据会选择96，即选择96的slab组存储数据。
+
+2）按顺序寻找可以的chunk（上一个确定出slab-classId，在该slab组中继续查找）
+
+a.检查slot回收空间：
+
+检查slab回收空间slot中是否有剩余chunk（delete时标记到slot，get时检查到过期对象标记到slot），如果有则直接分配。
+
+b.检查page中是否还剩余可以空间：
+
+通过end_page_ptr指针检查page中是否有剩余chunk，如果有则直接分配。
+
+c.检查memory是否可再分配
+
+检查内存是否还有剩余，即memcached服务器指定分配的内存大小是否已满，如果未满，则开辟新的slab（分配新page），连接到slab-classid组中，然后再分配chunk。
+
+d.替换数据
+
+slab组内使用LRU扫描Item双向链表，将最近最少使用的chunk替换掉。
+
+### 内存调优
+
+调优的目的是提供内存的利用率，减少内存浪费。在并发量大的情况下，需要对业务数据进行分离。
+
+调优的核心是提高内存命中率。
+
+调优方法：-f参数（factor增长因子，默认1.25）；-n参数（设置chunk初始值，一般使用默认）。
