@@ -31,7 +31,7 @@ tags: [BI]
 
 源码下载地址：https://github.com/pentaho/pentaho-platform
 
-使用7.1源码版本运行
+使用7.1源码版本运行（切换分支）
 
 ```
 git clone https://github.com/pentaho/pentaho-platform.git
@@ -43,7 +43,19 @@ git branch -a
 git checkout 7.1
 ```
 
-2）将项目信息导入到eclipse开发工具中
+切换标签tag
+
+```
+# 先git clone整个仓库，然后git checkout tag_name就可以取得tag对应的代码了
+# 查看所有的标签
+git tag
+# 切换代码到相应的tag上
+git checkout 7.1.0.8-R
+```
+
+注：最好checkout标签，否则在branch上操作可能需要修改很多的文件，才能正常运行。
+
+2）将项目信息导入到eclipse开发工具中（branch分支）
 
 a.pentaho项目是使用maven开发的，因此导入时使用maven的方式导入。执行菜单命令：import--existing maven projects
 
@@ -94,9 +106,12 @@ mvn clean
 mvn compile
 # 打包项目，生成相关的jar以及war包
 mvn clean package -Dmaven.test.skip=true
+# 安装到本地
+mvn clean install -DskipTests
 ```
 
 注：该命令会将编辑结果存放到assemblies/pentaho-server相对目录下。
 
 ### 运行项目
 
+在assemblies/pentaho-server/target目录下，存在pentaho-server-ce-7.1.0.8-93.zip文件，使用该文件可运行pentaho。解压文件，运行解压目录后的start-pentaho.bat文件启动服务。
