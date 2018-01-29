@@ -54,11 +54,7 @@ b.定位问题
 c.使用npm管理工具下载angular
 
 ```
-# 在软件的解压目录下创建node_modules文件夹
-mkdir node_modules
-# 切换进入该文件夹
-cd node_moudules
-# 运行npm下载angular，会在运行的目录下保存下载的软件包
+# 运行npm下载angular，会自动创建node_modules目录，并将插件放置到该目录下
 npm install angular
 ```
 
