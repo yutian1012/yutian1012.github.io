@@ -76,3 +76,14 @@ npm update grunt
 
 注：如果不想更新到最新版本，只能remove掉，然后再install指定的版本。
 
+6）将安装的软件信息写入package.json文件中（自定义的npm软件）
+
+如果一个模块不在package.json文件之中，可以单独安装这个模块，并使用相应的参数，将其写入package.json文件之中。
+
+```
+# --save参数表示将该模块写入dependencies属性
+npm install express --save
+# --save-dev表示将该模块写入devDependencies属性
+npm install express --save-dev
+
+```
