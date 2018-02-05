@@ -9,6 +9,8 @@ package.json: 此文件被npm用于存储项目的元数据，以便将此项目
 
 package.json文件内部就是一个JSON对象，该对象的每一个成员就是当前项目的一项设置。
 
+package.json应当放置于项目的根目录中，与Gruntfile在同一目录中，并且应该与项目的源代码一起被提交。
+
 注：很多属性可以通过npm-config来生成
 
 1）文件的生成

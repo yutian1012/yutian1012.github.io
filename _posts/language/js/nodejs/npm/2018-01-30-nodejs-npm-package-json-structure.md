@@ -49,7 +49,7 @@ author,contributors:
 # 在项目根目录或者子目录里声明一个.npmignore，可以声明一些规则来忽略部分文件。
 files: [arrays]
 
-# 主文件。比如默认是index.js，项目名称叫mymodule。那么require(‘mymodule’)将返回index.js返回的内容
+# 主文件。比如默认是index.js，项目名称叫mymodule。那么require('mymodule')将返回index.js返回的内容
 main: xxx
 
 # 项目用到的可执行文件配置

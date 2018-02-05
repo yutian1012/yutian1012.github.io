@@ -87,3 +87,5 @@ npm install express --save
 npm install express --save-dev
 
 ```
+
+注：在自行创建的项目中如果要引入第三方的依赖，可以在安装依赖时同时将依赖写入到package.json包中。
