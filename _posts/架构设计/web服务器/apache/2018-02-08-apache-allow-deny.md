@@ -7,6 +7,8 @@ tags: [web服务器]
 
 Allow和Deny可以用于apache的conf文件或者.htaccess文件中（配合Directory, Location, Files等），用来控制目录和文件的访问授权。
 
+注：apache的访问授权的应用规则与firewall的应用规则是不同的，理解时不要混淆。
+
 1）常用配置
 
 ```
@@ -110,3 +112,29 @@ Deny from all
 ```
 
 注：在理解权限时，理解为但是。首先根据order设定的顺序限定，然后使用但是来排除。
+
+### 图形的方式理解
+
+1）实例1
+
+```
+Order allow,deny
+Allow from example.com
+Deny from bbs.example.com
+```
+
+只允许example.com域名，但排除bbs.example.com域名，访问资源。所有不属于example.com域名的都不允许访问（应用最后的deny规则）。
+
+![](/images/web/apache/appache-access1.png)
+
+2）实例2
+
+```
+Order deny allow
+Deny from all
+Allow from example.com
+```
+
+拒绝所有的地址访问，但允许example.com域名地址访问。由于deny包含了所有，因此没有其他地址再应用allow规则来被允许了。
+
+![](/images/web/apache/appache-access2.png)
