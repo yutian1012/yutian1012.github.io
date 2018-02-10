@@ -3,7 +3,9 @@ title: apache虚拟主机
 tags: [web服务器]
 ---
 
-Apache服务器上可以配置多个虚拟主机，实现一个服务器提供多站点服务。
+Apache服务器上可以配置多个虚拟主机，实现一个服务器提供多站点服务。即，一个IP绑定多个域名。
+
+注：建议注销httpd.conf文件中的DocumentRoot，这样访问时就不会转到根目录下了，而只能访问在虚拟主机文件中配置的目录信息了。
 
 ### 什么是虚拟主机
 
@@ -120,6 +122,11 @@ Listen 82
 注：主配置文件httpd.conf加上vhost.conf后，服务器监听80，81，82。其中localhost，localhost:81，localhost:82都能跳转到htdocs下。
 
 ### 基于域名配置虚拟主机
+
+通过ServerName来区分不同的域名。在VirtualHost中指定ServerName，另外ip地址不能再使用127.0.0.1，而应该使用*。
+
+浏览器先解析主机名（域名）找到ip地址，然后再转到Apache服务器；Apache会解析request请求头的host主机，通过ServerName定位到站点，然后解析资源名称，在站点查找相应的资源文件，并返回结果。
+
 
 1）修改conf.d/vhost.conf文件
 
