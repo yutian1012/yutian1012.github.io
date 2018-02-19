@@ -1,63 +1,7 @@
 ---
-title: Java对象和XML转换
+title: Java对象和XML转换实例
 tags: [xml]
 ---
-
-参考：http://www.cnblogs.com/doudouxiaoye/p/5693441.html
-
-Java对象转换成XML文件。这时可以用JAXB来实现。
-
-注：JDK1.6及以后的版本无需导入依赖包，因为已经包含在JDK里了
-
-### JDK中JAXB相关的类
-
-1）JAXBContext类
-
-是应用的入口，用于管理XML/Java绑定信息。
-
-2）Marshaller接口
-
-将Java对象序列化为XML数据。
-
-3）Unmarshaller接口
-
-将XML数据反序列化为Java对象
-
-### JDK中JAXB相关的重要Annotation
-
-1）@XmlType
-
-将Java类或枚举类型映射到XML模式类型
-
-2）@XmlAccessorType(XmlAccessType.FIELD) ，
-
-控制字段或属性的序列化。FIELD表示JAXB将自动绑定Java类中的每个非静态的（static）、非瞬态的（由@XmlTransient标注）字段到XML。其他值还有XmlAccessType.PROPERTY和XmlAccessType.NONE。
-
-3）@XmlAccessorOrder
-
-控制JAXB 绑定类中属性和字段的排序。
-
-4）@XmlJavaTypeAdapter
-
-使用定制的适配器（即扩展抽象类XmlAdapter并覆盖marshal()和unmarshal()方法），以序列化Java类为XML。
-
-5）@XmlElementWrapper
-
-对于数组或集合（即包含多个元素的成员变量），生成一个包装该数组或集合的XML元素（称为包装器）。
-
-6）@XmlRootElement
-
-将Java类或枚举类型映射到XML元素。
-
-7）@XmlElement
-
-将Java类的一个属性映射到与属性同名的一个XML元素。
-
-8）@XmlAttribute
-
-将Java类的一个属性映射到与属性同名的一个XML属性。
-
-### 实例
 
 以部门员工为例
 
@@ -69,7 +13,6 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-
 
 @XmlRootElement(name="department")  
 public class Department {  
@@ -94,13 +37,15 @@ public class Department {
 }  
 ```
 
+注：注解信息需要设置到属性设置方法上（即set方法）
+
 2）员工类
 
+```
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
 
 @XmlRootElement(name="staff")  
 public class Staff {
@@ -141,8 +86,11 @@ public class Staff {
         this.birthDay = birthDay;
     }  
 }
+```
 
 3）转换测试
+
+主要实现从java对象转换成xml，并从xml转换成java对象
 
 ```
 import java.io.ByteArrayOutputStream;
@@ -182,10 +130,12 @@ public class Main {
      */
     public static String beantoXml()throws Exception{
         JAXBContext context = JAXBContext.newInstance(Department.class,Staff.class);// 获取上下文对象  
-        Marshaller marshaller = context.createMarshaller(); // 根据上下文获取marshaller对象  
-          
-        marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");  // 设置编码字符集  
-        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true); // 格式化XML输出，有分行和缩进  
+        // 根据上下文获取marshaller对象
+        Marshaller marshaller = context.createMarshaller();   
+        // 设置编码字符集  
+        marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");  
+        // 格式化XML输出，有分行和缩进
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);   
           
         //marshaller.marshal(getSimpleDepartment(),System.out);// 打印到控制台  
           

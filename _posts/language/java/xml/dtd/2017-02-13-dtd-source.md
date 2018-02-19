@@ -1,9 +1,9 @@
 ---
-title: xml中设置DTD-来源
-tags: [other]
+title: xml中设置DTD
+tags: [xml]
 ---
 
-DTD文档类型定义(Document Type Definition)是一套为了进行程序间的数据交换而建立的关于标记符的语法规则。
+DTD文档类型定义（Document Type Definition）是一套为了进行程序间的数据交换而建立的关于标记符的语法规则。
 
 DTD文档的来源主要分为三种：文档内部定义，本地定义单独文件，公共引用。
 
@@ -57,6 +57,8 @@ DTD文档的来源主要分为三种：文档内部定义，本地定义单独�
 
 2）定义DTD文档
 
+新建poem.dtd文档
+
 ```
 <?xml version="1.0" encoding="UTF-8"?>
 <!ELEMENT poem (title,author,line+,commet)>
@@ -67,6 +69,8 @@ DTD文档的来源主要分为三种：文档内部定义，本地定义单独�
 ```
 
 3）相同目录下定义xml文档
+
+在xml中引入poem.dtd文档
 
 ```
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -106,37 +110,15 @@ DTD文档的来源主要分为三种：文档内部定义，本地定义单独�
 
 根元素名：taglib。所以每一个标签库定义文件都是以taglib为根元素的，否则就不会验证通过。
 
-"-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"，这是公共DTD的名称。首先它是以"-"开头的，表示这个DTD不是一个标准组织制定的。（如果是ISO标准化组织批准的，以"ISO"开头，如果不是ISO的标准化组织批准的，以"+"开头。）。接着就是双斜杠"//"，跟着的是DTD所有者的名字，很明显这个DTD是sun公司定的。接着又是双斜杠"//"，然后跟着的是DTD描述的文档类型，可以看出这份DTD描述的是jsp标签库1.2版本的格式。再跟着的就是"//"和ISO 639语言标识符。
+```
+# 公共DTD的名称
+# 首先它是以"-"开头的，表示这个DTD不是一个标准组织制定的。
+# 接着就是双斜杠"//"，跟着的是DTD所有者的名字，很明显这个DTD是sun公司定的。
+# 接着又是双斜杠"//"，然后跟着的是DTD描述的文档类型，可以看出这份DTD描述的是jsp标签库1.2版本的格式。再跟着的就是"//"和ISO 639语言标识符。
+"-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"
 
-"http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd"，表示这个DTD的位置
+# DTD的位置
+"http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd"
+```
 
 参考：http://blog.csdn.net/centre10/article/details/5932205
-
-### 4. 自己编写DTD校验xml
-
-XML引用DTD使用相对路径
-
-```
-<!DOCTYPE poem SYSTEM "../poem.dtd">
-```
-
-注：该dtd位于xml文件的上层目录中。
-
-### 5. eclipse中使用DTD或Schema校验
-
-1）问题：
-
-在Struts, Spring, Hibernate的配置文件的时候，有时候XML编辑器的智能提示并不好用。造成这个问题的主要原因是，编辑器是从XML头部的网络地址来读取DTD或者XSD文件，比如头部命名空间的http://www.springframework.org/schema/beans/spring-beans-2.5.xsd  这些文件是用来说明XML文件格式的，解析了这些文件，编辑器才能给出正确的提示。当网络状况不好或者根本没有联网的时候，是不会有正确的智能提示的。
-
-2）获取DTD校验文件
-
-从jar包中找出对应的DTD/Schema校验文件，拷贝到本地系统中
-
-3）将校验文件导入到eclipse中，实现提醒
-
-windows--preferences--xml--xml catalog，添加xml catalog Entries，选择dtd/schema文件。
-
-![](/images/other/dtd/XMLCatalog.jpg)
-
-
-参考：http://www.eclipse.org/webtools/community/tutorials/XMLCatalog/XMLCatalogTutorial.html

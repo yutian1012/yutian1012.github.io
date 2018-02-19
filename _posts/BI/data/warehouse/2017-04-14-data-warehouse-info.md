@@ -1,6 +1,6 @@
 ---
 title: 数据处理--数据仓库的基本架构
-tags: [other]
+tags: [BI]
 ---
 
 参考：http://webdataanalysis.net/web-data-warehouse/data-warehouse-frame/
@@ -20,6 +20,8 @@ tags: [other]
 数据仓库从各数据源获取数据及在数据仓库内的数据转换和流动都可以认为是ETL（抽取Extra, 转化Transfer, 装载Load）的过程，ETL是数据仓库的流水线，也可以认为是数据仓库的血液，它维系着数据仓库中数据的新陈代谢，而数据仓库日常的管理和维护工作的大部分精力就是保持ETL的正常和稳定。
 
 ### 2. 数据仓库的数据来源
+
+数据仓库数据来源类型分为：结构化数据，半结构化数据和非结构化数据。
 
 以门户网站为例分析数据源
 
