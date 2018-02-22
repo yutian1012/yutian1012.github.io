@@ -3,6 +3,24 @@ title: dom4j结合xpath解析xml
 tags: [xml]
 ---
 
+Dom4j包中的Document对象提供了selectNodes方法，能够根据xpath表达式获取相应的节点信息。
+
+常用API
+
+a.获取所有符合条件的节点，返回List集合
+
+```
+document.selectNodes(StringxpathExpression)
+```
+
+b.获取符合条件的单个节点，返回一个Node对象
+
+如果符合条件的节点有多个，那么返回第一个
+
+```
+document.selectSingleNode(StringxpathExpression)
+```
+
 ### 获取单个子节点
 
 多个节点值的获取可以直接写路径（全路径），但若想获取单个的读取，则必须在父路径后追加获取的节点位置。
