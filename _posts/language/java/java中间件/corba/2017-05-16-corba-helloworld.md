@@ -37,23 +37,23 @@ string：对应了java中方法的返回值
 idlj -td D:/ -fall helloworld.idl
 ```
 
-注：-td表示生成的文件存放目录（todirectory），-fall，其中all只生成所有的代码（client，server端代码）。
+注：-td表示生成的文件存放目录（target-directory），-fall，其中all生成所有的代码（client，server端代码）。
 
 将生成的代码拷贝到项目中
 
 ![](/images/middleware/corba/corba-gencode.png)
 
-1）java是client需要的代码：
+1）client需要的代码：
 
-HelloWorldStub.java、HelloWorld.java、HelloWorldHelper.java、HelloWorldHolder.java、HelloWorldOperations
+HelloWorldStub.java、HelloWorld.java、HelloWorldHelper.java、HelloWorldHolder.java、HelloWorldOperations.java
 
-注：Sutb客户端的存根类，为客户端提供了CORBA功能；HelloWorld.java接口类，提供了标准的CORBA对象功能；Helper是一个辅助类，负责向CORBA流中写入或读取对象；Holder 这是一个final类，它持有一个public的Hello实例变量，用来操作CORBA输入输出流的参数；Operations类只包含我们定义的那个方法，不包含CORBA的任何东西。
+注：Sutb客户端的存根类，为客户端提供了CORBA功能；HelloWorld.java接口类，提供了标准的CORBA对象功能；Helper是一个辅助类，负责向CORBA流中写入或读取对象；HelloWorldHolder这是一个final类，它持有一个public的Hello实例变量，用来操作CORBA输入输出流的参数；HelloWorldOperations类只包含我们定义的那个方法，不包含CORBA的任何东西。
 
-2）java是server需要的代码：
+2）server需要的代码：
 
-HelloWorld.java、HelloWorldOperations.java、HelloWorldPOA
+HelloWorld.java、HelloWorldOperations.java、HelloWorldPOA.java
 
-注：POA对象（Portable Object Adapter轻便对象适配器），提供了服务器端基本的CORBA功能
+注：POA对象（Portable Object Adapter轻便/可移植对象适配器），提供了服务器端基本的CORBA功能
 
 3）生成包替换命令
 
@@ -61,7 +61,7 @@ HelloWorld.java、HelloWorldOperations.java、HelloWorldPOA
 idlj -td D:/ -pkgTranslate corba org.ipph.web.corba.idl -fall helloworld.idl
 ```
 
-注：会将corba模块对于的包替换为org.ipph.web.corba.idl包名
+注：会将corba模块对应的包替换为org.ipph.web.corba.idl包名
 
 
 ### server端代码
@@ -101,8 +101,8 @@ import corba.HelloWorld;
 import corba.HelloWorldHelper;
 public class HelloServer {  
     public static void main(String[] args) throws ServantNotActive, WrongPolicy, InvalidName, AdapterInactive, org.omg.CosNaming.NamingContextPackage.InvalidName, NotFound, CannotProceed {  
+
         //指定ORB的端口号 -ORBInitialPort 1050
-        
         args = new String[2];  
         args[0] = "-ORBInitialPort";  
         args[1] = "1050";  
@@ -110,7 +110,7 @@ public class HelloServer {
         //也可以将端口设置到属性对象上
         //props.put("org.omg.CORBA.ORBInitialPort", "1050");
            
-        //创建一个ORB实例  
+        //创建一个ORB实例
         ORB orb = ORB.init(args, null); //第二个参数可接收属性对象
            
         //拿到RootPOA的引用，并激活POAManager，相当于启动了server
