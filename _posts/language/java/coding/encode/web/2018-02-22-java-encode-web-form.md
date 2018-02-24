@@ -5,6 +5,10 @@ tags: [coding]
 
 form表单提交参数使用UTF-8编码，但并没有在ContentType中指定编码方式，因此服务器端仍然使用iso8859-1解码。
 
+文本框中输入的值，在js中的编码是由页面的编码决定的（Content-Type中指定的编码）。后台解码后获取的字节数组，调用new-String获取对象时指定的编码要与页面编码相同才不会出现乱码的情况。
+
+注：要求后台和前台页面使用的编码要统一设置。
+
 1）页面
 
 ```
@@ -25,7 +29,7 @@ String hello=request.getParameter("hello");
 System.out.println(DatatypeConverter.printHexBinary(hello.getBytes("iso8859-1")));
 System.out.println(hello);
 
-//输出
+/# 输出
 E4BDA0E5A5BD
 ä½ å¥½
 ```

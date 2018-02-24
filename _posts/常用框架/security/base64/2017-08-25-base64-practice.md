@@ -5,10 +5,11 @@ tags: [security]
 
 参考：https://www.iswin.org/2015/01/15/JAVA-simulation-microblogging-login-and-microblogging/
 
-1）代码（已测试过）
+JAVA模拟微博登录以及发微博，使用微博的用户名和密码登录系统，然后获取登录后的cookie。自动发送微博时需要将cookie信息一并传递过去。
+
+代码实现：
 
 ```
-
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -159,7 +160,3 @@ public class Test {
     }
 }
 ```
-
-2）重点一：编码转换
-
-3）重点二：HttpURLConnection设置header头属性信息。
