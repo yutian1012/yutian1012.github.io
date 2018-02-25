@@ -1,11 +1,8 @@
 ---
-title: java中的专有名词
+title: javaBean规范
 tags: [basic]
 ---
 
-java中的常见专有名词
-
-### 1. javaBean
 1）JavaBean是一个公共的public类；
 
 2）JavaBean有一个不带参数的构造方法；
