@@ -29,4 +29,13 @@ readObject()
 
 3）Serializable接口或Externalizable接口
 
+若实现了Externalnalizable接口，则必须实现readExternal和writeExternal方法，序列化和反序列化时使用用户提供的这两个方法实现（更灵活）。
+
+```
+# 反序列化对象
+readExternal(ObjectInput in)
+# 序列化对象
+writeExternal(ObjectOutput out)
+```
+
 只有实现了Serializable或Externalizable接口的类的对象才能被序列化，否则抛出异常。
