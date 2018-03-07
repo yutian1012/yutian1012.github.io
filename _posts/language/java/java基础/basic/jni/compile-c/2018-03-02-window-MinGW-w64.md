@@ -21,7 +21,9 @@ MinGW，全称Minimalist GNU for Windows, 是GCC编译器和GNU Binutils在Windo
 
 3）MinGW-w64
 
-下载离线安装包：https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/
+下载离线安装包：https://sourceforge.net/projects/mingw-w64/files/?source=navbar
+
+![](/images/middleware/jni/mingw/download.png)
 
 针对自身的系统选择安装相应的版本
 
