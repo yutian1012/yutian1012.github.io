@@ -1,7 +1,9 @@
 ---
-title: java源码查看--sun开头的源码查看
+title: sun开头的源码查看
 tags: [basic]
 ---
+
+参考：https://www.cnblogs.com/super-d2/p/3990354.html
 
 ### 以sun开头的java源代码查看
 
@@ -11,19 +13,29 @@ tags: [basic]
 
 ![](/images/java_basic/object/sourceAnnotationInvocationHandler.png)
 
-2）下载源码
+2）下载源码（方式一）
 
-http://download.java.net/openjdk/jdk7/
+http://hg.openjdk.java.net/jdk8
 
-http://hg.openjdk.java.net/jdk7/jdk7/jdk/
+注：hg是一个代码版本管理工具，类似git
 
-3）解压后搜索到AnnotationInvocationHandler类的位置
+3）下载源码（方式二）
+
+http://download.java.net/openjdk/jdk8/
+
+
+
+3）解压压缩包
+
+默认下载文件位于D:\迅雷下载目录下，解压压缩包，解压后搜索到AnnotationInvocationHandler类的位置。
 
 ```
 D:\迅雷下载\openjdk\jdk\src\share\classes\sun\reflect\annotation
 ```
 
-4）打包成zip，并在myeclipse中添加源码关联
+4）重新打包
+
+打包成zip，打包sun文件夹，并在myeclipse中添加源码关联。
 
 目录定位到D:\迅雷下载\openjdk\jdk\src\share\classes下，将该文件夹下的内容打成压缩包openjdk-share.zip文件。
 
