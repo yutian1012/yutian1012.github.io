@@ -51,7 +51,7 @@ flip方法将Buffer从写模式切换到读模式。
 
 a.从Buffer读取数据到Channel
 
-b.使用get()方法从Buffer中读取数据
+b.使用get()方法从Buffer中读取数据到内存（相应的对象中）
 
 ```
 # 从Buffer读取数据到Channel，将buf数据读入到通道
@@ -89,3 +89,7 @@ buffer.mark();
 # 将position设置回mark处
 buffer.reset();  //set position back to mark.
 ```
+
+8）hasRemaining()方法
+
+该方法的作用是看看position到没到limit位置，从而判断是否可以继续读取。因此在读取数据前一般需要调用flip方法，这样limit就会指向缓冲区的有效位置处。

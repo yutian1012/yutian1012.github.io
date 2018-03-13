@@ -1,5 +1,5 @@
 ---
-title: 数据仓库--维（Dimension）和立方（Cube）
+title: 维度表
 tags: [BI]
 ---
 
@@ -17,7 +17,7 @@ tags: [BI]
 
 其中ID一般被视为代理主键（Agent），它只被用于作为唯一性标志，并且是多维模型中关联关系的代理者，在业务层面并不具有任何意义；NAME一般是业务主键（Business），在业务层面限制唯一性，一般作为数据装载（Load）时的关联键；而DESCRIPTION则记录了详细描述信息，在多维展示和分析时我们都会选择使用DESCRIPTION来表述具体含义。这3个属性一般是所有Level都会共用的，而比如用于描述星期几的属性weekid可能只会用于"日期"这层，因为年月都不具备这一信息。所以图中我将Attributes放到了一个层面上，就如同是不同的Level从底层的多个Attributes中选取自身所需的属性，Attributes层是包含着各个Level的共有和特有属性的集合。
 
-2）OLAP中维的hierarchy
+2）OLAP中维的hierarchy（层次）
 
 OLAP需要基于有层级的自上而下的钻取，或者自下而上地聚合。所以每一个维必须有Hierarchy，至少有一个默认的，当然可以有多个。
 
