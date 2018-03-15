@@ -24,6 +24,8 @@ git checkout tag-3.8.8
 
 ```
 mvn clean compile -Dmaven.test.skip=true
+
+mvn clean install -Dmaven.test.skip=true
 ```
 
 错误信息
