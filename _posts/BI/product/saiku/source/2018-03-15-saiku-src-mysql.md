@@ -55,6 +55,17 @@ CREATE DATABASE IF NOT EXISTS saiku DEFAULT CHARSET utf8 COLLATE utf8_general_ci
 </bean>
 ```
 
+修改属性文件的加载配置文件
+
+```
+<!-- 加载saiku-beans.properties文件，而不是saiku-beans-test.properties -->
+<context:property-placeholder
+    location="/WEB-INF/saiku-beans.properties"
+    ignore-resource-not-found="true"
+    ignore-unresolvable="true"
+    order ="0" />
+```
+
 4）修改saiku-beans.properties文件
 
 修改userdao.driverclass，userdao.url，userdao.username，userdao.password的值
