@@ -100,4 +100,17 @@ Caused by: java.sql.SQLException: No suitable driver found for jdbc:mysql://loca
 
 主要原因是使用的DataSource类是h2数据库的，因此不能加载到相应的驱动。
 
-另外，数据库的建表语句也存在问题，因此需要兼容mysql数据库的语法来改写。重写一个Mysql数据库的初始化类，来重新加载并配置数据，实现mysql数据库的迁移。
+解决方案：
+
+可简单将DataSource类的JdbcDataSource切换成BasicDataSource。然后修改不兼容的sql，sql修改可根据错误提示进行进一步修改。
+
+```
+//private JdbcDataSource ds;
+private BasicDataSource ds;
+```
+
+7）创建一个Mysql数据源的DataSource
+
+由于上面的问题，DataSource，建表语句等都存在问题，要兼容mysql数据库。可重写一个针对Mysql数据库的初始化类，来重新加载并配置数据，实现mysql数据库的迁移。
+
+注：系统提供的DataSource类当作是h2数据库的配置类，仿造该类实现一个Mysql的DataSource类。

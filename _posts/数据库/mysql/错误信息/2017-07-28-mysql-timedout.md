@@ -11,7 +11,7 @@ An attempt by a client to checkout a Connection has timed out错误
 
 2、根本原因
 
-池中的连接已经被全部使用完了，达到了最大maxconn，从而导治这个错误。
+池中的连接已经被全部使用完了，达到了最大maxconn，从而导致这个错误。
 
 3、为什么池中连接用完？
 

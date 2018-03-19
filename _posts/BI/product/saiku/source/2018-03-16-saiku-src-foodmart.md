@@ -7,19 +7,18 @@ foodmart数据库迁移
 
 系统中只提供了h2的数据库建表文件，需要先生成相应的h2数据库，然后运行命令导出成csv格式的文件，然后再将csv格式的文件导入到mysql中实现数据库的迁移。
 
-1）安装hsqldb数据库
+1）安装h2数据库
 
-下载安装的版本为hsqldb-2.4.0，在安装目录下启动hsqldb数据库
+安装完成h2数据库后，运行bin目录下的h2.bat文件，启动数据库。在web页面连接foodmart数据库。
+
+saiku的foodmart数据库文件：D:\work\installer\saiku-server\data\foodmart.mv.db
+
+![](/images/BI/product/saiku/h2-connection.png)
+
+2）导出数据库文件
 
 ```
-# 进入到saiku-server的测试数据库运行环境中
-cd D:\work\installer\saiku-server\data
-# 运行bin下的批处理文件，启动hsqldb数据库
-java -classpath D:/work/installer/hsqldb-2.4.0/hsqldb/lib/hsqldb.jar org.hsqldb.server.Server -database.0 file:foodmart -dbname.0 foodmart
-
-
-# 运行客户端连接服务器，默认连接端口是9001
-%HSQLDB%\bin\runManagerSwing.bat
+java -cp D:/work/installer/h2/bin/h2-1.4.197.jar org.h2.tools.Script -url jdbc:h2:D:/work/installer/saiku-server/data/foodmart -user sa -script test.zip -options compression zip
 ```
 
-![](/images/BI/product/saiku/hsqldb-connection.png)
+注：这种方法导出的sql文件也只能在h2数据库中使用，无法在mysql中直接导入。
