@@ -13,7 +13,7 @@ FileChannel类可以实现常用的read，write以及scatter/gather操作，同�
 
 1）打开FileChannel
 
-在使用FileChannel之前，必须先打开它。但是，我们无法直接打开一个FileChannel，需要通过使用一个FileInputStream、FileOutputStream或RandomAccessFile来获取一个FileChannel实例。
+在使用FileChannel之前，必须先打开它。但是，我们无法直接打开一个FileChannel，需要通过使用一个FileInputStream、FileOutputStream或RandomAccessFile来获取一个FileChannel实例，一般通过getChannel来获取相应的Channel通道。
 
 ```
 # 使用FileInputStream打开一个FileChannel

@@ -9,7 +9,7 @@ tags: [java]
 
 Buffer类型包括：ByteBuffer，MappedByteBuffer，CharBuffer，DoubleBuffer，FloatBuffer，IntBuffer，LongBuffer，ShortBuffer。
 
-这些Buffer类型代表了不同的数据类型。换句话说，就是可以通过char，short，int，long，float或double类型来操作缓冲区中的字节。
+这些Buffer类型代表了不同的数据类型。换句话说，就是可以通过char，short，int，long，float或double类型来操作缓冲区中的字节。如在CharBuffer类中的get和put方法返回和传递的数据类型就是char。
 
 2）Java NIO与channel交互
 
