@@ -3,6 +3,8 @@ title: redis字符串操作命令
 tags: [redis]
 ---
 
+字符串的offset最大值为2^32-1，字符串最大存储为512MB。
+
 1）set命令的附件选项
 
 ```
@@ -52,14 +54,9 @@ getrange area 1 4
 getset area merica
 ```
 
-7）bit位操作
+7）可利用为操作操作字符串的位数据
 
 ```
-# 语法
-setbit key offset value
-# 实例
-# A的ascii码值为：A 65 0100 0001
-# a的ascii码值为：a 97 0110 0001
 set char A
 # 从左侧高位开始偏移，将第2位变成1
 setbit char 2 1
@@ -67,15 +64,9 @@ setbit char 2 1
 get char
 ```
 
-注：字符串的offset最大值为2^32-1，字符串最大存储为512MB
-
-8）位操作，位的与或非操作
+执行结果分析：
 
 ```
-# 设置bit位的操作规则，大写转小写
-setbit lower 2 1
-# 设置key为一个大写字母
-set char Q
-# 位的or操作，将结果设置到char变量中，操作的两个key是最后两个参数
-bitop or char char lower
+# A的ascii码值为：A 65 0100 0001
+# a的ascii码值为：a 97 0110 0001
 ```
