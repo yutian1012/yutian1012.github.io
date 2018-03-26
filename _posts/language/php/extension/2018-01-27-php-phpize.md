@@ -11,7 +11,7 @@ phpize是一个shell脚本，用于生成PECL扩展的configure文件。编译PH
 
 phpize是用来扩展php扩展模块的，通过phpize可以建立php的外挂模块。比如你想在原来编译好的php中加入memcached或者ImageMagick等扩展模块，可以使用phpize，通过以下几步工作。
 
-###实战：将memcached扩展模块加入到php中。
+### 实战：将memcached扩展模块加入到php中。
 
 1）phpize文件目录
 
