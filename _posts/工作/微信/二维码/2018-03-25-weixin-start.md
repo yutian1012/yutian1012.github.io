@@ -11,7 +11,7 @@ tags: [weixin]
 
 ```
 # 配置安装vsftpd，并启动，用于上传程序
-systemctl restart vsftpd.service
+systemctl start vsftpd.service
 # 安装apache，并启动
 /usr/local/apache/bin/apachectl start
 # 安装mysql，并启动
