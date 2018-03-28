@@ -22,6 +22,8 @@ phpize是用来扩展php扩展模块的，通过phpize可以建立php的外挂�
 ${PHP-HOME}/bin/phpize
 ```
 
+注：该命令执行完成后会生成configue文件。
+
 2）下载memcache扩展模块
 
 下载地址：http://pecl.php.net/package/memcached
