@@ -261,6 +261,7 @@ ln -s /var/lib/mysql/mysql.sock /tmp/mysql.sock
 a.安装
 
 ```
+cd /usr/local/src
 yum install php-mcrypt libmcrypt libmcrypt-devel  libxml2-devel  openssl-devel  libcurl-devel libjpeg.x86_64 libpng.x86_64 freetype.x86_64 libjpeg-devel.x86_64 libpng-devel.x86_64 freetype-devel.x86_64  libjpeg-turbo-devel   libmcrypt-devel   mysql-devel  -y
 wget http://zy-res.oss-cn-hangzhou.aliyuncs.com/php/php-7.0.12.tar.gz
 tar zxvf php-7.0.12.tar.gz
