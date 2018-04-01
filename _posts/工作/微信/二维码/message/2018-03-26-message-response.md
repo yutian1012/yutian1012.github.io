@@ -1,5 +1,5 @@
 ---
-title: 微信公众开发平台相应消息
+title: 微信公众开发平台相应消息（php）
 tags: [weixin]
 ---
 
@@ -33,7 +33,7 @@ public function responseMsg()
     }
 }
 
-//接收文本消息
+//接收文本消息，并回送当前时间
 private function receiveText($object)
 {
     $keyword = trim($object->Content);

@@ -25,8 +25,8 @@ systemctl start vsftpd.service
 
 ```
 微信号:gh_2626e3fe4187 
-appID:wx1552c70aa6782a58
-appsecret:e6095963fb618886a32305af2d90cfe1
+appID:wx1552c70awqwewa6782a58
+appsecret:e6095963fb6188eq86a32305adf2d90cfe1
 
 url:http://47.104.31.92
 token:searchpatent
