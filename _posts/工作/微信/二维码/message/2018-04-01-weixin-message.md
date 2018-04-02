@@ -17,35 +17,204 @@ tags: [weixin]
 
 1）可接收消息类型：
 
-文本消息——text，
+a.文本消息——text，
 
-语音消息——voice，
+```
+<xml>  
+    <ToUserName>< ![CDATA[toUser] ]></ToUserName>  
+    <FromUserName>< ![CDATA[fromUser] ]></FromUserName>  
+    <CreateTime>1348831860</CreateTime>  
+    <MsgType>< ![CDATA[text] ]></MsgType>  
+    <Content>< ![CDATA[this is a test] ]></Content>  
+    <MsgId>1234567890123456</MsgId>  
+</xml>
+```
 
-图片消息——image，
+b.语音消息——voice，
 
-视频消息——video，
+```
+<xml>
+    <ToUserName>< ![CDATA[toUser] ]></ToUserName>
+    <FromUserName>< ![CDATA[fromUser] ]></FromUserName>
+    <CreateTime>1357290913</CreateTime>
+    <MsgType>< ![CDATA[voice] ]></MsgType>
+    <MediaId>< ![CDATA[media_id] ]></MediaId>
+    <Format>< ![CDATA[Format] ]></Format>
+    <MsgId>1234567890123456</MsgId>
+</xml>
+```
 
-链接消息——link，
+注：开启语言识别功能后，会将识别的语言信息存储在Recognition字段中。
 
-位置消息——location，
+```
+<xml>
+    <ToUserName>< ![CDATA[toUser] ]></ToUserName>
+    <FromUserName>< ![CDATA[fromUser] ]></FromUserName>
+    <CreateTime>1357290913</CreateTime>
+    <MsgType>< ![CDATA[voice] ]></MsgType>
+    <MediaId>< ![CDATA[media_id] ]></MediaId>
+    <Format>< ![CDATA[Format] ]></Format>
+    <Recognition>< ![CDATA[腾讯微信团队] ]></Recognition>
+    <MsgId>1234567890123456</MsgId>
+</xml>
+```
 
-消息视频消息——shortvideo，
+注：这里的MediaId，可以调用多媒体文件下载接口拉取数据。
+
+c.图片消息——image，
+
+```
+<xml> 
+    <ToUserName>< ![CDATA[toUser] ]></ToUserName> 
+    <FromUserName>< ![CDATA[fromUser] ]></FromUserName> 
+    <CreateTime>1348831860</CreateTime> 
+    <MsgType>< ![CDATA[image] ]></MsgType> 
+    <PicUrl>< ![CDATA[this is a url] ]></PicUrl> 
+    <MediaId>< ![CDATA[media_id] ]></MediaId> 
+    <MsgId>1234567890123456</MsgId> 
+</xml>
+```
+
+d.视频消息——video，
+
+```
+<xml>
+    <ToUserName>< ![CDATA[toUser] ]></ToUserName>
+    <FromUserName>< ![CDATA[fromUser] ]></FromUserName>
+    <CreateTime>1357290913</CreateTime>
+    <MsgType>< ![CDATA[video] ]></MsgType>
+    <MediaId>< ![CDATA[media_id] ]></MediaId>
+    <ThumbMediaId>< ![CDATA[thumb_media_id] ]></ThumbMediaId>
+    <MsgId>1234567890123456</MsgId>
+</xml>
+```
+
+e.小视频消息——shortvideo
+
+```
+<xml>
+    <ToUserName>< ![CDATA[toUser] ]></ToUserName>
+    <FromUserName>< ![CDATA[fromUser] ]></FromUserName>
+    <CreateTime>1357290913</CreateTime>
+    <MsgType>< ![CDATA[shortvideo] ]></MsgType>
+    <MediaId>< ![CDATA[media_id] ]></MediaId>
+    <ThumbMediaId>< ![CDATA[thumb_media_id] ]></ThumbMediaId>
+    <MsgId>1234567890123456</MsgId>
+</xml>
+```
+
+f.链接消息——link
+
+```
+<xml>
+    <ToUserName>< ![CDATA[toUser] ]></ToUserName>
+    <FromUserName>< ![CDATA[fromUser] ]></FromUserName>
+    <CreateTime>1351776360</CreateTime>
+    <MsgType>< ![CDATA[link] ]></MsgType>
+    <Title>< ![CDATA[公众平台官网链接] ]></Title>
+    <Description>< ![CDATA[公众平台官网链接] ]></Description>
+    <Url>< ![CDATA[url] ]></Url>
+    <MsgId>1234567890123456</MsgId>
+</xml>
+```
+
+g.位置消息——location，
+
+```
+<xml>
+    <ToUserName>< ![CDATA[toUser] ]></ToUserName>
+    <FromUserName>< ![CDATA[fromUser] ]></FromUserName>
+    <CreateTime>1351776360</CreateTime>
+    <MsgType>< ![CDATA[location] ]></MsgType>
+    <Location_X>23.134521</Location_X>
+    <Location_Y>113.358803</Location_Y>
+    <Scale>20</Scale>
+    <Label>< ![CDATA[位置信息] ]></Label>
+    <MsgId>1234567890123456</MsgId>
+</xml>
+```
 
 2）支持的事件推送——event
 
 a.关注——subscribe，
 
+```
+<xml>
+    <ToUserName>< ![CDATA[toUser] ]></ToUserName>
+    <FromUserName>< ![CDATA[FromUser] ]></FromUserName>
+    <CreateTime>123456789</CreateTime>
+    <MsgType>< ![CDATA[event] ]></MsgType>
+    <Event>< ![CDATA[subscribe] ]></Event>
+</xml>
+```
+
 b.取消关注——unsubscribe，
 
+取消关注的格式与关注xml格式相同，只是Event字段的值不同，为unsubscribe。
+
 c.上传地理位置——location
+
+```
+<xml>
+    <ToUserName>< ![CDATA[toUser] ]></ToUserName>
+    <FromUserName>< ![CDATA[fromUser] ]></FromUserName>
+    <CreateTime>123456789</CreateTime>
+    <MsgType>< ![CDATA[event] ]></MsgType>
+    <Event>< ![CDATA[LOCATION] ]></Event>
+    <Latitude>23.137466</Latitude>
+    <Longitude>113.352425</Longitude>
+    <Precision>119.385040</Precision>
+</xml>
+```
 
 d.菜单点击：
 
 点击菜单获取消息时触发click；点击菜单跳转链接时触发view
 
+```
+<xml>
+    <ToUserName>< ![CDATA[toUser] ]></ToUserName>
+    <FromUserName>< ![CDATA[FromUser] ]></FromUserName>
+    <CreateTime>123456789</CreateTime>
+    <MsgType>< ![CDATA[event] ]></MsgType>
+    <Event>< ![CDATA[CLICK] ]></Event>
+    <EventKey>< ![CDATA[EVENTKEY] ]></EventKey>
+</xml>
+```
+
 e.扫描带参数二维码：
 
-未关注时触发subscribe；已关注时触发scan
+未关注时触发subscribe；
+
+```
+<xml>
+    <ToUserName>< ![CDATA[toUser] ]></ToUserName>
+    <FromUserName>< ![CDATA[FromUser] ]></FromUserName>
+    <CreateTime>123456789</CreateTime>
+    <MsgType>< ![CDATA[event] ]></MsgType>
+    <Event>< ![CDATA[subscribe] ]></Event>
+    <EventKey>< ![CDATA[qrscene_123123] ]></EventKey>
+    <Ticket>< ![CDATA[TICKET] ]></Ticket>
+</xml>
+```
+
+注：事件KEY值，qrscene_为前缀，后面为二维码的参数值。二维码的ticket，可用来换取二维码图片，调用相关的接口即可。
+
+已关注时触发scan
+
+```
+<xml> 
+    <ToUserName>< ![CDATA[toUser] ]></ToUserName> 
+    <FromUserName>< ![CDATA[FromUser] ]></FromUserName> 
+    <CreateTime>123456789</CreateTime> 
+    <MsgType>< ![CDATA[event] ]></MsgType> 
+    <Event>< ![CDATA[SCAN] ]></Event> 
+    <EventKey>< ![CDATA[SCENE_VALUE] ]></EventKey> 
+    <Ticket>< ![CDATA[TICKET] ]></Ticket> 
+</xml>
+```
+
+注：事件KEY值，是一个32位无符号整数，即创建二维码时的二维码scene_id
 
 ### 第三方平台响应服务器回传消息
 
