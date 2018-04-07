@@ -1,0 +1,30 @@
+---
+title: spring中Bean的生命周期
+tags: [spring]
+---
+
+1）理解Bean的生命周期
+
+正确理解spring中Bean的生命周期，能够更好的利用spring提供的扩展点来自定义Bean的创建过程。
+
+2）容器中Bean的初始化过程
+
+第一步：spring对bean进行实例化
+
+第二步：spring将值和bean的引用注入到bean对应的属性中。
+
+第三步：如果Bean实现了BeanNameAware即可，Spring将Bean的ID传递一个setBeanName方法。
+
+第四步：如果Bean实现了BeanFactoryAware接口，Spring将调用setBeanFactory方法，将BeanFactory容器实例传入。
+
+第五步：如果bean实现了ApplicationContextAware接口，Spring将调用setApplicationContext方法，将bean所在的应用上下文的引用传入进来。
+
+第六步：如果bean实现了BeanPostProcessor接口，Spring将调用它们的postProcessBeforeInitialization方法
+
+第七步：如果bean实现了InitializingBean接口，Spring将调用它们的afterPropertiesSet方法。类似地，如果bean使用init-method声明了初始化方法，该方法也会被调用。
+
+第八步：如果bean实现了BeanPostProcesser接口，Spring将调用它们的postProcessAfterInitialization方法。
+
+第九步：此时bean已经准备就绪，可以被应用程序使用了，它们将一直驻留在应用上下文中，直到应用上下文被销毁。
+
+第十步：销毁bean对象，如果bean实现了DisposableBean接口，Spring将调用它的destroy方法，同样如果bean使用destroy-method声明了销毁方法，该方法也会被调用。
