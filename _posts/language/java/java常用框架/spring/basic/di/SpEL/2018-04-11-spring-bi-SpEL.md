@@ -21,6 +21,10 @@ e.集合操作。
 
 SpEL能够用在依赖注入以外的其他地方。
 
-a.SpringSecurity支持使用SpEL表达式定义安全限制规则。
+a.Spring Security支持使用SpEL表达式定义安全限制规则。
 
-b.在SpringMVC应用中使用Thymeleaf模板作为视图的话，那么这些模板可以使用SpEL表达式引用模型数据。
+b.在Spring MVC应用中使用Thymeleaf模板作为视图的话，那么这些模板可以使用SpEL表达式引用模型数据。
+
+3）使用方式
+
+SpEL表达式需要使用#{...}来引用。

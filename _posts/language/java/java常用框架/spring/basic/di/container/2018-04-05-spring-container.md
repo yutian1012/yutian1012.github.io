@@ -21,6 +21,8 @@ b.应用上下文
 
 应用上下文（ApplicationContext接口），基于BeanFactory构建，并提供应用框架级别的服务，如从属性文件解析文本信息以及发布应用事件给感兴趣的事件监听者。
 
+注：ApplicationContext比较复杂，它不但继承了BeanFactory的大部分属性，还继承其它可扩展接口，扩展的了许多高级的属性
+
 3）应用上下文
 
 a.AnnotationConfigApplicationContext类
