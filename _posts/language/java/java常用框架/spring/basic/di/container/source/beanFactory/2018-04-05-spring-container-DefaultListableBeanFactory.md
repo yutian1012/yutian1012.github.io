@@ -1,0 +1,27 @@
+---
+title: spring容器的DefaultListableBeanFactory
+tags: [spring]
+---
+
+该类是真正第一个可以独立的IOC容器，而且后面的ApplicationContext据说也是依据它来建立。
+
+1）要实现的接口
+
+只继承了一个抽象类，同时把集大成的接口ConfigurableListableBeanFactory给实现了，同时还有BeanDefinitionRegistry接口，从名字上看就知道是BeanDefinition的注册接口。
+
+该类除了实现ConfigurableListableBeanFactory接口，还要实现ListableBeanFactory子接口提供容器内bean实例的枚举功能，AutowireCapableBeanFactory子接口提供容器的自动配置功能，ConfigurableBeanFactory子接口提供了定义BeanFactory的配置，如类加载器，类型转化，属性编辑器等。
+
+2）该类的继承体系
+
+如果要在一个类中实现所有的接口是不现实的，也不方便代码的复用，因此DefaultListableBeanFactory继承了多个基类。
+
+```
+//AbstractAutowireCapableBeanFactory类实现了AutowireCapableBeanFactory接口，对自动装配接口进行了基本的实现
+DefaultListableBeanFactory extends AbstractAutowireCapableBeanFactory implements AutowireCapableBeanFactory
+
+//AbstractBeanFactory类实现了ConfigurableBeanFactory接口，即对容器的配置信息进行基本实现。
+AbstractAutowireCapableBeanFactory extends AbstractBeanFactory implements ConfigurableBeanFactory
+
+//FactoryBeanRegistrySupport具备了Register功能（该类也实现了很多接口）
+AbstractBeanFactory extends FactoryBeanRegistrySupport
+```

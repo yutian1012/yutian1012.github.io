@@ -24,3 +24,5 @@ b.激活profile
 4）@Profile注解
 
 在Spring3.1中，只能在类级别上使用@Profile注解。不过，从Spring3.2开始，你也可以在方法级别上使用@Profile注解，与@Bean注解一同使用。这样的话，就能将这两个bean的声明放到同一个配置类之中，
+
+从Spring4开始，@Profile注解进行了重构，使其基于@Conditional和Condition实现。

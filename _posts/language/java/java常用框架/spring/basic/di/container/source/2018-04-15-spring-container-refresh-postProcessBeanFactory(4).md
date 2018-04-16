@@ -1,0 +1,8 @@
+---
+title: spring容器对BeanFactory处理扩展
+tags: [spring]
+---
+
+AbstractApplicationContext类的postProcessBeanFactory()方法，默认方法体是空的，主要是用来扩展beanfactory的，扩展点是在bean等配置都已经加载但还没有进行实例化的时候。
+
+如在web项目中，使用的是spring的webApplicationcontext，这时需要一些ServletContextAware相关的自动装配忽略及配置等，就需要在webApplicationContext里重写这个方法来实现相应功能。那么Servlet环境的相关信息就能够在Spring容器BeanFactory中获取了，从而可以分配给相应的bean对象。
