@@ -23,8 +23,10 @@ public class DefaultListableBeanFactoryMain {
         //对Resource文件进行定位
         ClassPathResource res=new ClassPathResource("META-INF/spring/app-context.xml");
         DefaultListableBeanFactory factory=new DefaultListableBeanFactory();
+
         //创建一个载入BeanDefinition的读取器，将bean定义信息设置到BeanFactory
         XmlBeanDefinitionReader reader=new XmlBeanDefinitionReader(factory);
+
         //从资源文件中加载BeanDefinition定义信息
         reader.loadBeanDefinitions(res);
         
@@ -35,13 +37,23 @@ public class DefaultListableBeanFactoryMain {
 }
 ```
 
-注：查看reader.loadBeanDefinitions，该方法是查看源码的入口方法。
+注：查看reader.loadBeanDefinitions，该方法是查看容器加载bean配置的入口方法。
 
-另外，DefaultListableBeanFactory的实现类XmlBeanFactory，该类的代码执行与上面的编写的代码是相同的。不过该类已经是@Deprecated。
+2）XmlBeanFactory类
 
-2）解析过程
+XmlBeanFactory是DefaultListableBeanFactory的子类，该类的代码执行与上面的编写的代码是相同的。
 
-由XmlBeanDefinitionReader完成解析，完成整个载入和注册Bean定义的过程。
+注：不过该类已经是@Deprecated。
+
+3）DefaultListableBeanFactory的初始化
+
+DefaultListableBeanFactory对象初始化会设置一些默认的环境对象。
+
+3）解析过程
+
+具体xml文件的解析交由XmlBeanDefinitionReader完成解析，完成整个载入和注册Bean定义的过程。
+
+4）实例化过程
 
 通过BeanFactory的getBean方法，获取对应的Bean。获取bean实例过程中会涉及到了Bean的实例化以及依赖注入。
 

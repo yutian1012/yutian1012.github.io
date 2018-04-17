@@ -3,7 +3,9 @@ title: spring容器的ignoreDependencyInterface方法
 tags: [spring]
 ---
 
-AbstractAutowireCapableBeanFactory父类构造
+在DefaultListableBeanFactory对象初始化时会调用父类AbstractAutowireCapableBeanFactory类构造函数。
+
+1）AbstractAutowireCapableBeanFactory构造函数
 
 ```
 public AbstractAutowireCapableBeanFactory() {

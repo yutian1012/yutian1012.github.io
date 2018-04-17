@@ -1,5 +1,5 @@
 ---
-title: spring容器的ConfigurableListableBeanFactory
+title: spring容器的ConfigurableListableBeanFactory集成接口
 tags: [spring]
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: spring容器的BeanFactory
+title: spring容器的BeanFactory基础接口
 tags: [spring]
 ---
 

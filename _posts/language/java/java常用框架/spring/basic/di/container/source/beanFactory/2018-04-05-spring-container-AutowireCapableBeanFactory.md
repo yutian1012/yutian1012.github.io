@@ -1,9 +1,9 @@
 ---
-title: spring容器的AutowireCapableBeanFactory
+title: spring容器的AutowireCapableBeanFactory接口
 tags: [spring]
 ---
 
-AutowireCapableBeanFactory提供了自动装配bean对象时常用的API。
+AutowireCapableBeanFactory接口定义了自动装配bean对象时常用的API。
 
 ```
 public interface AutowireCapableBeanFactory extends BeanFactory {
