@@ -36,6 +36,9 @@ rm -r ~/.ssh
 ```
 
 ### 4. 生成密钥：
+
+安装windows-for-git后，会在安装根目录下存在git-bash.exe，该文件是一个mingw64的命令行工具（模拟linux系统，并提供了相关的工具集）
+
 ```
 ssh-keygen -t rsa -C "yutian1012@126.com"
 ```
