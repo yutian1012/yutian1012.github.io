@@ -19,7 +19,6 @@ tags: [jenkins]
   <version>0.0.1-SNAPSHOT</version>
 
   <name>helloworld</name>
-  <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
   <properties>
@@ -77,7 +76,7 @@ public class HelloWorld {
 
 4）jenkins创建配置任务
 
-第一步：创建一个新任务--输入任务名称（helloworld），并选择构建一个自由风格的软件项目。
+第一步：创建一个新任务--输入任务名称（helloworld），并选择构建一个自由风格的软件项目。自由风格的软件项目具有更大的灵活性，可以把构建作业分成若干步骤。
 
 ![](/images/tools/jenkins/create-job-type.png)
 
@@ -97,22 +96,42 @@ public class HelloWorld {
 
 第四步：配置构建环境
 
+点击添加构建步骤按钮，选择invoke top-level maven targets选项，可用来设置maven命令完成该步骤的工作。
+
 ```
-设置mvn执行命令clean package
+# 设置mvn执行命令clean package，并且前面不要添加mvn命令
+clean package
 ```
 
 ![](/images/tools/jenkins/create-job-build-command.png)
 
-第五步：生成测试包括
+第五步：生成测试报告
 
-这里项目中使用的是junit，理解mvn运行测试后生成的测试xml文档位置，然后在配置该路径，如mvn运行test命令后，会将结果生成到target\surefire-reports目录下，文档为xml类型。
+点击增加构建后操作按钮（在构建之后生成测试报告），选择publish junit test result report选项，并配置junit生成测试报告xml文档路径。所有的junit测试框架都会生成xml文档，用来反馈测试结果，jenkins能够识别xml文档内容，并对其进行分析，进而展示报表，测试结果统计等。
+
+这里项目中使用的是junit，要清楚mvn运行测试后生成的测试xml文档位置，然后在配置该路径，如mvn运行test命令后，会将结果生成到target\surefire-reports目录下，文档为xml类型。
 
 ```
 # jenkins会在构建的项目根目录下查找生成的测试文件
 设置路径为：target\surefire-reports\*.xml
+# 更加健壮的配置方式，开头的两个*号能够匹配多路径层次
+**/target/surefire-reports/*.xml
 ```
 
 ![](/images/tools/jenkins/create-job-test-report.png)
+
+第六步：将构建产物进行归档
+
+如应用程序一般会打包成jar，web程序会打包成war，然后部署到相应的环境中运行。这里jenkins也提供了对构建产物进行归档的操作。
+
+点击增加构建后操作按钮，选择archive the artifacts，并设置存档路径。
+
+```
+# 设置构建产物存档路径
+**/target/*.jar
+```
+
+![](/images/tools/jenkins/create-job-archive.png)
 
 5）新建测试类
 
