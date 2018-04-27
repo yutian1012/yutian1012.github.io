@@ -3,7 +3,7 @@ title: java中HashMap源码分析（二）
 tags: [java]
 ---
 
-1）hashmap的初始化
+1）hashmap的构造函数
 
 ```
 public HashMap(int initialCapacity, float loadFactor) {
