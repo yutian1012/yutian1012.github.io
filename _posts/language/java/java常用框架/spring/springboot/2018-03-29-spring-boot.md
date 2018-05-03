@@ -24,3 +24,9 @@ Spring-Boot的可选特性，借此你只需写代码就能完成完整的应用
 d.Actuator：
 
 让你能够深入运行中的Spring Boot应用程序，一探究竟。
+
+3）spring boot的配置
+
+传统的spring项目配置一般集中在applicationContext.xml和servlet-name-servlet.xml文件中。
+
+使用spring boot将所有的配置都集中在src/main/resources/applicatin.properties文件

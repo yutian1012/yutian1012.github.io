@@ -32,7 +32,7 @@ public class HelloWorldController {
 }
 ```
 
-注：RestController注解会将controller类里面的方法的返回都以json格式输出，不用再写什么jackjson配置的了，简化了json的输出配置。
+注：RestController注解会将controller类里面的方法的返回都以json格式输出，不用再写什么jackjson配置的了，简化了json的输出配置。@RestController=@Controller+@ResponeBody，会直接返回josn数据。
 
 3）启动测试
 
