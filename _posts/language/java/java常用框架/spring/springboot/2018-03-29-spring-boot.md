@@ -5,10 +5,9 @@ tags: [spring]
 
 1）spring Boot的简介
 
-Spring Boot是为了简化spring框架配置而引入的，理念是让项目快速运行起来。使用Spring Boot很容易创建一个独立运行（运行jar,内嵌Servlet容器）、准生产级别的基于Spring框架的项目，使用Spring Boot你可以不用或者只需要很少的Spring配置。
+SpringBoot是为了简化spring框架配置而引入的，理念是让项目快速运行起来。使用Spring Boot很容易创建一个独立运行（运行jar，内嵌Servlet容器）、准生产级别的基于Spring框架的项目，使用Spring Boot你可以不用或者只需要很少的Spring配置。
 
 2）核心
-
 
 a.自动配置：
 

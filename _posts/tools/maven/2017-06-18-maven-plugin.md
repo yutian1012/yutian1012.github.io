@@ -5,6 +5,8 @@ tags: [maven,tools]
 
 参考：http://blog.csdn.net/phantomes/article/details/51202005
 
+maven插件配置时，一般需要知道版本号，默认会到中央仓库中下载最新的插件使用。
+
 ### maven插件
 
 1）maven插件完成构件任务
