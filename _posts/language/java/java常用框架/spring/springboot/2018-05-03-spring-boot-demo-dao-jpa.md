@@ -12,7 +12,7 @@ spring Data JPA能够自动生成实现方法，通过特殊方法约定来实�
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-data-jpa</artifactId>
 </dependency>
- <dependency>
+<dependency>
     <groupId>mysql</groupId>
     <artifactId>mysql-connector-java</artifactId>
 </dependency>
