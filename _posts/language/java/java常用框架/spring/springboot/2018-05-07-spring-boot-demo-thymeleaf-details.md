@@ -42,14 +42,22 @@ html中输入th:没有自动提示的现象。
 ```
 <table>
     <tr>
+      <th>xh</th>
       <th>NAME</th>
       <th>PRICE</th>
       <th>IN STOCK</th>
     </tr>
-    <tr th:each="prod : ${prods}">
+    <tr th:each="prod,index : ${prods}">
+      <td th:text="${index.count}"></td>
       <td th:text="${prod.name}">Onions</td>
       <td th:text="${prod.price}">2.41</td>
       <td th:text="${prod.inStock}? #{true} : #{false}">yes</td>
     </tr>
 </table>
 ```
+
+注：${index.count}表示循环的序号
+
+5）在js中使用
+
+参考：https://blog.csdn.net/mygzs/article/details/52667897
