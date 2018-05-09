@@ -50,9 +50,12 @@ b.application.properties文件
 Syntax error, annotations are only available if source level is 1.5 or greater
 ```
 
-添加插件
+设置编译版本
 
 ```
+<!-- 指定一下jdk的版本 ，这里我们使用jdk 1.8，但在myeclipse中会有问题-->
+<java.version>1.8</java.version>
+
 <plugin>
     <artifactId>maven-compiler-plugin</artifactId>
     <configuration>

@@ -1,5 +1,5 @@
 ---
-title: xdocreport 实例
+title: xdocreport 入门实例
 tags: [xdocreport]
 ---
 
