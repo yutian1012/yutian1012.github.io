@@ -16,6 +16,11 @@ spring Data JPA能够自动生成实现方法，通过特殊方法约定来实�
     <groupId>mysql</groupId>
     <artifactId>mysql-connector-java</artifactId>
 </dependency>
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-test</artifactId>
+    <scope>test</scope>
+</dependency>
 ```
 
 2）application.properties配置
@@ -35,11 +40,13 @@ spring.jpa.show-sql= true
 
 hibernate.hbm2ddl.auto参数的作用取值create，create-drop，update以及validate。其中update是最常用的，每次都会根据实体类来更新数据表结构。
 
-show-sql主要是打印出自动生产的SQL，方便调试的时候查看
+注：show-sql主要是打印出自动生产的SQL，方便调试的时候查看。
 
 3）创建实体类
 
-这里的注解都是唯一javax.persistence包下，即JPA规范的注解。
+这里的注解都是唯一javax.persistence包下，即JPA规范的注解。并且实体类要实现Seriablizable接口。
+
+实体类必须提供无参构造函数，因为jpa在创建对象时会使用无参构造创建对象，然后在对相应的属性赋值。
 
 ```
 package com.example.demo.model;
@@ -83,6 +90,8 @@ public class User implements Serializable {
     //set/get method...
 }
 ```
+
+注：使用lombok可以不用设置set和get方法，并且能够自动生成相应的构造函数。
 
 4）创建dao层类
 
@@ -137,11 +146,33 @@ public class UserRepositoryTest {
         Assert.assertEquals("bb", userRepository.findByUserNameOrEmail("bb2", "ccw@126.com").getNickName());
         userRepository.delete(userRepository.findByUserName("aa1"));
     }
-
 }
 ```
 
-6）错误信息
+6）运行
+
+```
+mvn test
+```
+
+类路径下必须要存在@SpringBootApplication主键的配置类，该类是spring boot的启动类
+
+```
+package com.example.demo;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class DemoApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(DemoApplication.class, args);
+    }
+}
+```
+
+错误信息
 
 ```
 Incorrect string value: '\xE5\xB9\xB45\xE6\x9C...' for column 'reg_time'
