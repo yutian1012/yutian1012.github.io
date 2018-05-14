@@ -61,3 +61,14 @@ html中输入th:没有自动提示的现象。
 5）在js中使用
 
 参考：https://blog.csdn.net/mygzs/article/details/52667897
+
+6）判断条件
+
+判断对象非空
+
+```
+<input type="button" th:if="${pageable.previousOrFirst()!=null}" value="prev" onclick="prev()">
+<input type="button" th:if="${pageable.next()!=null}" value="next" onclick="next()">
+```
+
+注：这里直接调用了对象方法，并使用null来判断是否为空。

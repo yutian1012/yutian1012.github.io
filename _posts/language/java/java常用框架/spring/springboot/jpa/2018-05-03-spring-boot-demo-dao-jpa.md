@@ -5,6 +5,8 @@ tags: [spring]
 
 spring Data JPA能够自动生成实现方法，通过特殊方法约定来实现。
 
+jap的查询包括：方法命名查询，@NamedQuery查询和@Query查询三种方式查询。
+
 1）添加依赖
 
 ```
