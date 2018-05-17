@@ -1,19 +1,11 @@
 ---
-title: jxls简介
+title: jxls整合到spring mvc中
 tags: [jxls]
 ---
 
 参考：https://blog.csdn.net/zjl103/article/details/49666101
 
-### jxls
-
-jxls是一个简单的、轻量级的excel导出库，使用特定的标记在excel模板文件中来定义输出格式和布局
-
-1）下载
-
-下载地址：https://sourceforge.net/projects/jxls/?source=directory
-
-2）引入依赖
+1）依赖引入
 
 ```
 <dependency>
@@ -28,3 +20,5 @@ jxls是一个简单的、轻量级的excel导出库，使用特定的标记在ex
     <version>1.0.13</version>
 </dependency>
 ```
+
+2）
