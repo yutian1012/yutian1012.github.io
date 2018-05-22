@@ -25,7 +25,7 @@ Spring Web Service提供了契约优先的Web-Service模型，服务的实现都
 
 许多企业级应用都需要与其他应用进行交互。Spring Integration提供了多种通用应用集成模式的Spring声明式风格实现。
 
-5）Sprin gBatch
+5）Spring Batch
 
 当我们需要对数据进行大量操作时，没有任何技术可以比批处理更胜任这种场景。如果需要开发一个批处理应用，你可以通过Spring-Batch，使用Spring强大的面向POJO的编程模型。
 

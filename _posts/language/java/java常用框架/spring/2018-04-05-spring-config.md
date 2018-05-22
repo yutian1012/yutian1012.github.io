@@ -25,6 +25,8 @@ public class CDPlayerConfig{
 }
 ```
 
+注：ComponentScan会扫描配置的包，及其该包下的子包。
+
 2）使用xml方式
 
 使用相应的标签需要引入相关的命名空间
