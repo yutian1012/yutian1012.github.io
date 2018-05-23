@@ -7,6 +7,8 @@ Spring Data的DSL依旧有其局限性，有时候通过方法名称表达预期
 
 这种查询可以声明在Repository接口方法中，摆脱像命名查询那样的约束，将查询直接在相应的接口方法中声明，结构更为清晰，这是Spring data的特有实现。 
 
+@Query注解方式能够使用参数索引和参数名的方式实现查询。
+
 1）实例代码
 
 在接口的方法上添加注解@Query，并定义查询sql，如方法findSpitterByUsernameInfo
@@ -31,9 +33,13 @@ public interface SpitterRepository extends JpaRepository<Spitter, Long>{
     
     List<Spitter> findByUsernameOrFullNameLike(String username, String fullName);
     
+    //使用索引方式查询
     @Query("select p from Spitter as p where p.username=?1")
     Spitter findSpitterByUsernameInfo(String username);
 
+    //使用参数名匹配查询
+    @Query("select p from Spitter as p where p.username=:username")
+    Spitter findSpitterByUsernameParamName(@Param("username")String username);
 }
 ```
 
@@ -67,9 +73,14 @@ public class SpitterRepositoryQueryTest {
     public void testSave() {
         Spitter spitter = new Spitter(null, "newbee", "letmein", "New Bee", "newbee@habuma.com", true);
         spitterRepository.save(spitter);
+
         Spitter spitter2=spitterRepository.findSpitterByUsernameInfo("newbee");
         assertNotNull(spitter2);
         assertTrue(spitter.getId().longValue()==spitter2.getId().longValue());
+
+        Spitter spitter3=spitterRepository.findSpitterByUsernameParamName("newbee");
+        assertNotNull(spitter3);
+        assertTrue(spitter.getId().longValue()==spitter3.getId().longValue());
     }
 }
 ```
