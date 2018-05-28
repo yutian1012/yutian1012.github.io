@@ -10,3 +10,9 @@ tags: [spring]
 ```
 
 ```
+
+运行项目前，定位目录到springclouddemo（即父pom项目目录下），运行命令
+
+```
+mvn clean install
+```
