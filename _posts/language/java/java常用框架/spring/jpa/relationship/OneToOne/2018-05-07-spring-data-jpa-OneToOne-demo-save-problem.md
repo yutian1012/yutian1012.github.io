@@ -1,5 +1,5 @@
 ---
-title: spring boot jpa OneToOne单向关联存在的问题
+title: spring boot jpa OneToOne关联保存问题
 tags: [spring]
 ---
 

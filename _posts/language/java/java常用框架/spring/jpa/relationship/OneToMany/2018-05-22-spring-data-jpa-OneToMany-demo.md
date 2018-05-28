@@ -1,5 +1,5 @@
 ---
-title: spring boot jpa OneToMany不做关联
+title: spring boot jpa OneToMany无关联
 tags: [spring]
 ---
 

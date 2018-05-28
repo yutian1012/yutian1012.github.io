@@ -1,5 +1,5 @@
 ---
-title: Spring Date Jpa问题2
+title: Spring Date Jpa懒加载问题
 tags: [spring]
 ---
 
