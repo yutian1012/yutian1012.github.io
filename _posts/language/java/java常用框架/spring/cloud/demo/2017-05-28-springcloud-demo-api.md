@@ -8,14 +8,17 @@ tags: [spring]
 1）创建maven module模块
 
 ```
-<parent>
-    <groupId>org.sjq.test</groupId>
-    <artifactId>springclouddemo</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-</parent>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.sjq.test</groupId>
+        <artifactId>springclouddemo</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
 
-<!-- 当前module自己的artifactId -->
-<artifactId>microservicecloud-api</artifactId>
+    <!-- 当前module自己的artifactId -->
+    <artifactId>microservicecloud-api</artifactId>
+</project>
 ```
 
 创建完成后，在父类中会出现modules标签中添加上相关的模块
@@ -61,7 +64,7 @@ public class Dept implements Serializable{
     private String dName;//部门名称
     //来自哪个数据库，因为微服务架构可以一个服务对应一个数据库
     //同一个信息被存储到不同的数据库中
-    private String dbSource;
+    private String db_source;
 }
 ```
 

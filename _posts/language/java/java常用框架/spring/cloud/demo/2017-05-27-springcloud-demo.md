@@ -11,6 +11,6 @@ springclouddemo(整体父工程)
 
 microservicecloud-api(封装的整体entity/接口/公共配置等)
 
-microservicecloud-provider-dep-8001(微服务落地的服务提供者)
+microservicecloud-provider-dept-8001(微服务落地的服务提供者)
 
-microservicecloud-consumer-dep-80（微服务调用的客户端）
+microservicecloud-consumer-dept-80（微服务调用的客户端）
