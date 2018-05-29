@@ -7,7 +7,7 @@ tags: [spring]
 
 1）创建maven项目
 
-![](/images/spring/springcloud/base/demo/springclouddemo-parent.png)
+![](/images/spring/springcloud/demo/springclouddemo-parent.png)
 
 ```
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
