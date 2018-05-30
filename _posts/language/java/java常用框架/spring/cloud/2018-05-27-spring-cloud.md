@@ -5,6 +5,8 @@ tags: [spring]
 
 *这里spring cloud笔记主要是学习尚硅谷视频的总结。*
 
+测试实例地址：https://github.com/yutian1012/springclouddemo.git
+
 springcloud是分布式微服务架构下的一站式解决方案，是各个微服务架构落地技术的集合体，俗称微服务全家桶。
 
 ![](/images/spring/springcloud/base/springcloud-arch.png)
