@@ -99,4 +99,3 @@ ps -ef | grep java
 云服务器ECS--实例--管理，进入实例管理页面，本实例的安全组--配置规则
 
 ![](/images/weixin/aliyun/port/manage-instance-security-list.png)
-

@@ -95,6 +95,13 @@ eureka:
 127.0.0.1   eureka7003.com
 ```
 
+linux下修改访问域名信息
+
+```
+vi /etc/hosts
+127.0.0.1 eureka7001.com eureka7002.com eureka7002.com
+```
+
 a.microservicecloud-eureka-7001修改为
 
 ```
@@ -168,6 +175,79 @@ eureka:
 
 注：这里配置defaultZone同时指向3个eureka服务注册中心，即向3个注册中心同时注册
 
-5）启动测试
+5）打包部署到linux系统（注意不要忘了数据库配置）
+
+在父项目springclouddemo下添加打包使用的插件
+
+```
+<plugin>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-maven-plugin</artifactId>
+    <configuration>
+        <executable>true</executable>
+    </configuration>
+    <executions>
+              <execution>
+                  <goals>
+                      <goal>repackage</goal>
+                  </goals>
+              </execution>
+          </executions>
+</plugin>
+```
+
+同时修改各个模块的打包项目名称
+
+```
+# microservicecloud-eureka-7001模块的pom中添加
+<build>
+    <finalName>microservicecloudEureka7001</finalName>
+</build>
+
+# microservicecloud-eureka-7002模块的pom中添加
+<build>
+    <finalName>microservicecloudEureka7002</finalName>
+</build>
+
+# microservicecloud-eureka-7003模块的pom中添加
+<build>
+    <finalName>microservicecloudEureka7003</finalName>
+</build>
+
+# microservicecloud-provider-dept-8001模块的pom中添加
+<build>
+    <finalName>microservicecloudProviderDept8001</finalName>
+  </build>
+```
+
+6）启动测试
 
 先启动3个eureka服务，再启动provider服务，访问注册中心查看详细信息。
+
+```
+# 进入上传目录
+cd /root/tmp
+# 启动eureka服务注册中心
+nohup java -jar microservicecloudEureka7001.jar >/dev/null &
+nohup java -jar microservicecloudEureka7002.jar >/dev/null &
+nohup java -jar microservicecloudEureka7003.jar >/dev/null &
+# 启动服务提供者
+nohup java -jar microservicecloudProviderDept8001.jar >/dev/null &
+```
+
+阿里云服务配置入方向端口
+
+```
+授权策略      协议类型      端口范围        授权类型    授权对象      描述    优先级
+-------------------------------------------------------------------------------
+  允许        自定义 TCP   7001/9000      地址段访问   0.0.0.0/0   服务测试    1
+```
+
+7）浏览器访问
+
+```
+# 访问阿里云公网ip
+http://47.104.1.xx:7001/
+```
+
+![](/images/spring/springcloud/eureka/eureka-server-cluster.png)

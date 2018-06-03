@@ -242,6 +242,7 @@ Fatal error: Can't open and lock privilege  tables: Table 'mysql.user' doesn't e
 修改/etc/my.cnf中的数据文件的指向
 
 ```
+vi /etc/my.cnf
 # 指定实际使用的目录
 datadir=/usr/local/mysql/data/
 ```
