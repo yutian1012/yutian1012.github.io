@@ -153,3 +153,32 @@ Email : ${d.mail}
 # 设置一个mergeField域，标识for循环结束
 [/#list]
 ```
+
+### 表格中多行显示一个对象，展示对象集合数据
+
+使用@before-row和@after-row作为一个对象跨多行的分界点。
+
+![](/images/project/xdocreport/word/word-table-multirow-list-script.png)
+
+```
+# 将原来一行内的展示数据：序号    姓名  学历  电子邮件
+# 拆分成 序号、姓名、学历各占一行
+
+# 模板设置
+# 第一行的第一个单元格包含2个mergeField域
+# @before-row位于list开始标签的前面，标识for循环遍历集合对象的一个元素的开始
+# 第一个mergeField域内容为：
+@before-row[#list userList as user]
+# 第二个mergeField域内容如下，即显示学号字段
+${user.xh}
+
+# 第二行的第一个单元格只有一个mergeField域，内容为
+${user.username}
+
+# 第三行的第一个单元格包含2格mergeField域
+# @after-row位于list结束标签的前面，标识for循环遍历集合对象的一个元素的结束
+# 第一个mergeField域内容如下，展示学历字段
+${user.graduate}
+# 第二个mergeField域内容为：
+@after-row[/#list]
+```
