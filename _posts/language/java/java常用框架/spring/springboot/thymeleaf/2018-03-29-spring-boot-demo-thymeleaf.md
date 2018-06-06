@@ -79,6 +79,8 @@ public class HelloThymeleafController {
 </html>
 ```
 
+注：要在html中引入标签的命名空间
+
 7）测试
 
 ```

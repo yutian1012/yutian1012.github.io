@@ -39,6 +39,8 @@ html中输入th:没有自动提示的现象。
 
 4）循环
 
+实例1：展示商品信息，每行一个商品记录
+
 ```
 <table>
     <tr>
@@ -54,6 +56,16 @@ html中输入th:没有自动提示的现象。
       <td th:text="${prod.inStock}? #{true} : #{false}">yes</td>
     </tr>
 </table>
+```
+
+实例2：下拉列表查看，下拉列表选项中显示集合字符串成员
+
+```
+<select name="sourceTable">
+  <option th:each="tableName:${sourceTableList}" 
+    th:text="${tableName}" th:value="${tableName}">
+  </option>
+</select>
 ```
 
 注：${index.count}表示循环的序号
