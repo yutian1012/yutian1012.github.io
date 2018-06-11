@@ -104,3 +104,11 @@ html中输入th:没有自动提示的现象。
     <option th:each="entry:${valueType}" th:text="${entry.value}" th:value="${entry.key}"></option>
   </select>
 ```
+
+8）设置click事件
+
+```
+<a th:onclick="'javascript:exportSql('+${table.id}+');'">导出执行sql</a>
+```
+
+注：onclick使用双引号设置表达式。
