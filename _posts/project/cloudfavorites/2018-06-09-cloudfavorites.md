@@ -7,6 +7,8 @@ tags: [project]
 
 参考：https://github.com/cloudfavorites/favorites-web
 
+注：学习过程采用从无到有的搭建项目，并参考代码的实现，来达到高效的学习目的。
+
 1）下载源码
 
 ```
