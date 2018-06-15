@@ -151,7 +151,9 @@ e.创建sidebar.html页面
 
 f.完善layout.html页面
 
-在layout.html页面中引入其他模板，并定义将被内容替换的区域
+在layout.html页面中引入其他模板，并定义将被内容替换的区域（使用data-layout-fragment属性定义）。
+
+该页面定义了head头显示信息，引入了系统的样式文件，同时在下方引入了script脚本，是一个完整的页面。
 
 ```
 <!DOCTYPE html>
@@ -194,13 +196,11 @@ f.完善layout.html页面
 </html>
 ```
 
-注意：该页面是系统的整体结构页面，系统中的其他页面都是基于该页面展示的，只是替换了该页面的部分内容而已。
-
 该页面定义了两个片段htmlhead和layout，同时使用th:replace命令将其他模板页面引入到布局页面中
 
-注：该页面定义了head头显示信息，引入了系统的样式文件，同时在下方引入了script脚本，是一个完整的页面。
+注意：该页面是系统的整体结构页面，系统中的其他页面都是基于该页面展示的，只是替换了该页面的部分内容而已（有data-layout-fragment定义的区域）。
 
-4）创建home.html页面
+4）创建home.html页面（使用布局layout.html文件装饰页面）
 
 下面，我们创建用户的主页面，该页面基于layout布局页面，并替换掉不仅页面的内容显示区域。
 
@@ -265,6 +265,33 @@ public String home() {
   ....
 ```
 
-原程序中home.jsp登录后的首页，加载了collect/standard.html页面，如何实现的？
+6）替换内容显示区域（页面内容使用data-layout-fragment来替换layout.html页面）
 
-这里是通过js来调用的，具体查看layout.js
+编辑home.html页面，定义section标签，显示内容，data-layout-fragment指定要替换的layout.html页面的区域。即将data-layout-fragment修饰的section替换掉layout.html定义的相同区域。
+
+```
+<html xmlns:th="http://www.thymeleaf.org" data-layout-decorator="fragments/layout">
+  <!-- 
+    上面的data-layout-decorator(相当于layout:decorate)指定了使用fragments目录下layout.html页面作为布局页面
+        
+        th:include标签指定了layout模板中定义的fragment htmlhead片段来修饰head标签体
+        注：th:include与th:replace稍有不同，include表示将片段内容替换到该标签体中，而replace是整个替换
+        
+        th:with用来定义局部变量，下面的定义信息中，可以使用${title}来访问定义的局部变量
+   -->
+  <head th:include="fragments/layout :: htmlhead" th:with="title='favorites'"></head>
+
+  <body>
+      <!-- data-layout-fragment（相当于layout:fragment） -->
+      <section data-layout-fragment="content">
+        home页面内容
+      </section>
+  </body>
+  <script type='text/javascript'>
+ </script>
+</html>
+```
+
+查看运行结果
+
+![](/images/project/favorites-web/web/data-layout-decorator-home.png)
