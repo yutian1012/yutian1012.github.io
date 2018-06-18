@@ -61,6 +61,7 @@ public class SecurityFilter implements Filter{
             }
             //请求转发到登录页面
             req.getRequestDispatcher("/login").forward(request,response);
+            return;
         }
         
         chain.doFilter(request, response);

@@ -109,3 +109,15 @@ function handleServerResponse() {
 //使用html方法可以在浏览器中展示相关的html文本
 $("#content").html(xmlhttp.responseText);
 ```
+
+4）页面js无法成功加载
+
+修改jquery相关的引用地址
+
+```
+<script type="text/javascript" src="/webjars/jquery/2.0.0/jquery.min.js"></script>
+```
+
+具体地址信息可以查看相关jar文件的resources目录下的地址信息
+
+![](/images/project/favorites-web/webjquery-jar-path.png)
