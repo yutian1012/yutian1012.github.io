@@ -21,3 +21,9 @@ tags: [work]
 js文件为AttachMent.js，查看该文件的AttachMent.init方法。附件内容显示调用AttachMent.insertHtml方法。
 
 如果要去掉文件链接可修改AttachMent.getHtml方法。
+
+3）清空上传文档
+
+```
+
+```
