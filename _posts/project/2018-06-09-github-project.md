@@ -63,6 +63,6 @@ https://gitee.com/JiaGou-XiaoGe/webappchat
 
 12）spring-boot-examples
 
-Spring Boot 技术栈示例代码，快速简单上手教程，一个帮助大家学习 Spring Boot的开源示例项目。
+SpringBoot技术栈示例代码，快速简单上手教程，一个帮助大家学习SpringBoot的开源示例项目。
 
 参考：https://github.com/ityouknow/spring-boot-examples
