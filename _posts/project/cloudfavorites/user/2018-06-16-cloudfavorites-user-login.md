@@ -40,41 +40,41 @@ tags: [project]
 
 ```
 <script th:src="@{/webjars/jquery/2.0.0/jquery.min.js}"></script>
-   <script th:src="@{/webjars/vue/1.0.24/vue.min.js}"></script>  
-   <script th:src="@{/webjars/vue-resource/0.7.0/dist/vue-resource.min.js}"></script>
-   <script th:src="@{/vendor/parsleyjs/dist/parsley.min.js}"></script> 
-   <script type='text/javascript'>
-    Vue.http.options.emulateJSON = true; 
-    var loginPage = new Vue({//绑定页面div的id为loginPage元素
-        el: '#loginPage',
-        data: { //定义变量与页面的input域双向绑定
-            'username': '',
-            'password': ''
-        },
-        methods: {
-            login: function(event){ //定义登录按钮事件
-                var ok = $('#form').parsley().isValid({force: true});
-                if(!ok){
-                    return;
-                }
-                var datas={//提交数据
-                         userName: this.username,
-                         passWord: this.password
-                         };
-                //请求登录操作
-                this.$http.post('/user/login',datas).then(function(response){
-                     if(response.data.rspCode == '000000'){
-                             window.open(response.data.url, '_self');
-                     }else{
-                          $("#errorMsg").html(response.data.rspMsg);
-                          $("#errorMsg").show();
-                     }
-                 }, function(response){
-                     console.log('error');
-                 })
+<script th:src="@{/webjars/vue/1.0.24/vue.min.js}"></script>  
+<script th:src="@{/webjars/vue-resource/0.7.0/dist/vue-resource.min.js}"></script>
+<script th:src="@{/vendor/parsleyjs/dist/parsley.min.js}"></script> 
+<script type='text/javascript'>
+Vue.http.options.emulateJSON = true; 
+var loginPage = new Vue({//绑定页面div的id为loginPage元素
+    el: '#loginPage',
+    data: { //定义变量与页面的input域双向绑定
+        'username': '',
+        'password': ''
+    },
+    methods: {
+        login: function(event){ //定义登录按钮事件
+            var ok = $('#form').parsley().isValid({force: true});
+            if(!ok){
+                return;
             }
+            var datas={//提交数据
+                     userName: this.username,
+                     passWord: this.password
+                     };
+            //请求登录操作
+            this.$http.post('/user/login',datas).then(function(response){
+                 if(response.data.rspCode == '000000'){
+                         window.open(response.data.url, '_self');
+                 }else{
+                      $("#errorMsg").html(response.data.rspMsg);
+                      $("#errorMsg").show();
+                 }
+             }, function(response){
+                 console.log('error');
+             })
         }
-    })
+    }
+})
 </script>
 ```
 

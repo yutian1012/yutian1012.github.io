@@ -169,7 +169,7 @@ b.定义home.html，展示用户的首页
 该页面要替换掉data-layout-fragment区域的内容，显示用户的信息
 
 ```
-<html xmlns:th="http://www.thymeleaf.org" data-layout-decorator="fragments/layout">
+<html xmlns:th="http://www.thymeleaf.org" data-layout-decorate="fragments/layout">
 
   <body>
       <!-- data-layout-fragment（相当于layout:fragment） -->
@@ -182,7 +182,7 @@ b.定义home.html，展示用户的首页
 </html>
 ```
 
-注：data-layout-decorator命令指定使用的布局页面来装饰该home.html页面。data-layout-fragment指定替换掉布局页面的那部分区域（布局页面可能会定义多个待替换区域，这里需要指定需要替换的区域）。这里替换的内容只传递了固定的字符串，具体实际情况，会从后台服务中加载出用户的信息，并显示到该区域。
+注：data-layout-decorate命令指定使用的布局页面来装饰该home.html页面。data-layout-fragment指定替换掉布局页面的那部分区域（布局页面可能会定义多个待替换区域，这里需要指定需要替换的区域）。这里替换的内容只传递了固定的字符串，具体实际情况，会从后台服务中加载出用户的信息，并显示到该区域。
 
 5）总结（使用到的命令）
 
@@ -194,4 +194,4 @@ c.th:with可以向模板片段中传递局部变量，动态展示模板信息
 
 d.data-layout-fragment定义和指定需要动态替换的内容展示区域
 
-e.data-layout-decorator用来指定页面需要使用哪个布局页面来装饰
+e.data-layout-decorate用来指定页面需要使用哪个布局页面来装饰
