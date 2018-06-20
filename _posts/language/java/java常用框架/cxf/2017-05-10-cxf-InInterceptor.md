@@ -3,9 +3,30 @@ title: CXF拦截IP地址
 tags: [webservice]
 ---
 
-### 设置拦截器
+webservice是soap协议，简单对象访问协议是交换数据的一种协议规范，是一种轻量的、简单的、基于XML。
+
+注：可理解为基于http和xml创建的数据交换协议，使用xml传输数据的载体，使用http作为传输的网络协议。
+
+1）创建拦截器类
+
+该拦截器是需要配置在webservice服务提供端的，用来过滤掉客户端访问的ip地址。
 
 ```
+package org.ipph.web.webservice.cxf.security;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.cxf.interceptor.Fault;
+import org.apache.cxf.message.Message;
+import org.apache.cxf.phase.AbstractPhaseInterceptor;
+import org.apache.cxf.phase.Phase;
+import org.apache.cxf.transport.http.AbstractHTTPDestination;
+
 public class AddressInInterceptor extends AbstractPhaseInterceptor<Message>{
     //指定拦截阶段
     public AddressInInterceptor() {
@@ -15,6 +36,7 @@ public class AddressInInterceptor extends AbstractPhaseInterceptor<Message>{
     @Override
     public void handleMessage(Message message) throws Fault {
         HttpServletRequest request = (HttpServletRequest) message.get(AbstractHTTPDestination.HTTP_REQUEST);
+
         String ipAddr=request.getRemoteAddr();
        
         if(!accept(ipAddr)) 
@@ -63,13 +85,14 @@ public class AddressInInterceptor extends AbstractPhaseInterceptor<Message>{
                 |(b[3]<<0)  &  0x00000000ffffffffL;  
         return iaddr;
     }
-
 }
 ```
 
 注：如果是拦截器获取的IP地址值不在允许的IP范围内，则抛出Fault异常。
 
-### 设置允许的IP地址访问
+2）创建AcceptIp实体类
+
+该类对应页面设置允许IP访问的实体类，用户设置完成后保存到数据库中，供拦截器加载
 
 ```
 public class AcceptIp {
