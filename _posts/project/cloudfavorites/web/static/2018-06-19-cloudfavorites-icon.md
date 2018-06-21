@@ -16,6 +16,8 @@ tags: [project]
 </html>
 ```
 
+查看提供的图标：https://pagellapolitica.it/static/plugins/line-icons/
+
 2）font-awesome实例
 
 ```
@@ -26,3 +28,5 @@ tags: [project]
 <i class="fa fa-camera-retro"></i> fa-camera-retro
 </html>
 ```
+
+查看提供的图标：http://www.fontawesome.com.cn/faicons/
