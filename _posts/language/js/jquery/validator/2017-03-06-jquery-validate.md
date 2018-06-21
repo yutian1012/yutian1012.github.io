@@ -27,6 +27,5 @@ $("#signForm").validate(
 
 参考：http://www.steveluo.name/jquery-validation-onfocusout-onkeyup-error/
 
-
 参考：http://www.runoob.com/jquery/jquery-plugin-validate.html
 
