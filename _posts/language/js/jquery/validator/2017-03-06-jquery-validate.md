@@ -29,3 +29,12 @@ $("#signForm").validate(
 
 参考：http://www.runoob.com/jquery/jquery-plugin-validate.html
 
+2）手动校验
+
+```
+if (! $("#queryForm").valid()) {
+    return false;
+}
+```
+
+注：调用valid方法实现校验。
