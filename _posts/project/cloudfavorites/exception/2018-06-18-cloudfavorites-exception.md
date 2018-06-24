@@ -11,7 +11,7 @@ tags: [project]
 
 1）处理404异常
 
-spring mvc当找不到处理方法时，默认会跳转到error页面，并不会抛出异常供全局异常处理类处理。
+springmvc当找不到处理方法时，默认会跳转到error页面，并不会抛出异常供全局异常处理类处理。
 
 ```
 spring.mvc.throw-exception-if-no-handler-found=true
