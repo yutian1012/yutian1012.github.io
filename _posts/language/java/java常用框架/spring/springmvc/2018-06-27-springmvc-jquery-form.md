@@ -27,3 +27,39 @@ beans[0][answerId]=2
 beans[0].agreementId=1
 beans[0].answerId=2
 ```
+
+3）使用插件方式提交
+
+```
+$.ajax({
+  url:"ajax/mycontroller.do", 
+  type: "POST", 
+  data: JSON.stringify( objecdt ), 
+  success: callback, 
+  dataType: "json",
+  contentType: "application/json"
+}); 
+```
+
+注：利用JSON插件完成序列化操作。
+
+引入相关的json脚本
+
+```
+<script src="https://cdn.bootcss.com/json2/20160511/json2.js"></script>
+```
+
+4）spring mvc后台接收json
+
+```
+@RequestMapping(value="/saveTable",method=RequestMethod.POST,
+    consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
+@ResponseBody
+public Response saveTable(@RequestBody TableModel table) {
+    tableService.save(table);
+    //return "redirect:/tables/add";
+    return result(ExceptionMsg.SUCCESS);
+}
+```
+
+注：后端接收json，使用@RequestBody注解实现对象的封装操作
