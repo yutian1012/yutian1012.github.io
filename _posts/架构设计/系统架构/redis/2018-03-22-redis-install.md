@@ -3,7 +3,6 @@ title: redis安装
 tags: [redis]
 ---
 
-
 1）安装过程
 
 ```
