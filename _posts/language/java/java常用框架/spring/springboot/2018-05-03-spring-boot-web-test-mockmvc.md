@@ -5,6 +5,8 @@ tags: [spring]
 
 参考：https://blog.csdn.net/amethyst128/article/details/73332150
 
+参考：https://www.cnblogs.com/0201zcr/p/5756642.html
+
 Mock中文意思：模拟的; 仿制的; 虚假的; 不诚实的。
 
 MockMvc表示模拟MVC用来测试mvc的流转过程。
