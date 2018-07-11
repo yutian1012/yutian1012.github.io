@@ -3,6 +3,8 @@ title: spring boot 整合定时器（单机）
 tags: [spring]
 ---
 
+参考：https://blog.csdn.net/m0_37240709/article/details/78499542
+
 1）spring 自带的定时器
 
 使用spring-boot作为基础框架，其理念为零配置文件，所有的配置都是基于注解和暴露bean的方式。spring自带支持定时器的任务实现。其可通过简单配置来使用到简单的定时任务。
