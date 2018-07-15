@@ -1,15 +1,7 @@
 ---
-title: Java RPC简介
+title: rpc实现原理
 tags: [java]
 ---
-
-参考：http://www.cnblogs.com/codingexperience/p/5930752.html
-
-RPC，全称为Remote Procedure Call，即远程过程调用，它是一个计算机通信协议。它允许像调用本地服务一样调用远程服务。它可以有不同的实现方式。如RMI(远程方法调用)、Hessian、Http invoker等。另外，RPC是与语言无关的（协议的实现与具体的语言没有关系）。
-
-![](/images/middleware/rpc/rpc-call.png)
-
-假设Computer1在调用sayHi()方法，对于Computer1而言调用sayHi()方法就像调用本地方法一样，调用返回。但从后续调用可以看出Computer1调用的是Computer2中的sayHi()方法，RPC屏蔽了底层的实现细节，让调用者无需关注网络通信，数据传输等细节。
 
 ### 如何实现RPC框架
 
@@ -25,7 +17,7 @@ RPC能够让本地应用简单、高效地调用服务器中的过程（服务�
 
 4）序列化，将对象名称、方法名称、参数等对象信息进行网络传输需要转换成二进制传输，这里可能需要不同的序列化技术方案。如:protobuf，Arvo等。
 
-### 过程
+# 实现步骤
 
 1）通信问题
 
@@ -50,13 +42,3 @@ RPC能够让本地应用简单、高效地调用服务器中的过程（服务�
 ![](/images/middleware/rpc/rpc-process.png)
 
 注：对客户端来讲，不知道有网络通信的过程。
-
-### RPC类别
-
-基本上他们分为两种类别：
-
-1）一种是跨语言的；
-
-2）一种是同语言的
-
-注：如果你的分布式应用架构主体都是Java应用，显然我们不应该使用跨语言的RPC来多一层中转浪费效率。

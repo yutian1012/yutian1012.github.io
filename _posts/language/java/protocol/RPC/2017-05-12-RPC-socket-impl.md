@@ -9,7 +9,6 @@ tags: [java]
 
 下面使用比较原始的方案实现RPC框架，采用Socket通信、动态代理与反射与Java原生的序列化。
 
-
 ### RPC框架架构
 
 RPC架构分为三部分：
@@ -22,7 +21,7 @@ RPC架构分为三部分：
 
 ### 具体实现
 
-1）服务提供者接口定义与实现，代码如下：
+1）服务提供者接口定义与实现，代码如下：（客户端和服务端都引用该接口）
 
 ```
 /**
@@ -33,7 +32,7 @@ public interface IHelloService {
 }
 ```
 
-2）实现类
+2）实现类（服务提供者）
 
 ```
 /**
@@ -47,7 +46,7 @@ public class HelloServiceImpl implements IHelloService{
 }
 ```
 
-3）服务中心接口
+3）服务中心接口（用于注册服务提供者、接收请求socket通信，返回信息）
 
 ```
 /**
@@ -124,7 +123,7 @@ public class ServiceCenter implements Server{
         return port;
     }
     /**
-     * 
+     * 远程方法调用，通过接收客户端请求数据，获取服务提供者并调用相应实现方法返回数据
      */
     private static class ServiceTask implements Runnable {
         Socket clent = null;
@@ -231,20 +230,24 @@ public class RPCClient<T> {
 ```
 public class RPCTest {
     public static void main(String[] args) throws IOException {
-        //服务器端行为
+        //服务注册中心
         new Thread(new Runnable() {
             public void run() {
                 try {
                     Server serviceServer = new ServiceCenter(8098);
+                    //注册相关的服务实现
                     serviceServer.register(IHelloService.class, HelloServiceImpl.class);
-                    serviceServer.start();
+                    serviceServer.start();//启动soket服务
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         }).start();
-        //客户端信息
+
+        //客户端，获取接口代理对象，调用接口方法。
+        //底层是通过socket通信的，而对客户端是透明的
         IHelloService service = RPCClient.getRemoteProxyObj(IHelloService.class, new InetSocketAddress("localhost", 8098));
+
         System.out.println(service.sayHi("test"));
     }
 }
