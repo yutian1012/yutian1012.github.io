@@ -15,7 +15,7 @@ spring boot提供了不同环境不同配置文件的功能。
 
 测试环境：test，对应配置文件为：application-test.yml
 
-运行环境：prd，对应配置文件为：application-prd.yml
+运行环境：prod，对应配置文件为：application-prod.yml
 
 2）激活配置文件
 
