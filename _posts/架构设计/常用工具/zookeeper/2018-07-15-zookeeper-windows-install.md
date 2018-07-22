@@ -3,6 +3,8 @@ title: zookeeper的安装（windows）-单机
 tags: [zookeeper]
 ---
 
+参考：https://www.cnblogs.com/shanyou/p/3221990.html
+
 1）下载
 
 官网：http://zookeeper.apache.org/
