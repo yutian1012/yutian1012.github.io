@@ -17,7 +17,9 @@ e.子类（当前类）的构造函数，按顺序执行
 
 f.子类方法的执行
 
-实例代码
+注：静态优先，其次代码块，最后构造函数。
+
+2）实例代码
 
 ```
 //父类
@@ -56,6 +58,11 @@ public class JavaInstanceDemo extends JavaInstanceSuperDemo{
         JavaInstanceDemo instance=new JavaInstanceDemo();
     }
 }
+```
+
+3）输出
+
+```
 //输出信息
 super static block invoked!
 sub static block invoked!
