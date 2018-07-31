@@ -18,3 +18,9 @@ swagger最明显的就是代码移入性比较强，需要在服务器端的实�
 3）官网
 
 地址：https://swagger.io/
+
+API官方文档：http://springfox.github.io/springfox/docs/current/
+
+4）swagger的生态圈
+
+参考：https://blog.csdn.net/i6448038/article/details/77622977

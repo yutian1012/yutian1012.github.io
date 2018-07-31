@@ -1,51 +1,17 @@
 ---
-title: jvm java虚拟机
+title: jvm 内存
 tags: [interview]
 ---
 
-参考：https://blog.csdn.net/songkai320/article/details/51819046
-
-参考：https://blog.csdn.net/zd836614437/article/details/64126826
-
-参考：https://blog.csdn.net/wy5612087/article/details/52369677
-
-1）如何理解一处编写处处运行。
-
-JVM是在操作系统的层次之上对运行java类文件操作进行了一层封装，对Java的运行进行了抽象。在不同的平台上需要不同的JRE。JRE屏蔽掉了底层的区别，而java类文件是运行在JVM中，JVM相当于适配器，对java类进行了平台适应性，
-
-注：这就是为么不同的平台会有不同的jdk安装，windows系统jdk，linux系统openjdk。
-
-2）JDK，JVM，JRE的理解
-
-JDK是整个Java的核心，包括了Java运行环境JRE、Java工具和Java基础类库。JRE是运行JAVA程序所必须的环境的集合，包含JVM标准实现及Java核心类库。JVM是整个java实现跨平台的最核心的部分，能够运行以Java语言写的程序。
-
-a.JDK(Java Development Kit) 
-
-JDK是Java语言的软件开发工具包(SDK)，如编译器和调试器。
-
-b.JRE（Java Runtime Environment），
-
-JRE是Java运行环境，包含JVM标准实现及Java核心类库。JRE是Java运行环境，并不是一个开发环境。
-
-c.JVM(Java Virtual Machine)
-
-JVM是Java虚拟机的缩写，JVM是一种用于计算设备的规范，它是一个虚构出来的计算机，是通过在实际的计算机上仿真模拟各种计算机功能来实现的。
-
-在JDK的安装目录下有一个jre目录，里面有两个文件夹bin和lib，在这里可以认为bin里的就是jvm，lib中则是jvm工作所需要的类库，而jvm和lib合起来就称为jre。
-
-![](/images/java_basic/interview/jvm/jdk-jre-jvm.png)
-
-注：写代码需要JDK，运行代码要JRE，JRE包含JVM。
-
-3）内存管理
+1）内存管理
 
 JVM可以让你专注于业务的编写，不需要管理内存的分配和回收。JVM能够自动进行内存的管理，这既是优点也是缺点。当JVM出现内存泄漏时，需要了解JVM如何对内存进行管理的，从而实现错误定位和修复。
 
-注：代码可以理解为数据流，指令流和控制流的组合。数据可以理解为变量（成员变量和局部变量），指令方法中的代码（赋值，加减等），控制（分支，循环，return等）。这些信息是如何在JVM中存储和运行是理解JVM的关键。
+注：代码可以理解为数据流，指令流和控制流的组合。数据可以理解为变量（成员变量和局部变量），指令即方法中的代码（赋值，加减等），控制（分支，循环，return等）。这些信息是如何在JVM中存储和运行是理解JVM的关键。
 
-4）JVM运行时数据区
+2）JVM运行时数据区
 
-JVM运行时数据区的划分，主要分为方法区，堆，程序计数器，虚拟机栈，本地方法栈。
+JVM运行时数据区的划分，主要分为5部分：方法区，堆，程序计数器，虚拟机栈，本地方法栈。
 
 a.程序计数器（线程独有）
 
@@ -79,5 +45,4 @@ e.堆（线程独有）
 
 即JMM（JVM内存模型），分代：新生代，老年代，永久代。新生代又分三个区域，eden，s0，s1（分为8:1:1）
 
-
-
+注：堆为了方便垃圾回收，设计成分代分区的结构。
