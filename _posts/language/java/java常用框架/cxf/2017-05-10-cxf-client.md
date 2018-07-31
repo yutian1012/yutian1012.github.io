@@ -48,6 +48,12 @@ public class CxfClient {
 }
 ```
 
+注：DynamicClientFactory也可以实现动态创建客户端
+
+```
+DynamicClientFactory dcf = DynamicClientFactory.newInstance(); 
+```
+
 3）使用spring集合cxf的xml方式配置bean
 
 a.创建wbservice接口类
@@ -103,6 +109,39 @@ public class CxfServletClient extends HttpServlet{
             .getWebApplicationContext(req.getServletContext());
         IWebService service=(IWebService) context.getBean("webService");
         service.sayHello("ssss");
+    }
+}
+```
+
+5）代码方式实现
+
+```
+import com.cc.entity.User;
+import com.cc.service.UserService;
+import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+
+public class Main {
+
+    public static void main(String[] args) {
+        //使用JaxWsProxyFactoryBean调用soap服务，但是这种方式需要需要生成接口文件
+        System.out.println("***********JaxWsProxyFactoryBean***********");
+        JaxWsProxyFactoryBean factory = new JaxWsProxyFactoryBean();
+        factory.setServiceClass(UserService.class);
+        factory.setAddress("http://localhost:9000/serviceTest/service/userService");
+        UserService userServiceJaxBean = (UserService)factory.create();
+        User userJaxBean = userServiceJaxBean.getName("zhangsan");
+        System.out.println(userJaxBean.getTelephone());
+
+        //测试jaxws:client，soap服务client调用
+        System.out.println("******************soap jaxws:client**************");
+        ClassPathXmlApplicationContext cxt = new ClassPathXmlApplicationContext(
+                new String[]{"client.xml"});
+        UserService us = (UserService)cxt.getBean("client");
+        User user = us.getName("aaa");
+        System.out.println(user.getTelephone());
+
     }
 }
 ```
