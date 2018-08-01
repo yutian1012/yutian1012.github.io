@@ -29,11 +29,55 @@ String类其实是通过char数组来保存字符串的（源码分析）。
 
 每次创建字符串常量时，JVM会首先检查字符串常量池，如果该字符串已经存在常量池中，那么就直接返回常量池中的实例引用。如果字符串不存在常量池中，就会实例化该字符串并且将其放到常量池中。
 
-4）常量池分类
+4）实例1
 
-Java中的常量池，实际上分为两种形态：静态常量池和运行时常量池。
+a、b和字面上的chenssy都是指向JVM字符串常量池中的"chenssy"对象，他们指向同一个对象。new关键字一定会产生一个对象chenssy，而这个对象是存储在堆中，与常量池没有任何关系。只有调用对象的intern方法，才会保存到常量池中。
 
-静态常量池，即*.class文件中的常量池，class文件中的常量池不仅仅包含字符串(数字)字面量，还包含类、方法的信息，占用class文件绝大部分空间。
+```
+String a = "chenssy";
+String b = "chenssy";
+String c = new String("chenssy");
+```
 
-运行时常量池，则是jvm虚拟机在完成类装载操作后，将class文件中的常量池载入到内存中，并保存在方法区中，我们常说的常量池，就是指方法区中的运行时常量池。
+另外，下面的代码也能看出new对象是存储在堆中的
 
+```
+String str1=new String("aaa");
+String str2=new String("aaa");
+System.out.println(str1==str2);//false 可以看出用new的方式是生成不同的对象 
+```
+
+5）实例2
+
+字符串常量池与new对象的比较
+
+```
+package org.test.basedemo.type;
+
+public class StringDemo {
+    public static void main(String[] args) {
+        String s1 = "Hello";
+        String s2 = "Hello";
+        String s3 = "Hel" + "lo";
+        String s4 = "Hel" + new String("lo");
+        String s5 = new String("Hello");
+        String s6 = s5.intern();
+        String s7 = "H";
+        String s8 = "ello";
+        String s9 = s7 + s8;
+                  
+        System.out.println(s1 == s2);  // true
+        System.out.println(s1 == s3);  // true
+        System.out.println(s1 == s4);  // false
+        System.out.println(s1 == s9);  // false
+        System.out.println(s4 == s5);  // false
+        System.out.println(s1 == s6);  // true
+        
+        System.out.println(System.identityHashCode(s1));//2018699554
+        System.out.println(System.identityHashCode(s2));//2018699554
+        System.out.println(System.identityHashCode(s4));//1311053135
+        System.out.println(System.identityHashCode(s5));//118352462
+        System.out.println(System.identityHashCode(s9));//1550089733
+    }
+}
+```

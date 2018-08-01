@@ -38,8 +38,7 @@ R = {reachable, finalizer-reachable, unreachable}
 
 reachable: 表示GC Roots引用可达
 
-finalizer-reachable（f-reachable）：表示不是reachable，但可通过某个finalizable对象可达，A和B都不可达，并且A-->B（A引用着B），那么B此时就是f-reachable。当A重新可达时，B也将发生变化。
-除了reachable外，从F-Queue可以通过引用到达的对象。（哪种正确？？？）
+finalizer-reachable（f-reachable）：表示除了reachable外，从F-Queue可以通过引用到达的对象。
 
 unreachable：对象不可通过上面两种途径可达
 ```
@@ -49,48 +48,6 @@ unreachable：对象不可通过上面两种途径可达
 ![](/images/interview/jdk/finalize/finalize-status.gif)
 
 状态转换说明：
-
-```
-A方向箭头：
-
-新建对象后处于[reachable, unfinalized]状态，即对象可达，并且没有执行finalize方法。
-
-B方向箭头：
-
-随着程序的运行，一些引用关系会消失，导致状态变迁，从reachable状态变迁到f-reachable。即对象从GCRoot链上分离（相应引用设置为null），但彼此之间还保留着依赖关系。被引用对象所处的状态即为[f-reachable,unfinalized]
-
-E方向箭头:
-
-与B箭头类似，只不过该对象与其他对象没有引用与被引用关系（独立的对象）。那么该对象状态即为[unreachable,unfinalized]
-
-L方向箭头：
-
-如A，B两个对象，A包含B对象的引用，且A处在finalizable状态，B也处在finalizable状态，但由于A依然引用着B，因此B的完整状态为[f-reachable,unfinalized]，当A被重新再生（finalize方法中又链回来GCRoot上），那么B对象就又回到了最初创建对象时的状态了。
-
-G方向箭头：
-
-JVM检测到处于非reachable状态的对象，并且仍然是unfinalized状态，则会将该对象的状态标记为finalizable，放入到F-Queue队列中，并交由固定线程执行起finalize方法。
-
-H方向箭头：（与G方向箭头是一致的），只不过对象覆盖了finalize方法。
-
-O方向箭头：
-
-针对unreachable状态，若JVM检测对象并未覆盖finalize方法，直接回收对象
-
-M方向箭头：
-
-类似与L方向箭头，只不过此时的B对象已经被标记为了finalizable状态了，重新又可达后
-
-    若JVM检测到处于unfinalized状态的对象变成f-reachable或unreachable，JVM会将其标记为finalizable状态(G,H)。若对象原处于[unreachable, unfinalized]状态，则同时将其标记为f-reachable(H)。
-    在某个时刻，JVM取出某个finalizable对象，将其标记为finalized并在某个线程中执行其finalize方法。由于是在活动线程中引用了该对象，该对象将变迁到(reachable, finalized)状态(K或J)。该动作将影响某些其他对象从f-reachable状态重新回到reachable状态(L, M, N)
-    处于finalizable状态的对象不能同时是unreahable的，由第4点可知，将对象finalizable对象标记为finalized时会由某个线程执行该对象的finalize方法，致使其变成reachable。这也是图中只有八个状态点的原因
-    程序员手动调用finalize方法并不会影响到上述内部标记的变化，因此JVM只会至多调用finalize一次，即使该对象“复活”也是如此。程序员手动调用多少次不影响JVM的行为
-    若JVM检测到finalized状态的对象变成unreachable，回收其内存(I)
-    
-    注：System.runFinalizersOnExit()等方法可以使对象即使处于reachable状态，JVM仍对其执行finalize方法
-```
-
-理解方式2：
 
 ```
 1 首先，所有的对象都是从Reachable+Unfinalized走向死亡之路的。 
