@@ -29,15 +29,39 @@ a.AnnotationConfigApplicationContext类
 
 从一个或多个基于Java的配置类中加载Spring应用上下文。
 
+```
+ApplicationContext context = new AnnotationConfigApplicationContext(com. springinaction.knights.config.KnightConfig.class);
+
+@Configuration
+public class KnightConfig {
+  @Bean
+  public Knight knight() {
+    return new BraveKnight(quest());
+  }
+  ...
+}
+```
+
+注：配置类使用@Configuration注解标识
+
 b.AnnotationConfigWebApplicationContext类
 
 从一个或多个基于Java的配置类中加载Spring web应用上下文
 
 c.ClassPathXmlApplicationContext类
 
-从类路径下的一个或多个XML配置文件中加载上下文定义，把上下文的定义文件作为类资源。
+```
+ApplicationContext context = new ClassPathXmlApplicationContext("knight.xml");
+```
+
+ClassPathXmlApplicationContext在所有的类路径（包含JAR文件）下查找xml配置文件。
 
 d.FileSystemXmlApplicationContext类
+
+```
+ApplicationContext context=
+    new FileSystemXmlApplicationContext("c:/knight.xml");
+```
 
 从文件系统下的一个或多个XML配置文件中加载上下文定义。
 
