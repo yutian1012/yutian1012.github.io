@@ -9,7 +9,7 @@ tags: [concurrency]
 
 调用Thread.stop()方法是不安全的，这是因为当调用Thread.stop()方法时，会发生下面两件事
 
-a.即刻抛出ThreadDeath异常：
+a.即刻抛出ThreadDeath异常：（强制中断线程的执行）
 
 在线程的run()方法内，任何一点都有可能抛出ThreadDeathError，包括在catch或finally语句中。
 
@@ -128,7 +128,7 @@ ThreadStopLockFreeDemo2quiting...
 
 5）释放锁理解
 
-在编写程序时，一般都只会对因此信息进行捕获，而不会去主动捕获Error信息。因为，这部分信息是不可预知的。因此，上面的程序中不捕获Throwable，则不会在catch中对线程异常进行进一步处理，就可能出现逻辑和数据一致性问题。
+在编写程序时，一般都只会对异常信息进行捕获，而不会去主动捕获Error信息。因为，这部分信息是不可预知的。因此，上面的程序中不捕获Throwable，则不会在catch中对线程异常进行进一步处理，就可能出现逻辑和数据一致性问题。
 
 下面的逻辑中使用了2个锁，当我们捕获了Throwable异常，第二个锁不会释放，即该线程仍然没有真正的关闭。而如果我们不捕获Throwable异常，则会释放全部的锁，线程退出。
 
