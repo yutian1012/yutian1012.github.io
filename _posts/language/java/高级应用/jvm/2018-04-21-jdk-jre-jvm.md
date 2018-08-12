@@ -1,23 +1,19 @@
 ---
-title: jvm java虚拟机
+title: JDK，JVM，JRE的理解
 tags: [interview]
 ---
 
-参考：https://blog.csdn.net/songkai320/article/details/51819046
-
-参考：https://blog.csdn.net/zd836614437/article/details/64126826
-
-参考：https://blog.csdn.net/wy5612087/article/details/52369677
+参考：http://www.hollischuang.com/archives/78
 
 1）如何理解一处编写处处运行。
 
-JVM是在操作系统的层次之上对运行java类文件操作进行了一层封装，对Java的运行进行了抽象。在不同的平台上需要不同的JRE。JRE屏蔽掉了底层的区别，而java类文件是运行在JVM中，JVM相当于适配器，对java类进行了平台适应性，
+Java语言是跨平台运行的，其实就是不同的操作系统，使用不同的JVM映射规则，让其与操作系统无关，完成了跨平台性。JVM有自己完善的硬件架构，如处理器、堆栈、寄存器等，还具有相应的指令系统。JVM的主要工作是解释自己的指令集（即字节码）并映射到本地的CPU的指令集或OS的系统调用。
 
 注：这就是为么不同的平台会有不同的jdk安装，windows系统jdk，linux系统openjdk。
 
 2）JDK，JVM，JRE的理解
 
-JDK是整个Java的核心，包括了Java运行环境JRE、Java工具和Java基础类库。
+JDK是整个Java的核心，包括了Java运行环境JRE、Java工具和Java基础类库（狭义的jdk，即java api）。
 
 JRE是运行JAVA程序所必须的环境的集合，包含JVM标准实现及Java核心类库。
 
@@ -36,6 +32,8 @@ JRE是Java运行环境，包含JVM标准实现及Java核心类库。JRE是Java�
 c.JVM(Java Virtual Machine)
 
 JVM是Java虚拟机的缩写，JVM是一种用于计算设备的规范，它是一个虚构出来的计算机，是通过在实际的计算机上仿真模拟各种计算机功能来实现的。
+
+JRE是JVM的环境，一个应用程序就是一个JVM实例。一个机器上一般同时只有一个JRE环境，但是可以同时有多个JVM实例
 
 在JDK的安装目录下有一个jre目录，里面有两个文件夹bin和lib，在这里可以认为bin里的就是jvm，lib中则是jvm工作所需要的类库，而jvm和lib合起来就称为jre。
 
