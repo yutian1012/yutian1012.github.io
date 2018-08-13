@@ -40,7 +40,7 @@ public class Start {
 ```
 public class ServerBootstrap {
 
-private NioSelectorRunnablePool selectorRunnablePool;
+    private NioSelectorRunnablePool selectorRunnablePool;
     
     public ServerBootstrap(NioSelectorRunnablePool selectorRunnablePool) {
         this.selectorRunnablePool = selectorRunnablePool;

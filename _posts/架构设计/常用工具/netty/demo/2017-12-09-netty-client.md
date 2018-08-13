@@ -3,7 +3,7 @@ title: Netty client实例（3.x版本）
 tags: [architecture]
 ---
 
-创建一个netty客户端
+1）创建一个netty客户端
 
 ```
 public class Client {
@@ -52,7 +52,7 @@ public class Client {
 }
 ```
 
-消息接收处理类
+2）消息接收处理类
 
 ```
 /**

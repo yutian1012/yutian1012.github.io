@@ -108,3 +108,5 @@ public class MyArrayList{
 ```
 
 注：这里不考虑线程安全问题。
+
+9）链表
