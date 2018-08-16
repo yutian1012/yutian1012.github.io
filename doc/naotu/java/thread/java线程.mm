@@ -1,12 +1,12 @@
 <map version="1.0.1">
 <!-- To view this file, download free mind mapping software FreeMind from http://freemind.sourceforge.net -->
 <node CREATED="1533562286545" ID="ID_583623059" MODIFIED="1533562342267" TEXT="java&#x7ebf;&#x7a0b;">
-<node CREATED="1533562453959" HGAP="44" ID="ID_1053096449" MODIFIED="1533562639981" POSITION="right" TEXT="&#x7ebf;&#x7a0b;&#x7684;&#x5b9e;&#x73b0;" VSHIFT="-52">
+<node CREATED="1533562453959" FOLDED="true" HGAP="44" ID="ID_1053096449" MODIFIED="1533981026768" POSITION="right" TEXT="&#x7ebf;&#x7a0b;&#x7684;&#x5b9e;&#x73b0;" VSHIFT="-52">
 <node CREATED="1533562655054" HGAP="49" ID="ID_1982263352" MODIFIED="1533562701757" TEXT="&#x7ee7;&#x627f;Thread&#x7c7b;" VSHIFT="-25"/>
 <node CREATED="1533562710502" HGAP="56" ID="ID_375408095" MODIFIED="1533562714116" TEXT="&#x5b9e;&#x73b0;Runnable&#x63a5;&#x53e3;" VSHIFT="-32"/>
 <node CREATED="1533562737542" HGAP="56" ID="ID_97911905" LINK="../../../../_posts/language/java/&#x9ad8;&#x7ea7;&#x5e94;&#x7528;/concurrency/thread/2018-08-06-java-thread-impl.md" MODIFIED="1533562813087" TEXT="&#x542f;&#x52a8;&#x4f7f;&#x7528;Thread&#x7c7b;&#x7684;start&#x65b9;&#x6cd5;" VSHIFT="-24"/>
 </node>
-<node CREATED="1533562589351" HGAP="82" ID="ID_940854163" MODIFIED="1533562644196" POSITION="right" TEXT="&#x7ebf;&#x7a0b;&#x7684;&#x4e2d;&#x65ad;" VSHIFT="-22">
+<node CREATED="1533562589351" FOLDED="true" HGAP="82" ID="ID_940854163" MODIFIED="1533981029117" POSITION="right" TEXT="&#x7ebf;&#x7a0b;&#x7684;&#x4e2d;&#x65ad;" VSHIFT="-22">
 <node CREATED="1533566536713" ID="ID_1306617301" MODIFIED="1533566794441" TEXT="&#x4e2d;&#x65ad;&#x7684;&#x7406;&#x89e3;&#xff0c;&#x6682;&#x505c;&#x7ebf;&#x7a0b;&#x7684;&#x6267;&#x884c;&#xff0c;&#x7b49;&#x6761;&#x4ef6;&#x6ee1;&#x8db3;&#x540e;&#x518d;&#x6267;&#x884c;&#xff08;&#x6216;&#x76f4;&#x63a5;&#x9500;&#x6bc1;&#x7ebf;&#x7a0b;&#xff09;&#x3002;&#x5728;&#x7ebf;&#x7a0b;&#x4e2d;&#x65ad;&#x8fc7;&#x7a0b;&#x4e2d;&#xff0c;&#x7ebf;&#x7a0b;&#x5360;&#x6709;&#x7684;&#x9501;&#x8d44;&#x6e90;&#xff08;&#x8ba1;&#x7b97;&#x673a;&#x8d44;&#x6e90;&#xff09;&#x5fc5;&#x987b;&#x8981;&#x91ca;&#x653e;&#xff0c;&#x5426;&#x5219;&#x4f1a;&#x9020;&#x6210;&#x6b7b;&#x9501;&#x3002;&#x5982;&#x679c;&#x7ebf;&#x7a0b;&#x5360;&#x7528;&#x7684;&#x9501;&#x4e0d;&#x4f1a;&#x88ab;&#x5171;&#x4eab;&#xff0c;&#x5f53;&#x7136;&#x662f;&#x53ef;&#x4ee5;&#x4e0d;&#x662f;&#x91ca;&#x653e;&#x7684;&#x3002;"/>
 <node CREATED="1533563014726" HGAP="44" ID="ID_1342864163" MODIFIED="1533564953975" TEXT="&#x6267;&#x884c;stop&#x65b9;&#x6cd5;&#xff08;&#x5f3a;&#x70c8;&#x4e0d;&#x5efa;&#x8bae;&#xff09;" VSHIFT="-32">
 <node CREATED="1533563109565" HGAP="43" ID="ID_1688568050" MODIFIED="1533566609524" TEXT="&#x7ebf;&#x7a0b;&#x4f1a;&#x629b;&#x51fa;ThreadDeath&#x9519;&#x8bef;" VSHIFT="-10"/>

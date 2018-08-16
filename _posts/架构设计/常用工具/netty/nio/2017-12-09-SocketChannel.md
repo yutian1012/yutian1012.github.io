@@ -1,75 +1,19 @@
 ---
-title: NIO
+title: NIO方式ServerSocketChannel通信
 tags: [architecture]
 ---
 
-1）socket通信
+NIO通过异步的注册和监听相应的socket通信事件，实现使用少量的线程处理多个客户端的连接读写等请求。
 
-socket服务器和socket客户端通信，一般会在服务器端开启多个线程接受来自客户端的请求，每一个请求都会在服务器端创建出一个Socket与之对应。
+1）NIO的处理过程
 
-```
-public class OioServer{
-    public static void main(String[] args){
-        //创建线程池
-        ExecutorService newCachedThreadPool=Executors.newCachedThreadPool();
+处理过程是通过事件注册监听的方式来实现的，如向ServerSocketChannel中注册socket连接事件SelectionKey.OP_ACCEPT，当有客户端请求连接，就会触发连接事件。向SocketChannel中注册接受客户端消息事件SelectionKey.OP_READ，当客户端发送消息时，才能读取客户端发送的消息。
 
-        ServerSocket server=new ServerSocket(10101);
-        System.out.println("服务器启动");
-        while(true){
-            final Socket socket=server.accept();
-            System.out.println("来了一个客户端");
+2）NIOServer类
 
-            newCachedThreadPool.execute(new Runnable(){
-                public void run(){
-                    //处理客户端请求
-                    handler(socket);
-                }
-            });
-        }
-    }
+ServerSocketChannel相当于传统的ServerSocket，SocketChannel相当于Socket。
 
-    public static void handler(Socket socket){
-        try{
-            byte[] bytes=new byte[1024];
-            InputStream inputStream=socket.getInputStream();
-            while(true){
-                int read=inputStream.read(bytes);
-                if(read!=-1){
-                    System.out.println(new String(bytes,0,read));
-                }else{
-                    break;
-                }
-            }
-        }catch(Exception e){}
-        finally{
-            try{
-                System.out.println("socket关闭");
-            }catch(Exception e){
-
-            }
-        }
-    }
-}
-```
-
-客户端使用telnet连接
-
-```
-telnet 127.0.0.1 10101
-
-//ctrl + ] 进入telnet会话
-//send hello 发生数据到服务器
-```
-
-注：这种方式的连接是很耗费资源的，一个线程只能服务一个socket，如果有大量的客户端socket，那么就要启动大量的线程，服务器资源浪费严重。
-
-注2：这种方式的处理不适合使用长连接
-
-### nio实现socket通信
-
-1）入门实例
-
-ServerSocketChannel相当于传统的ServerSocket，SocketChannel相当于Socket。处理过程是通过事件注册监听的方式来实现的，如向ServerSocketChannel中注册socket连接事件SelectionKey.OP_ACCEPT，当有客户端请求连接，就会触发连接事件。向SocketChannel中注册接受客户端消息事件SelectionKey.OP_READ，当客户端发送消息时，才能读取客户端发送的消息。
+该类通过selector通道管理器来管理ServerSocketChannel通道和SocketChannel通道。通过调用通道的register方法将相应的事件（如SelectionKey.OP_ACCEPT）绑定到selector上。利用selector的select方法来监听通道的注册的事件，从而调用相应的处理方法完成通信。
 
 ```
 /**
@@ -194,18 +138,24 @@ public class NIOServer {
         server.initServer(8000);
         server.listen();
     }
-
 }
 ```
 
 注：selector注册ServerSocketChannel用来监听服务端口，注册ServerSocketChannel用来建立客户端连接
 
-2）核心API介绍
+2）客户端连接
 
+客户端连接可以使用telnet等工具进行连接测试。
+
+3）核心API介绍
+
+```
 ServerSocketChannel--ServerSocket
 SocketChannel--Socket
 Selector用于监听ServerSocketChannel和SocketChannel
-SelectionKey类比Map的key，value为注册在selector上的对象，如ServerSocketChannel，和SocketChannel。
+```
+
+SelectionKey类比Map的key，value为注册在selector上的Channel对象，如ServerSocketChannel，和SocketChannel。
 
 ```
 serverChannel.register(selector, SelectionKey.OP_ACCEPT);//ServerSocketChannel

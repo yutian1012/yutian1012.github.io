@@ -3,19 +3,17 @@ title: Netty helloworld实例（3.x版本）
 tags: [architecture]
 ---
 
-1）什么是Netty
+1）netty实现通信步骤
 
-Netty是由JBOSS提供的一个java开源框架。Netty提供异步的、事件驱动的网络应用程序框架和工具，用以快速开发高性能、高可靠性的网络服务器和客户端程序。
+第一步：ServerBootstrap创建服务对象
 
-2）netty的主要用途
+第二步：创建两个线程池，boss线程池用于处理客户端连接请求，worker线程池用于客户端数据交互。
 
-分布式进程通信：例如，hadoop、dubbo、akka等具有分布式功能的框架，底层RPC通信都是基于netty实现的，这些框架使用的版本通常都还在用netty3.x。
+第三步：使用上面的两个线程池创建NioServerSocketChannelFactory对象，即完成
 
-游戏服务器开发：使用java开发游戏服务器（网游，手游），实现客户端与服务器的通信都是有使用netty来开发的。
 
-3）入门Helloworld
 
-创建服务类
+1）创建服务类
 
 ```
 import java.net.InetSocketAddress;
@@ -68,9 +66,11 @@ public class Server {
 }
 ```
 
-注：StringDecoder实现了ChannelUpstreamHandler接口，是一个上行的handler，即接收数据经过的handler。StringEncoder实现了ChannelDownstreamHandler接口，是一个下行的handler，即回写发送数据经过的handler。
+注：StringDecoder实现了ChannelUpstreamHandler接口，是一个上行的handler，即接收客户端数据需经过的handler。StringEncoder实现了ChannelDownstreamHandler接口，是一个下行的handler，即回写客户端数据经过的handler。
 
-创建一个channelHandler
+2）创建一个channelHandler
+
+创建HelloHandler类，继承SimpleChannelHandler，实现对客户端连接和客户端请求读写的处理器。
 
 ```
 import org.jboss.netty.channel.ChannelHandlerContext;
