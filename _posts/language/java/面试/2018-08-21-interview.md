@@ -10,9 +10,13 @@ https://www.cnblogs.com/littleCode/p/3926791.html
 1）spring框架介绍
 
 核心容器：核心容器提供Spring 框架的基本功能。核心容器的主要组件是BeanFactory ，它是工厂模式的实现。BeanFactory 使用控制反转（IOC ） 模式将应用程序的配置和依赖性规范与实际的应用程序代码分开。
+
 Spring 上下文：Spring 上下文是一个配置文件，向Spring 框架提供上下文信息。Spring 上下文包括企业服务，例如JNDI 、EJB、电子邮件、国际化、校验和调度功能。
+
 Spring AOP ： 通过配置管理特性，Spring AOP 模块直接将面向方面的编程功能集成到了Spring 框架中。所以，可以很容易地使Spring 框架管理的任何对象支持AOP 。Spring AOP 模块为基于Spring 的应用程序中的对象提供了事务管理服务。通过使用Spring AOP ，不用依赖EJB 组件，就可以将声明性事务管理集成到应用程序中。
+
 Spring DAO ：JDBC DAO 抽象层提供了有意义的异常层次结构，可用该结构来管理异常处理和不同数据库供应商抛出的错误消息。异常层次结构简化了错误处理，并且极大地降低了需要编写的异常代码数量（例如打开和关闭连接）。Spring DAO 的面向JDBC 的异常遵从通用的DAO 异常层次结构。
+
 Spring ORM ：Spring 框架插入了若干个ORM 框架，从而提供了ORM 的对象关系工具，其中包括JDO 、Hibernate 和iBatisSQLMap 。所有这些都遵从Spring 的通用事务和DAO 异常层次结构。
 
 2）整合mybatis
@@ -350,12 +354,116 @@ Advisor是切面的另一种实现，能够将通知以更为复杂的方式织�
 
 **spring中的设计模式**
 
+参考：https://www.cnblogs.com/doudouxiaoye/p/5694096.html
 
+1）简单工厂
+
+spring中的BeanFactory就是简单工厂模式的体现，根据传入一个唯一的标识来获得bean对象
+
+2）工厂方法
+
+spring中的FactoryBean就是典型的工厂方法模式
+
+3）单例（Singleton） 
+
+保证一个类仅有一个实例，并提供一个访问它的全局访问点。
+spring中的单例模式完成了后半句话，即提供了全局的访问点BeanFactory。但没有从构造器级别去控制单例，这是因为spring管理的是是任意的java对象。 
+
+4）适配器（Adapter）
+
+将一个类的接口转换成客户希望的另外一个接口。Adapter模式使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。 
+
+由于Advisor链需要的是MethodInterceptor对象，所以每一个Advisor中的Advice都要适配成对应的MethodInterceptor对象。即AdvisorAdapter类内部适配了MethodInterceptor。
+
+5）包装类
+
+动态地给一个对象添加一些额外的职责。就增加功能来说，Decorator模式相比生成子类更为灵活。 
+
+注：spring中用到的包装器模式在类名上有两种表现：一种是类名中含有Wrapper，另一种是类名中含有Decorator。
+
+如：BeanWrapper类，可在对象初始化时设置相应的属性信息
+
+6）代理（Proxy） 
+
+为其他对象提供一种代理以控制对这个对象的访问。
+
+spring的Proxy模式在aop中有体现，比如JdkDynamicAopProxy和Cglib2AopProxy。 
+
+7）观察者（Observer） 
+
+定义对象间的一种一对多的依赖关系，当一个对象的状态发生改变时，所有依赖于它的对象都得到通知并被自动更新。
+
+被观察者中维护着观察者的集合列表，调用notify方法时，会变量观察者集合，并调用Obeserver接口提供的方法（回调机制）。
+
+注：spring中Observer模式常用的地方是listener的实现。如ApplicationListener。
+
+8）策略（Strategy） 
+
+定义一系列的算法，把它们一个个封装起来，并且使它们可相互替换。
+
+注：spring中在实例化对象的时候用到Strategy模式，如SimpleInstantiationStrategy
+
+9）模板方法（Template Method）
+
+定义一个操作中的算法的骨架，而将一些步骤延迟到子类中实现。
+
+如JdbcTemplate模板类
 
 **spring mvc**
+
+参考：https://www.cnblogs.com/wangxuerui/p/5796348.html
+
+1）常见的映射配置
+
+```
+<!-- mapping handler ，有多种类型 -->
+<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" >
+    <!-- 可配置相关的拦截器，如性能监控，权限设置等等 -->
+    <property name="interceptors">  
+        <list>  
+           <ref bean="handlerInterceptor1"/>  
+          <ref bean="handlerInterceptor2"/>  
+        </list>  
+    </property>
+</bean>
+
+<!-- HandlerAdapter 处理类的适配器，涉及到对Handler方法的参数封装，格式化 -->
+<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" >
+    <property name="messageConverters">
+</bean>
+
+<!-- ViewResolver 视图处理器 -->
+<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    <property name="redirectHttp10Compatible" value="false"/>
+    <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+    <property name="contentType" value="text/html;charset=UTF-8" />
+    <property name="prefix" value="/WEB-INF/view/" />
+    <property name="suffix" value="" />
+</bean>
+```
+
+DispatcherServlet可在web.xml中配置。或者自己继承DispatcherServlet，覆盖自定义的方法，如noHandlerFound，当没有找到handlerFound时的处理逻辑。
+
+2）其他相关类
+
+异常处理机制可作用于全局，可作用于类，甚至作用于方法方法（粒度不同）
+
+3）restful的支持
+
+@ResponseBody,@RestController(新版),@RestTemplate
+
+@RequestMapping中配置相应consumer和produces，数组类型。
 
 **spring security**
 
 **项目中用到的设计模式**
 
-建造器类，模板方法，策略模式，代理模式
+建造器类，模板方法，策略模式，代理模式，适配器模式（接口来源有多个，而系统使用时只识别唯一的接口，所以在底层使用适配器来实现）
+
+**设计原则**
+
+里氏替换，单一职责，开闭原则
+
+**spring cloud模块图**
+
+参考：https://www.cnblogs.com/ityouknow/p/7508306.html
