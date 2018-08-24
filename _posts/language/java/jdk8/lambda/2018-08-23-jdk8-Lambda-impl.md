@@ -119,3 +119,56 @@ public static void main(java.lang.String[]);
 ```
 
 注：可以看到 12: invokedynamic #32,  0，涉及到ILambdaCaculator接口。
+
+问题：这里我们并没有看到lambda$0方法被调用，那么这是怎么回事呢？？
+
+编译器编译时一定还成了class，但是默认这个class不会写在文件中，所以我们要给编译器配置一下。
+
+```
+# 添加参数
+-Djdk.internal.lambda.dumpProxyClasses
+
+# 编译文件
+javac -Djdk.internal.lambda.dumpProxyClasses -encoding utf-8 -d d:/ -cp . org/sjq/test/demo/lambda/LambdaCaculatorDemo.java
+
+# 运行文件，添加上面的参数，上一步的操作我们把class文件放置到了d盘下
+cd d:
+
+java -Djdk.internal.lambda.dumpProxyClasses org.sjq.test.demo.lambda.LambdaCaculatorDemo
+```
+
+运行完成上述命令后，会在相应的class目录下生代理类文件
+
+```
+LambdaCaculatorDemo$$Lambda$1.class
+```
+
+5) 反编译生成的Lambda的代理类查看实现细节
+
+```
+cd D:\org\sjq\test\demo\lambda
+javap -p -c LambdaCaculatorDemo$$Lambda$1.class > d:/lambdaDynamic.txt
+```
+
+查看反编译生成的代码文件
+
+```
+# 从生成的类名称可以发现比内部类多了$$Lambda这个部分
+
+final class org.sjq.test.demo.lambda.LambdaCaculatorDemo$$Lambda$1 implements org.sjq.test.demo.lambda.ILambdaCaculator {
+  private org.sjq.test.demo.lambda.LambdaCaculatorDemo$$Lambda$1();
+    Code:
+       0: aload_0
+       1: invokespecial #10                 // Method java/lang/Object."<init>":()V
+       4: return
+
+  public int result(int, int);
+    Code:
+       0: iload_1
+       1: iload_2
+       2: invokestatic  #18                 // Method org/sjq/test/demo/lambda/LambdaCaculatorDemo.lambda$main$0:(II)I
+       5: ireturn
+}
+```
+
+可以看到代理类实现了ILambdaCaculator，result方法中调用了静态方法，该静态方法lambda$main$0，去掉$main就是LambdaCaculatorDemo反编译生成的静态方法lambda$0了。
