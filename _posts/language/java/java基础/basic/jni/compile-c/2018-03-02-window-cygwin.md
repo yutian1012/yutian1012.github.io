@@ -15,7 +15,7 @@ Cygwin是一个在windows平台上运行的类UNIX模拟环境。cygwin是一个
 
 1）安装Cygwin
 
-安装完成后，会在桌面上提供Cygwin64 Terminal应用窗口。打开Cygwin64 Terminal窗口工具，使用时类似于linux系统。挂接的跟路径为软件的安装目录。
+安装完成后，会在桌面上提供Cygwin64 Terminal应用窗口。打开Cygwin64-Terminal窗口工具，使用时类似于linux系统。挂接的跟路径为软件的安装目录。
 
 a.cygwin的根目录
 

@@ -65,7 +65,7 @@ redis-server --service-stop
 使用安装目录下的redis-cli.exe客户端连接redis服务器，指定服务器地址和端口号即可连接
 
 ```
-# 连接
+# 连接,-p和-h能够指定端口和ip，-a可以指定连接密码
 redis-cli.exe -h 127.0.0.1 -p 6379
 
 # 设置hello为key，world为值的缓存数据

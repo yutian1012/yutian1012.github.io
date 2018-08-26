@@ -28,6 +28,9 @@ daemonize yes
 
 # 查看进程
 ps aux|grep redis
+
+# 停止
+./bin/redis-cli shutdown
 ```
 
 2）在redis安装目录的bin下存在几个文件
@@ -48,6 +51,9 @@ redis-server，redis服务进程
 # 启动客户端连接服务器
 cd /usr/local/redis
 ./bin/redis-cli
+
+# 通过ip和端口指定连接服务，-a可以指定连接密码
+./bin/redis-cli -h xxx -p xxx
 
 # 简单操作
 # 设置变量site
