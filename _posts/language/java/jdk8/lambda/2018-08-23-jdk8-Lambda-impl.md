@@ -5,7 +5,7 @@ tags: [jdk]
 
 参考：https://blog.csdn.net/peiyuWang_2015/article/details/72630444
 
-通过实例分析lambda底层的实现
+通过实例分析lambda底层的实现，代码中演示的实例，在静态方法中使用lambda表达式，会生成
 
 1）实例代码
 
@@ -120,9 +120,11 @@ public static void main(java.lang.String[]);
 
 注：可以看到 12: invokedynamic #32,  0，涉及到ILambdaCaculator接口。
 
+注2：jdk7中invokedynamic指令主要是为了动态类型语言的调用（如groovy，jruby等），在jdk8中也应用到了lambda语言中。
+
 问题：这里我们并没有看到lambda$0方法被调用，那么这是怎么回事呢？？
 
-编译器编译时一定还成了class，但是默认这个class不会写在文件中，所以我们要给编译器配置一下。
+编译器编译时一定还生成了class，但是默认这个class不会写在文件中，所以我们要给编译器配置一下。（查看生成的代理类）
 
 ```
 # 添加参数
