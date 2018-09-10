@@ -10,6 +10,7 @@
 <node CREATED="1536485388351" HGAP="54" ID="ID_754291984" MODIFIED="1536485419147" TEXT="&#x4f7f;&#x7528;&#x52a8;&#x6001;&#x6570;&#x7ec4;&#x5b58;&#x50a8;&#x96c6;&#x5408;&#x5143;&#x7d20;&#xff0c;DEFAULT_CAPACITY=10&#x9ed8;&#x8ba4;&#x521d;&#x59cb;&#x5bb9;&#x91cf;" VSHIFT="-21"/>
 <node CREATED="1536485429099" HGAP="51" ID="ID_62195223" MODIFIED="1536485463887" TEXT="&#x975e;&#x7ebf;&#x7a0b;&#x5b89;&#x5168;&#x7684;&#x96c6;&#x5408;&#xff0c;&#x4f7f;&#x7528;Collections.synchronizedList&#x5c06;&#x96c6;&#x5408;&#x5bf9;&#x8c61;&#x5305;&#x88c5;&#x6210;&#x7ebf;&#x7a0b;&#x5b89;&#x5168;&#x7684;&#x96c6;&#x5408;" VSHIFT="-4"/>
 <node CREATED="1536485483240" HGAP="41" ID="ID_775647004" MODIFIED="1536485548621" TEXT="&#x7531;&#x4e8e;&#x6570;&#x7ec4;&#x7684;&#x7279;&#x6027;&#xff0c;&#x672b;&#x5c3e;&#x6dfb;&#x52a0;&#x5220;&#x9664;&#x5143;&#x7d20;&#x65f6;&#x95f4;&#x590d;&#x6742;&#x5ea6;&#x4e3a;O(1)&#xff0c;&#x5176;&#x4ed6;&#x4f4d;&#x7f6e;&#x64cd;&#x4f5c;&#x9700;&#x8981;&#x79fb;&#x52a8;&#x540e;&#x7eed;&#x5143;&#x7d20;" VSHIFT="1"/>
+<node CREATED="1536591190949" HGAP="48" ID="ID_1720966236" MODIFIED="1536592193009" TEXT="transient Object[] elementData&#xff0c;&#x4f7f;&#x7528;&#x6570;&#x7ec4;&#x5b58;&#x653e;&#x5143;&#x7d20;&#x3002;&#x4f46;&#x5728;ArrayList&#x4e2d;&#x63d0;&#x4f9b;&#x4e86;writeObject&#x548c;readObject&#x65b9;&#x6cd5;&#x5b9e;&#x73b0;" VSHIFT="8"/>
 </node>
 </node>
 <node CREATED="1536468683735" FOLDED="true" HGAP="48" ID="ID_26492529" MODIFIED="1536469525957" TEXT="Set&#x63a5;&#x53e3;" VSHIFT="-38">
