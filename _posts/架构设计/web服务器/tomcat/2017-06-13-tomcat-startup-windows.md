@@ -5,6 +5,8 @@ tags: [tomcat]
 
 参考：http://jingyan.baidu.com/article/a65957f4b12b8724e77f9b5a.html
 
+参考2：https://blog.csdn.net/rainyspring4540/article/details/53305302
+
 问题引入
 
 手动启动tomcat，运行tomcat安装目录/bin下的startup.bat，会出现一个类似dos的窗体，显示tomcat的启动运行内容。每次重新启动电脑后，都要手动执行startup.bat，非常不方便。
@@ -23,6 +25,8 @@ service.bat install tomcat 安装服务
 2）系统的服务中出现安装的tomcat服务（控制面板--管理工具--服务）
 
 ![](/images/middleware/tomcat/tomcat-windows-service.png)
+
+注：安装服务后，服务实际启动的程序位于tomcat安装目录下的tomcat.exe文件
 
 3）在服务中设置开机启动(右击服务--属性)
 
@@ -76,6 +80,22 @@ net start tomcat
 -XX:PermSize=128M
 -XX:MaxPermSize=512M
 ```
+
+注：这种方式可以修改注册表中JvmMs和JvmMx的值
+
+```
+打开注册表编辑器，定位到：
+
+win7 32位系统如下：
+
+HKEY_LOCAL_MACHINE\SOFTWARE\Apache Software Foundation\Procrun 2.0\tomcat8\Parameters\Java
+
+Win7 X64系统则位于
+
+HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Apache Software Foundation\Procrun 2.0\tomcat8\Parameters\Java
+```
+
+![](/images/middleware/tomcat/tomcatw-regedit.png)
 
 3）解决方式三：使用jdk1.8
 
