@@ -3,6 +3,8 @@ title: 单例模式
 tags: [pattern]
 ---
 
+多种实现参考：https://blog.csdn.net/itachi85/article/details/50510124
+
 适用于只需要一个对象的情况（经典实现：Tomcat中StringManager的错误处理机制）
 
 ### 1. 什么是单例
