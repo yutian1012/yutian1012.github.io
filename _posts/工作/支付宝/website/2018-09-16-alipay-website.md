@@ -5,6 +5,8 @@ tags: [alipay]
 
 参考：https://docs.open.alipay.com/270/105902/
 
+参考2：https://www.cnblogs.com/mayi1/p/5647674.html
+
 ```
 参数信息：优惠券信息说明，资金明细信息说明，业务参数和公共参数
 
