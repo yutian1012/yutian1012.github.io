@@ -7,6 +7,12 @@ XmlBeanDefinitionReader是一个载入BeanDefinition的读取器（这是一个x
 
 在初始化XmlBeanDefinitionReader对象时，接收一个BeanFactory对象。该对象用来注册解析xml得到的BeanDefinition对象。而DefaultListableBeanFactory实现了BeanDefinitionRegister接口，因此，可以直接将容器对象beanFactory传入。
 
+**整体流程：**
+
+XmlBeanDefinitionReader是配置资源流及相应的环境Environment，解析流程为Document；然后使用BeanDefinitionDocumentReader进行解析Document对象。
+
+注：解析过程使用BeanDefinitionDocumentReader对象来实现，XmlBeanDefinitionReader隐藏了该类。
+
 1）XmlBeanDefinitionReader类的初始化
 
 ```
@@ -92,7 +98,7 @@ public int loadBeanDefinitions(EncodedResource encodedResource) throws BeanDefin
         //获取资源的输入流
         InputStream inputStream = encodedResource.getResource().getInputStream();
         try {
-            //包装成InputSource类型的资源
+            //包装成InputSource类型的资源（org.xml.sax.InputSource）
             InputSource inputSource = new InputSource(inputStream);
             if (encodedResource.getEncoding() != null) {
                 inputSource.setEncoding(encodedResource.getEncoding());
@@ -138,6 +144,8 @@ protected int doLoadBeanDefinitions(InputSource inputSource, Resource resource)
 4）registerBeanDefinitions方法解析并注册
 
 通过registerBeanDefinitions,启动对BeanDefinition的详细解析过程，这个解析过程涉及到了Spring的配置规则。通过这个方法Spring会按照Bean语义要求进行解析，并转化为容器内部的数据结构（BeanDefinition）。
+
+注：内部使用BeanDefinitionDocumentReader对象完成解析
 
 ```
 public int registerBeanDefinitions(Document doc, Resource resource) throws BeanDefinitionStoreException {

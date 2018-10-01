@@ -3,9 +3,17 @@ title: spring容器的ConfigurableListableBeanFactory集成接口
 tags: [spring]
 ---
 
-ConfigurableListableBeanFactory是一个集成接口，提供解析、修改bean定义的设置。
+1）介绍（查看类的英文注释）
+
+提供beandefinition的解析，注册功能，再对单例来个预加载(解决循环依赖问题)。
+
+该类是一个重要的类，ConfigurableListableBeanFactory是一个集成接口，提供解析、修改bean定义的设置。实现了ListableBeanFactory,AutowireCapableBeanFactory,ConfigurableBeanFactory接口，即综合了很多的功能。
 
 其中ListableBeanFactory用于提供容器内bean实例的枚举功能。AutowireCapableBeanFactory提供容器的自动配置功能，ConfigurableBeanFactory接口提供了定义BeanFactory的配置，如类加载器，类型转化，属性编辑器等。
+
+注：具体使用的容器大多也都是以该接口作为基础接口进一步实现的。
+
+2）接口方法
 
 ```
 public interface ConfigurableListableBeanFactory

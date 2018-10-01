@@ -3,13 +3,13 @@ title: spring容器的DefaultListableBeanFactory
 tags: [spring]
 ---
 
-该类是真正第一个可以独立的IOC容器，而且后面的ApplicationContext据说也是依据它来建立。
+该类是真正第一个可以独立的IOC容器，并且ApplicationContext也是依据它来建立。
 
-1）要实现的接口
+1）介绍（查看类的英文注释）
 
 只继承了一个抽象类，同时把集大成的接口ConfigurableListableBeanFactory给实现了，同时还有BeanDefinitionRegistry接口，从名字上看就知道是BeanDefinition的注册接口。
 
-该类除了实现ConfigurableListableBeanFactory接口，还要实现ListableBeanFactory子接口提供容器内bean实例的枚举功能，AutowireCapableBeanFactory子接口提供容器的自动配置功能，ConfigurableBeanFactory子接口提供了定义BeanFactory的配置，如类加载器，类型转化，属性编辑器等。
+该类除了实现ConfigurableListableBeanFactory接口，间接实现了ListableBeanFactory子接口提供容器内bean实例的枚举功能，AutowireCapableBeanFactory子接口提供容器的自动配置功能，ConfigurableBeanFactory子接口提供了定义BeanFactory的配置，如类加载器，类型转化，属性编辑器等。
 
 2）该类的继承体系
 
@@ -17,11 +17,14 @@ tags: [spring]
 
 ```
 //AbstractAutowireCapableBeanFactory类实现了AutowireCapableBeanFactory接口，对自动装配接口进行了基本的实现
-DefaultListableBeanFactory extends AbstractAutowireCapableBeanFactory implements AutowireCapableBeanFactory
+
+DefaultListableBeanFactory extends AbstractAutowireCapableBeanFactory（实现了AutowireCapableBeanFactory接口）
 
 //AbstractBeanFactory类实现了ConfigurableBeanFactory接口，即对容器的配置信息进行基本实现。
-AbstractAutowireCapableBeanFactory extends AbstractBeanFactory implements ConfigurableBeanFactory
+AbstractAutowireCapableBeanFactory extends AbstractBeanFactory（实现了ConfigurableBeanFactory接口）
 
 //FactoryBeanRegistrySupport具备了Register功能（该类也实现了很多接口）
 AbstractBeanFactory extends FactoryBeanRegistrySupport
 ```
+
+注：仔细理解类的继承体系，以及如何实现接口实现类的复用功能（很多接口都提供了abstract的实现模板），通过将这些abstract类按层次组合起来使用，从而达到代码实现的分离和复用，能够更方便的实现接口最小化原则（接口隔离原则）。

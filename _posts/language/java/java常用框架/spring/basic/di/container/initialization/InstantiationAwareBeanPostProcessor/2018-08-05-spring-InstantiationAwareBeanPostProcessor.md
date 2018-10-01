@@ -13,7 +13,7 @@ InstantiationAwareBeanPostProcessor接口相应方法的执行时机是在类实
 
 2）查看方法的执行时机
 
-一般我们继承Spring为其提供的适配器类InstantiationAwareBeanPostProcessor Adapter来使用它。
+一般我们继承Spring为其提供的适配器类InstantiationAwareBeanPostProcessorAdapter来使用它。
 
 3）创建Student类（待实例化的对象）
 

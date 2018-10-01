@@ -7,14 +7,19 @@ tags: [spring]
 
 bean的实例化过程会涉及到依赖注入的过程（即IOC控制反转到底是怎么实现的），以及单例bean对象的保存和获取。
 
+注：要清楚的分清spring实例化bean和初始化bean是分离的2个阶段。实例化可理解为调用构造函数的newInstance方法，初始化理解为设置对象的属性信息。
+
 1）根据class类型获取bean
 
-DefaultListableBeanFactory类的getBean方法
+DefaultListableBeanFactory类的getBean方法。
+
+整体执行过程：根据type类型转换成对应的beanName数组，如果有多个，先进一步筛选出可作为候选值的beanName数组（进一步筛选缩小候选范围）；如果筛选后数组只有一个，则直接调用getBean方法（重载的方法）；如果筛选后数组仍有多个值，则从数组中获取primaryBean，如果primaryBean有多个则直接抛出异常，如果获取了唯一的primaryBean，则调用getBean方法获（重载的方法）取对象；如果筛选后数组没有任何值，则调用父容器的getBean方法。
 
 ```
 @Override
 public <T> T getBean(Class<T> requiredType) throws BeansException {
     //根据class类型获取bean的name数组
+    /*该方法会先从相应的缓存集合中获取Map<Class<?>, String[]> allBeanNamesByType和Map<Class<?>, String[]> singletonBeanNamesByType中尝试获取，这两个对象都是ConcurrentHashMap类型变量*/
     String[] beanNames = getBeanNamesForType(requiredType);
     if (beanNames.length > 1) {
         ArrayList<String> autowireCandidates = new ArrayList<String>();
@@ -28,9 +33,11 @@ public <T> T getBean(Class<T> requiredType) throws BeansException {
             beanNames = autowireCandidates.toArray(new String[autowireCandidates.size()]);
         }
     }
+    //当只有一个BeanNames值时，直接获取
     if (beanNames.length == 1) {
         return getBean(beanNames[0], requiredType);
     }
+    //如果存在多个值，需要从容器中获取primarybean，并且primary不能多个
     else if (beanNames.length > 1) {
         T primaryBean = null;
         //for循环不是找到就返回，而是要遍历所有的数据，判断是否包含多个
@@ -60,7 +67,7 @@ public <T> T getBean(Class<T> requiredType) throws BeansException {
 }
 ```
 
-2）getBean方法（实例化bean）
+2）getBean方法（AbstractBeanFactory类，完成实例化bean）
 
 ```
 @Override
@@ -69,7 +76,11 @@ public <T> T getBean(String name, Class<T> requiredType) throws BeansException{
 }
 ```
 
-doGetBean方法完成bean的实例化，该方法位于AbstractBeanFactory类中
+doGetBean方法完成bean的实例化，该方法位于AbstractBeanFactory类中。
+
+方法执行过程：
+
+先从缓存的单例对象集合中获取；获取对象后，如果对象是FactoryBean，则调用相应的getObject方法获取实例；如果当前容器不存在，则沿着父容器不断向上查找（查找父容器中缓存的单例对象）；如果缓存中不存在，则获取RootBeanDefinition（合成的bean）对象，通过RootBeanDefinition定义信息实例化对象，将实例化的对象缓存并返回。
 
 ```
 protected <T> T doGetBean(final String name, final Class<T> requiredType,
@@ -103,11 +114,9 @@ protected <T> T doGetBean(final String name, final Class<T> requiredType,
             // Not found -> check parent.
             String nameToLookup = originalBeanName(name);
             if (args != null) {
-                // Delegation to parent with explicit args.
                 return (T) parentBeanFactory.getBean(nameToLookup, args);
             }
             else {
-                // No args -> delegate to standard getBean method.
                 return parentBeanFactory.getBean(nameToLookup, requiredType);
             }
         }
@@ -119,11 +128,11 @@ protected <T> T doGetBean(final String name, final Class<T> requiredType,
         }
 
         try {
-            //获取RootBeanDefinition
+            //获取RootBeanDefinition，通过BeanDefinition构造实例对象
             final RootBeanDefinition mbd=getMergedLocalBeanDefinition(beanName);
             checkMergedBeanDefinition(mbd, beanName, args);
 
-            //获取依赖数组
+            //获取依赖数组，bean实例化前依赖必须先要实例化
             String[] dependsOn = mbd.getDependsOn();
             if (dependsOn != null) {
                 //处理依赖bean的实例化
@@ -144,6 +153,7 @@ protected <T> T doGetBean(final String name, final Class<T> requiredType,
             //创建单例bean
             if (mbd.isSingleton()) {
                 //匿名内部类，实现了ObjectFactory接口，接口的getObject()方法是一个回调的方法
+                //获取单例的实例对象，并缓存起来
                 sharedInstance = getSingleton(beanName, new ObjectFactory<Object>() {
                     @Override
                     public Object getObject() throws BeansException {
@@ -151,14 +161,11 @@ protected <T> T doGetBean(final String name, final Class<T> requiredType,
                             return createBean(beanName, mbd, args);
                         }
                         catch (BeansException ex) {
-                            // Explicitly remove instance from singleton cache: It might have been put there
-                            // eagerly by the creation process, to allow for circular reference resolution.
-                            // Also remove any beans that received a temporary reference to the bean.
-                            destroySingleton(beanName);
-                            throw ex;
+                          ...
                         }
                     }
                 });
+                //针对FactoryBean对象的处理
                 bean = getObjectForBeanInstance(sharedInstance, name, beanName, mbd);
             }
             
@@ -167,6 +174,7 @@ protected <T> T doGetBean(final String name, final Class<T> requiredType,
                 // It's a prototype -> create a new instance.
                 Object prototypeInstance = null;
                 try {
+                    //这里的befor和after是在线程中设置该bean是否创建的标志
                     beforePrototypeCreation(beanName);
                     prototypeInstance = createBean(beanName, mbd, args);
                 }
@@ -197,43 +205,21 @@ protected <T> T doGetBean(final String name, final Class<T> requiredType,
                     });
                     bean = getObjectForBeanInstance(scopedInstance, name, beanName, mbd);
                 }
-                catch (IllegalStateException ex) {
-                    throw new BeanCreationException(beanName,
-                            "Scope '" + scopeName + "' is not active for the current thread; " +
-                            "consider defining a scoped proxy for this bean if you intend to refer to it from a singleton",
-                            ex);
-                }
+                ...
             }
         }
-        catch (BeansException ex) {
-            cleanupAfterBeanCreationFailure(beanName);
-            throw ex;
-        }
+        ...
     }
 
-    // Check if required type matches the type of the actual bean instance.
+    // 如果类型不匹配，需要利用TypeConverter进行转换
     if (requiredType != null && bean != null && !requiredType.isAssignableFrom(bean.getClass())) {
         try {
             return getTypeConverter().convertIfNecessary(bean, requiredType);
         }
         catch (TypeMismatchException ex) {
-            if (logger.isDebugEnabled()) {
-                logger.debug("Failed to convert bean '" + name + "' to required type [" +
-                        ClassUtils.getQualifiedName(requiredType) + "]", ex);
-            }
-            throw new BeanNotOfRequiredTypeException(name, requiredType, bean.getClass());
+            ...
         }
     }
     return (T) bean;
 }
 ```
-
-补充：子BeanDefinition和父BeanDefinition
-
-参考：https://blog.csdn.net/disiwei1012/article/details/77142167
-
-参考：https://www.cnblogs.com/davidwang456/p/4192318.html
-
-理解：dependentBeanMap和dependenciesForBeanMap的区别？
-
-DefaultSingletonBeanRegistry类的registerDependentBean方法中的这两个变量。

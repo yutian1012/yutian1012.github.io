@@ -3,7 +3,11 @@ title: spring容器的ConfigurableBeanFactory接口
 tags: [spring]
 ---
 
-ConfigurableBeanFactory接口定义BeanFactory的配置，如类加载器，类型转化，属性编辑器，,BeanPostProcessor，作用域，bean定义，处理bean依赖关系，合并其他ConfigurableBeanFactory，bean如何销毁等。
+1）介绍（查看类的英文注释）
+
+定义了太多太多的api，比如类加载器，类型转化，属性编辑器，BeanPostProcessor，作用域，bean定义，处理bean依赖关系，合并其他ConfigurableBeanFactory，bean如何销毁等。
+
+2）接口方法
 
 ```
 public interface ConfigurableBeanFactory extends HierarchicalBeanFactory, SingletonBeanRegistry {
@@ -11,10 +15,10 @@ public interface ConfigurableBeanFactory extends HierarchicalBeanFactory, Single
     String SCOPE_SINGLETON = "singleton";
     String SCOPE_PROTOTYPE = "prototype";
     
-    //父容器设置
+    //父容器设置，而且一旦设置了就不让修改
     void setParentBeanFactory(BeanFactory parentBeanFactory) throws IllegalStateException;
 
-    /类加载器设置与获取，默认使用当前线程中的类加载器
+    //类加载器设置与获取，默认使用当前线程中的类加载器
     void setBeanClassLoader(ClassLoader beanClassLoader);
 
     ClassLoader getBeanClassLoader();
@@ -52,7 +56,7 @@ public interface ConfigurableBeanFactory extends HierarchicalBeanFactory, Single
 
     TypeConverter getTypeConverter();
 
-    //内嵌String类型的处理器
+    //内嵌String类型的解析器
     void addEmbeddedValueResolver(StringValueResolver valueResolver);
 
     String resolveEmbeddedValue(String value);

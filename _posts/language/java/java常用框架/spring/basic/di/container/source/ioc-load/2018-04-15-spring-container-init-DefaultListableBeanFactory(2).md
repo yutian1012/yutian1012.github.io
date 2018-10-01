@@ -9,7 +9,21 @@ DefaultListableBeanFactory类是真正第一个可以独立的IOC容器，而且
 
 DefaultListableBeanFactory既可以作为一个单独的beanFactory，也可以作为自定义beanFactory的父类。即自定义BeanFactory类使可以继承该类，并实现自定义的一些方法。
 
-1）DefaultListableBeanFactory初始化
+1）DefaultListableBeanFactory类的继承层次
+
+默认实现了ListableBeanFactory和BeanDefinitionRegistry接口。
+
+![](/images/spring/core/source/applicantContext/DefaultListableBeanFactory-hirerachy.jpg)
+
+AbstractAutowireCapableBeanFactory实现属性的自动绑定功能。
+
+ConfigurableListableBeanFactory提供了对bean定义的分析和修改的便利方法，同时也提供了对单例的预实例化。
+
+ListableBeanFactory提供枚举所有的bean实例，而不是客户端通过名称一个一个的查询得出所有的实例。
+
+BeanDefinitionRegistry提供了beanDefinition的管理。
+
+2）DefaultListableBeanFactory初始化
 
 ```
 DefaultListableBeanFactory factory=new DefaultListableBeanFactory();
@@ -36,7 +50,11 @@ public AbstractAutowireCapableBeanFactory() {
 
 调用IgnoreDependencyInterface方法（自动装配时，忽略的接口类型），所以在自动装配的时候，会自动忽略BeanNameAware.class，BeanFactoryAware.class，BeanClassLoaderAware.class接口类型的类。
 
-2）DefaultListableBeanFactory的成员变量
+3）AbstractAutowireCapableBeanFactory抽象类
+
+AbstractAutowireCapableBeanFactory的作用：提供bean的创建（有construct方法），属性注值, 绑定（包括自动绑定）和初始化。处理运行时bean引用，解析管理的集合，调用初始化方法。
+
+4）DefaultListableBeanFactory的成员变量
 
 DefaultListableBeanFactory采用大量的集合变量来保存解析到的bean定义数据。
 
@@ -59,3 +77,4 @@ private final List<String> beanDefinitionNames = new ArrayList<String>();
 ...
 
 ```
+
